@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~reset-css';
+@import "fonts";
+
+//удалить, если в админке не будет такого фона
+body {
+  background: #000213;
+}
+
+html, body, * {
+  box-sizing: border-box;
+}
+
+a {
+  cursor: pointer;
+}
+
+.golden-text {
+  background-image: url("/assets/img/gold-text.png");
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-box-decoration-break: clone;
+}
+
+.block-title {
+  font-family: Cambria;
+  font-size: 44px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+}
