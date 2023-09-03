@@ -3,17 +3,20 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './components/header/header.component';
 import { MainComponent } from './main/main.component';
-import { GalleryComponent } from './gallery/gallery.component';
+import { GalleryComponent } from './components/gallery/gallery.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { MainPageComponent } from './main-page/main-page.component';
-import { FooterComponent } from './footer/footer.component';
-import { RiderComponent } from './rider/rider.component';
-import { ButtonComponent } from './button/button.component';
-import { ButtonRequestCallComponent } from './button-request-call/button-request-call.component';
-import { ContactsComponent } from './contacts/contacts.component';
-import { PopularItemComponent } from './popular-item/popular-item.component';
+import { MainPageComponent } from './components/main-page/main-page.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { RiderComponent } from './components/rider/rider.component';
+import { ButtonComponent } from './components/button/button.component';
+import { ButtonRequestCallComponent } from './components/button-request-call/button-request-call.component';
+import { ContactsComponent } from './components/contacts/contacts.component';
+import { PopularItemComponent } from './components/popular-item/popular-item.component';
+import { BalletShowComponent } from './components/ballet-show/ballet-show.component';
+import { ParodyTheaterComponent } from './components/parody-theater/parody-theater.component';
+import { CommentComponent } from './components/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,9 @@ import { PopularItemComponent } from './popular-item/popular-item.component';
     ButtonRequestCallComponent,
     ContactsComponent,
     PopularItemComponent,
+    BalletShowComponent,
+    ParodyTheaterComponent,
+    CommentComponent,
   ],
   imports: [
     BrowserModule,

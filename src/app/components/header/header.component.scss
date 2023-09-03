@@ -1,0 +1,118 @@
+.font-size-0 {
+  font-size: 0;
+}
+
+.footer-line {
+  height: 3px;
+  width: 100vw;
+  background-image: url("/assets/img/footer-line.png");
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px 44px 22px 47px;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+
+  &-wrap {
+    position: sticky;
+    top: 0;
+    background: #000213;
+    z-index: 111;
+  }
+  .logo-img {
+    width: 221px;
+  }
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 56px;
+  margin-top: 25px;
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 56px;
+
+    a {
+      color: #FFF;
+      text-align: center;
+      font-family: Arial;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 24px;
+      text-decoration: none;
+    }
+  }
+
+  //button {
+  //  padding: 5px 25px;
+  //  background: rgba(255, 255, 255, 0.05);
+  //  border-radius: 8px;
+  //  border: 1px solid yellow;
+  //  outline: none;
+  //  color: #FFF;
+  //  font-family: Arial;
+  //  font-size: 18px;
+  //  font-style: normal;
+  //  font-weight: 500;
+  //  text-transform: uppercase;
+  //}
+
+  .lang {
+    display: flex;
+    gap: 26px;
+
+    &__item {
+      color: #FFF;
+      font-family: Arial;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 28px;
+
+      &.active {
+        color: #2E40E8;
+        position: relative;
+
+        &:before {
+          content: '';
+          position: absolute;
+          bottom: -5px;
+          left: 0;
+          right: 0;
+          margin: auto;
+          display: block;
+          width: 16px;
+          height: 3px;
+          background-image: url("/assets/img/lang-line-active.svg");
+          background-size: cover;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep {
+  .button-order app-button{
+    button {
+      padding: 6px 40px;
+      color: #FFF;
+      text-align: center;
+      font-family: Arial;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: bold;
+      line-height: 24px;
+      &:before {
+        padding: 2px;
+      }
+    }
+  }
+
+}
