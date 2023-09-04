@@ -16,8 +16,13 @@
         </app-button>
       </div>
       <div class="lang">
-        <div class="lang__item lang-ua active">UA</div>
-        <div class="lang__item lang-en">EN</div>
+        <div class="lang__item lang-ua active"
+             [ngClass]="{'active': i18n.lang === 'ua'}"
+             (click)="setLang('ua')"
+             >UA</div>
+        <div class="lang__item lang-en"
+             [ngClass]="{'active': i18n.lang === 'en'}"
+             (click)="setLang('en')">EN</div>
       </div>
     </div>
   </div>
