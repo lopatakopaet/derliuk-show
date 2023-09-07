@@ -17,6 +17,7 @@ import { PopularItemComponent } from './components/popular-item/popular-item.com
 import { BalletShowComponent } from './components/ballet-show/ballet-show.component';
 import { ParodyTheaterComponent } from './components/parody-theater/parody-theater.component';
 import { CommentComponent } from './components/comment/comment.component';
+import {SwiperModule} from "swiper/angular";
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { CommentComponent } from './components/comment/comment.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    SwiperModule,
     AngularSvgIconModule.forRoot(),
   ],
   providers: [],

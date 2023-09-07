@@ -26,3 +26,24 @@
     ЗАЛИШИТИ ВІДГУК
   </app-button>
 </div>
+<swiper
+  [config]="config"
+  (slideChange)="onSlideChange()"
+>
+  <ng-template swiperSlide>Slide 1</ng-template>
+  <ng-template swiperSlide>Slide 2</ng-template>
+  <ng-template swiperSlide>Slide 3</ng-template>
+  <ng-template swiperSlide>Slide 4</ng-template>
+  <ng-template swiperSlide>Slide 5</ng-template>
+  <ng-template swiperSlide>Slide 6</ng-template>
+</swiper>
+<!--<section>-->
+<!--  <swiper-container #swiperRef swiperElement init="false">-->
+<!--    <swiper-slide *ngFor="let slide of slides" class="slide">-->
+<!--      <img width="300" height="200" src="https://picsum.photos/500/200" alt="randomized image">-->
+<!--      <h2>{{slide.title}}</h2>-->
+<!--      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus ratione eligendi amet facere odio iste dolores perferendis corporis aperiam, tempore, id recusandae labore deleniti harum expedita illum nobis! Quo cupiditate beatae numquam velit nostrum, optio voluptates quaerat nihil incidunt.</p>-->
+<!--    </swiper-slide>-->
+<!--  </swiper-container>-->
+<!--  <div class="swiper-scrollbar"></div>-->
+<!--</section>-->

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import Item from "../../../models/Item";
+import Item from "../../../interfaces/Item";
 
 @Component({
   selector: 'app-main-page',

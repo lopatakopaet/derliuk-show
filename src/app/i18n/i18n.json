@@ -2,5 +2,25 @@
   "title": {
     "ua": "asd",
     "en": "fffda"
+  },
+  "gallery": {
+    "ua": "Галерея",
+    "en": "Gallery"
+  },
+  "contacts": {
+    "ua": "Контакти",
+    "en": "Contacts"
+  },
+  "rider": {
+    "ua": "Райдер",
+    "en": "Rider"
+  },
+  "costumeRental": {
+    "ua": "Прокат костюмів",
+    "en": "Costume rental"
+  },
+  "order": {
+    "ua": "ЗАМОВИТИ",
+    "en": "ORDER"
   }
 }
