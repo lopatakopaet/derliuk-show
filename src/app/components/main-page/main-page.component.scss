@@ -80,26 +80,7 @@
 }
 
 .main-popular {
-  margin: 107px auto;
-
-  &__title {
-    color: #AEAFB4;
-    font-family: Cambria;
-    font-size: 30px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 35px;
-
-    &__line-decor {
-      height: 2px;
-      width: 100vw;
-      margin-top: 10px;
-      position: absolute;
-      left: 0;
-      background: rgba(255, 255, 255, 0.10);
-    }
-  }
-
+  margin: 100px auto;
   ::ng-deep {
     app-popular-item {
       display: block;
@@ -194,7 +175,31 @@
   //  }
   //}
 }
+::ng-deep {
+  .main-popular {
+    &__title {
+      color: #AEAFB4;
+      font-family: Cambria;
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 35px;
 
+      &.show-parody {
+        margin-top: 100px;
+      }
+
+      &__line-decor {
+        height: 2px;
+        width: 100vw;
+        margin-top: 10px;
+        position: absolute;
+        left: 0;
+        background: rgba(255, 255, 255, 0.10);
+      }
+    }
+  }
+}
 .main-popular__another {
   .title {
     color: #AEAFB4;

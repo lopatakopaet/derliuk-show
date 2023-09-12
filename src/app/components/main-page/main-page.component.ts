@@ -82,13 +82,6 @@ export class MainPageComponent  implements AfterViewInit, OnInit {
   ]
 
   swiperEl = document.querySelector('swiper-container');
-  buttonEl = document.querySelector('button');
-
-
-
-//   buttonEl.addEventListener('click', () => {
-//   swiperEl.swiper.slideNext();
-// });
   constructor() {
     this.swiperEl = document.querySelector('swiper-container')
     register();

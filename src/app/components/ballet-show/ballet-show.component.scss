@@ -6,3 +6,45 @@
 .main-popular__item__wrap {
   margin-top: 41px;
 }
+
+.swiper-comment-wrap {
+  position: relative;
+
+  .prev-button, .next-button {
+    position: absolute;
+    top: calc(50% - 21px);
+    cursor: pointer;
+    z-index: 111;
+  }
+
+  .prev-button {
+    left: 0;
+  }
+
+  .next-button {
+    right: 0;
+  }
+}
+
+.program-description {
+  &__wrap {
+    display: flex;
+    justify-content: center;
+  }
+
+  max-width: 1200px;
+  margin-top: 45px;
+  color: #E6E6E6;
+  text-align: center;
+  font-family: Arial;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 190%;
+}
+
+.order-show-modal {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}

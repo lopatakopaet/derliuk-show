@@ -4,8 +4,7 @@
   </div>
   <div class="main-popular__item__description">
     <div class="title golden-text">{{item.title}}</div>
-    <div class="description">
-      {{item.description}}
+    <div class="description" [innerHTML]="item.description">
     </div>
   </div>
 </div>

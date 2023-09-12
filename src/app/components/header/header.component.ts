@@ -13,24 +13,18 @@ export class HeaderComponent implements OnInit {
   lang: LangItem = dictionary;
 
   constructor(public i18n: I18nService) {
-    // this.lang = i18n.lang
   }
 
-
-
   ngOnInit(): void {
-    this.setDefaultLang();
+    // this.setDefaultLang();
 
   }
 
   setLang(langName: string): void {
     this.i18n.changeLang(langName);
-    // this.lang = this.i18n.lang;
   }
 
-  setDefaultLang(): void {
-    this.i18n.setDefaultLang();
-  }
-
-
+  // setDefaultLang(): void {
+  //   this.i18n.setDefaultLang();
+  // }
 }
