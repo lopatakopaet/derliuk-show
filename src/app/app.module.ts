@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -17,7 +17,10 @@ import { PopularItemComponent } from './components/popular-item/popular-item.com
 import { BalletShowComponent } from './components/ballet-show/ballet-show.component';
 import { ParodyTheaterComponent } from './components/parody-theater/parody-theater.component';
 import { CommentComponent } from './components/comment/comment.component';
-import {SwiperModule} from "swiper/angular";
+// import {SwiperModule} from "swiper/angular";
+import { OrderShowModalComponent } from './components/order-show-modal/order-show-modal.component';
+// import { SliderComponent } from './components/slider/slider.component';
+// import { ModalOutletComponent } from './components/modal-outlet/modal-outlet.component';
 
 @NgModule({
   declarations: [
@@ -35,14 +38,19 @@ import {SwiperModule} from "swiper/angular";
     BalletShowComponent,
     ParodyTheaterComponent,
     CommentComponent,
+    OrderShowModalComponent,
+    // SliderComponent,
+    // ModalOutletComponent,
+    // PortalDirective,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SwiperModule,
+    // SwiperModule,
     AngularSvgIconModule.forRoot(),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
 })
-export class AppModule { }
+export class AppModule {}

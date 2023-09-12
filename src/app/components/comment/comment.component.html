@@ -1,49 +1,80 @@
 <div class="comment__block">
   <div class="comment-header">
     <div class="photo-wrap">
-      <img src="../../../assets/img/delete/ava.png" alt="" class="photo">
+      <img src={{comment.photo}} alt="" class="photo">
     </div>
     <div class="user-data">
-      <div class="name">Anna</div>
-      <div class="date">14.10.2021</div>
+      <div class="name">{{comment.name}}</div>
+      <div class="date">{{comment.date}}</div>
       <div class="rating">
-        <img src="../../../assets/img/ic_baseline-star.svg" alt="" class="star">
-        <img src="../../../assets/img/ic_baseline-star.svg" alt="" class="star">
-        <img src="../../../assets/img/ic_baseline-star.svg" alt="" class="star">
-        <img src="../../../assets/img/ic_baseline-star.svg" alt="" class="star">
-        <img src="../../../assets/img/ic_baseline-star.svg" alt="" class="star">
+        <img src="../../../assets/img/ic_baseline-star.svg" alt="" class="star"
+             *ngFor="let star of [].constructor(comment.rating)">
       </div>
     </div>
   </div>
-  <div class="comment">Вдячна колективу VIP за феєричну атмомсферу свята.
-    Наші гості були у захваті, а наша родина назавжди запам’ятає цей Юбілей.
-    Дякуємо за ваш професіоналізм і незабутній настрій!
-  </div>
+  <div class="comment">{{comment.comment}}</div>
 </div>
 
-<div class="set-comment">
-  <app-button>
-    ЗАЛИШИТИ ВІДГУК
-  </app-button>
-</div>
-<swiper
-  [config]="config"
-  (slideChange)="onSlideChange()"
->
-  <ng-template swiperSlide>Slide 1</ng-template>
-  <ng-template swiperSlide>Slide 2</ng-template>
-  <ng-template swiperSlide>Slide 3</ng-template>
-  <ng-template swiperSlide>Slide 4</ng-template>
-  <ng-template swiperSlide>Slide 5</ng-template>
-  <ng-template swiperSlide>Slide 6</ng-template>
-</swiper>
-<!--<section>-->
-<!--  <swiper-container #swiperRef swiperElement init="false">-->
-<!--    <swiper-slide *ngFor="let slide of slides" class="slide">-->
-<!--      <img width="300" height="200" src="https://picsum.photos/500/200" alt="randomized image">-->
-<!--      <h2>{{slide.title}}</h2>-->
-<!--      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus ratione eligendi amet facere odio iste dolores perferendis corporis aperiam, tempore, id recusandae labore deleniti harum expedita illum nobis! Quo cupiditate beatae numquam velit nostrum, optio voluptates quaerat nihil incidunt.</p>-->
-<!--    </swiper-slide>-->
-<!--  </swiper-container>-->
-<!--  <div class="swiper-scrollbar"></div>-->
-<!--</section>-->
+<!--<div class="set-comment">-->
+<!--  <app-button>-->
+<!--    ЗАЛИШИТИ ВІДГУК-->
+<!--  </app-button>-->
+<!--</div>-->
+<!--  <swiper #swiper [virtual]="true"-->
+<!--          [slidesPerView]="3"-->
+<!--  >-->
+<!--    <ng-template swiperSlide>-->
+<!--      <div class="comment__block">-->
+<!--        <div class="comment-header">-->
+<!--          <div class="photo-wrap">-->
+<!--            <img src="../../../assets/img/delete/ava.png" alt="" class="photo">-->
+<!--          </div>-->
+<!--          <div class="user-data">-->
+<!--            <div class="name">Anna</div>-->
+<!--            <div class="date">14.10.2021</div>-->
+<!--            <div class="rating">-->
+<!--              <img src="../../../assets/img/ic_baseline-star.svg" alt="" class="star">-->
+<!--              <img src="../../../assets/img/ic_baseline-star.svg" alt="" class="star">-->
+<!--              <img src="../../../assets/img/ic_baseline-star.svg" alt="" class="star">-->
+<!--              <img src="../../../assets/img/ic_baseline-star.svg" alt="" class="star">-->
+<!--              <img src="../../../assets/img/ic_baseline-star.svg" alt="" class="star">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="comment">Вдячна колективу VIP за феєричну атмомсферу свята.-->
+<!--          Наші гості були у захваті, а наша родина назавжди запам’ятає цей Юбілей.-->
+<!--          Дякуємо за ваш професіоналізм і незабутній настрій!-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </ng-template>-->
+<!--    <ng-template swiperSlide>Slide 2</ng-template>-->
+<!--    <ng-template swiperSlide>-->
+<!--      <div class="comment__block">-->
+<!--        <div class="comment-header">-->
+<!--          <div class="photo-wrap">-->
+<!--            <img src="../../../assets/img/delete/ava.png" alt="" class="photo">-->
+<!--          </div>-->
+<!--          <div class="user-data">-->
+<!--            <div class="name">Anna</div>-->
+<!--            <div class="date">14.10.2021</div>-->
+<!--            <div class="rating">-->
+<!--              <img src="../../../assets/img/ic_baseline-star.svg" alt="" class="star">-->
+<!--              <img src="../../../assets/img/ic_baseline-star.svg" alt="" class="star">-->
+<!--              <img src="../../../assets/img/ic_baseline-star.svg" alt="" class="star">-->
+<!--              <img src="../../../assets/img/ic_baseline-star.svg" alt="" class="star">-->
+<!--              <img src="../../../assets/img/ic_baseline-star.svg" alt="" class="star">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="comment">Вдячна колективу VIP за феєричну атмомсферу свята.-->
+<!--          Наші гості були у захваті, а наша родина назавжди запам’ятає цей Юбілей.-->
+<!--          Дякуємо за ваш професіоналізм і незабутній настрій!-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </ng-template>-->
+<!--    <ng-template swiperSlide>Slide 4</ng-template>-->
+<!--    <ng-template swiperSlide>Slide 5</ng-template>-->
+<!--    <ng-template swiperSlide>Slide 6</ng-template>-->
+<!--  </swiper>-->
+<!--<button (click)="slidePrev()">Prev slide</button>-->
+<!--<button (click)="slideNext()">Next slide</button>-->

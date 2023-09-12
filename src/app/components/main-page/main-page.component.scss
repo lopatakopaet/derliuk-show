@@ -264,3 +264,22 @@ app-comment {
   line-height: 34px;
 }
 
+.swiper-comment-wrap {
+  position: relative;
+  padding: 0 50px;
+
+  .prev-button, .next-button {
+    position: absolute;
+    top: 47%;
+    cursor: pointer;
+  }
+
+  .prev-button {
+    left: -10px;
+  }
+
+  .next-button {
+    right: -10px;
+  }
+}
+

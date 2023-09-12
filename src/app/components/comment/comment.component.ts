@@ -1,5 +1,9 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import SwiperCore, {Swiper, SwiperOptions } from 'swiper';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+// import SwiperCore, {Swiper, SwiperOptions,Virtual } from 'swiper';
+// import {SwiperComponent} from "swiper/angular";
+
+// install Swiper modules
+// SwiperCore.use([Virtual]);
 
 @Component({
   selector: 'app-comment',
@@ -7,18 +11,40 @@ import SwiperCore, {Swiper, SwiperOptions } from 'swiper';
   styleUrls: ['./comment.component.scss']
 })
 export class CommentComponent implements OnInit {
+  @Input() comment: any;
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // @ViewChild('swiper', { static: false }) swiper?: SwiperComponent;
+  // slideNext(){
+  //   this.swiper?.swiperRef.slideNext(100);
+  // }
+  // slidePrev(){
+  //   this.swiper?.swiperRef.slidePrev(100);
+  // }
   // config: SwiperOptions = {
-  //   slidesPerView: 3,
-  //   spaceBetween: 50,
+  //   slidesPerView: 2.5,
+  //   spaceBetween: 10,
   //   navigation: true,
   //   pagination: { clickable: true },
   //   scrollbar: { draggable: true },
+  //
   // };
 
-  title = 'swiper-tutorial';
-  swiper?: Swiper;
-  @ViewChild('swiperRef')
-  swiperRef: ElementRef | undefined;
+  // title = 'swiper-tutorial';
+  // swiper?: Swiper;
+  // @ViewChild('swiperRef')
+  // swiperRef: ElementRef | undefined;
   slides: Array<{title: string}> = [
     {
       title: "Slide 1"
@@ -46,33 +72,33 @@ export class CommentComponent implements OnInit {
     },
   ]
 
-  public config: SwiperOptions = {
-    slidesPerView: 1,
-    spaceBetween: 25,
-    breakpoints: {
-      320: {
-        slidesPerView: 1.5,
-      },
-      768: {
-        slidesPerView: 2.5,
-      },
-      1280: {
-        slidesPerView: 3.5,
-      }
-    },
-    navigation: true,
-    scrollbar: {
-      el: '.swiper-scrollbar',
-      enabled: true,
-      draggable: true
-    }
-  }
+  // public config: SwiperOptions = {
+  //   slidesPerView: 1,
+  //   spaceBetween: 25,
+  //   breakpoints: {
+  //     320: {
+  //       slidesPerView: 1.5,
+  //     },
+  //     768: {
+  //       slidesPerView: 2.5,
+  //     },
+  //     1280: {
+  //       slidesPerView: 3.5,
+  //     }
+  //   },
+  //   navigation: true,
+  //   scrollbar: {
+  //     el: '.swiper-scrollbar',
+  //     enabled: true,
+  //     draggable: true
+  //   }
+  // }
 
   constructor() { }
 
   ngOnInit(): void {
   }
-  // onSwiper([swiper]) {
+  // onSwiper([swiper]: any) {
   //   console.log(swiper);
   // }
   onSlideChange() {

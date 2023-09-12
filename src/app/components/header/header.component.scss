@@ -23,6 +23,7 @@
     background: #000213;
     z-index: 111;
   }
+
   .logo-img {
     width: 221px;
   }
@@ -36,8 +37,11 @@
 
   .nav {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 56px;
+    column-gap: 56px;
+    row-gap: 15px;
+    margin-left: 40px;
 
     a {
       color: #FFF;
@@ -106,7 +110,7 @@
 }
 
 ::ng-deep {
-  .button-order app-button{
+  .button-order app-button {
     button {
       padding: 6px 40px;
       color: #FFF;
@@ -116,6 +120,7 @@
       font-style: normal;
       font-weight: bold;
       line-height: 24px;
+
       &:before {
         padding: 2px;
       }

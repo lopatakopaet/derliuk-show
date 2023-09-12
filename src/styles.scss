@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~reset-css';
 @import "fonts";
+//@import "swiper/swiper-bundle.min.css";
+//@import "swiper/css/bundle";
 
 //удалить, если в админке не будет такого фона
 body {
@@ -29,4 +31,23 @@ a {
   font-style: normal;
   font-weight: 700;
   line-height: 40px;
+}
+
+.modal-title {
+  text-align: center;
+  font-family: Cambria;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 35px;
+}
+
+.modal-dialog {
+  position: absolute;
+  z-index: 1111;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  left: 0;
+  top: 0;
 }

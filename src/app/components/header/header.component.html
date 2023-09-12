@@ -11,7 +11,7 @@
         <a routerLink="contacts">{{lang['contacts'][i18n.lang]}}</a>
       </div>
       <div class="button-order">
-        <app-button>
+        <app-button (click)="orderShowModal.show()">
           {{lang['order'][i18n.lang]}}
         </app-button>
       </div>
@@ -28,3 +28,8 @@
   </div>
   <div class="footer-line"></div>
 </div>
+<dialog #orderShowModal class="modal-dialog">
+  <app-order-show-modal
+    (close)="orderShowModal.close()"
+  ></app-order-show-modal>
+</dialog>

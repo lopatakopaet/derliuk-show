@@ -2,43 +2,8 @@
 
 .main-popular {
 
-
-  //&__title {
-  //  color: #AEAFB4;
-  //  font-family: Cambria;
-  //  font-size: 30px;
-  //  font-style: normal;
-  //  font-weight: 700;
-  //  line-height: 35px;
-  //
-  //  &__line-decor {
-  //    height: 2px;
-  //    width: 100vw;
-  //    margin-top: 10px;
-  //    position: absolute;
-  //    left: 0;
-  //    background: rgba(255, 255, 255, 0.10);
-  //  }
-  //}
-
   &__item {
     display: flex;
-
-    //&:not(:first-child) {
-    //  margin-top: 100px;
-    //}
-
-    //&:nth-child(2) {
-    //  flex-direction: row-reverse;
-    //
-    //  .main-popular__item__img {
-    //    &:before {
-    //      right: 0;
-    //      transform: rotateY(180deg);
-    //    }
-    //  }
-    //}
-
 
     &__img {
       width: 50%;
