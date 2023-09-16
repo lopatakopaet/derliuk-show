@@ -1,0 +1,81 @@
+<div class="swiper-comment-wrap">
+  <swiper-container
+    init="false"
+    slides-per-view="3"
+    centeredSlides="true"
+    speed="500"
+    loop="true"
+    space-between="300"
+    #swiper>
+    <!--      <swiper-slide style="color: white" *ngFor="let comment of comments">-->
+    <!--        <app-comment-->
+    <!--          [comment]="comment">-->
+    <!--        </app-comment>-->
+    <!--      </swiper-slide>-->
+
+    <swiper-slide>
+      <div class="video-slide">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/Uy-x6z_IYec?si=m1jkKPrQd5OP1Gkv&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+    </swiper-slide>
+    <swiper-slide>
+      <div class="video-slide">
+        <iframe width="439" height="240"
+                src="https://www.youtube.com/embed/yea6NIXjBao?si=ur-yfImm8oPfAFzE&amp;controls=0"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+      </div>
+    </swiper-slide>
+    <swiper-slide>
+      <div class="video-slide">
+        <iframe width="439" height="240"
+                src="https://www.youtube.com/embed/AUWlnK_7xwU?si=OX5N2j4yN3k4sVk0&amp;controls=0"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+      </div>
+    </swiper-slide>
+    <swiper-slide>
+      <div class="video-slide">
+        <iframe width="439" height="240"
+                src="https://www.youtube.com/embed/fhr7O10w5ds?si=N_ZyFBmu6MrO5aMT&amp;controls=0"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+      </div>
+    </swiper-slide>
+    <swiper-slide>
+      <div class="video-slide">
+        <iframe width="439" height="240"
+                src="https://www.youtube.com/embed/lfQJYr_8d-A?si=dq9rnqcy1pgZ0-dj&amp;controls=0"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+      </div>
+    </swiper-slide>
+    <swiper-slide>
+      <div class="video-slide">
+        <iframe width="439" height="240"
+                src="https://www.youtube.com/embed/AUWlnK_7xwU?si=OX5N2j4yN3k4sVk0&amp;controls=0"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+      </div>
+    </swiper-slide>
+  </swiper-container>
+  <div class="prev-button" (click)="prev()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
+      <path
+        d="M29.4001 10.7499L18.9001 20.9999L29.4001 31.2499L27.3001 35.3499L12.6001 20.9999L27.3001 6.6499L29.4001 10.7499Z"
+        fill="white" fill-opacity="0.7"/>
+    </svg>
+  </div>
+  <div class="next-button" (click)="next()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
+      <path
+        d="M12.6001 10.7499L23.1001 20.9999L12.6001 31.2499L14.7001 35.3499L29.4001 20.9999L14.7001 6.6499L12.6001 10.7499Z"
+        fill="white" fill-opacity="0.7"/>
+    </svg>
+  </div>
+</div>

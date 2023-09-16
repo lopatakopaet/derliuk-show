@@ -97,6 +97,7 @@
         .main-popular__item__img {
           &:before {
             right: 0;
+            left: initial;
             transform: rotateY(180deg);
           }
         }
@@ -269,6 +270,10 @@ app-comment {
   line-height: 34px;
 }
 
+app-slider-comment {
+  display: block;
+  margin-top: 63px;
+}
 .swiper-comment-wrap {
   position: relative;
   padding: 0 50px;
@@ -288,3 +293,13 @@ app-comment {
   }
 }
 
+.leave-feedback-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 90px;
+
+  &__wrap {
+    display: flex;
+    justify-content: center;
+  }
+}

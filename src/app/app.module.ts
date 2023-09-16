@@ -19,7 +19,9 @@ import { ParodyTheaterComponent } from './components/parody-theater/parody-theat
 import { CommentComponent } from './components/comment/comment.component';
 // import {SwiperModule} from "swiper/angular";
 import { OrderShowModalComponent } from './components/order-show-modal/order-show-modal.component';
-// import { SliderComponent } from './components/slider/slider.component';
+import { LeaveFeedbackModalComponent } from './components/leave-feedback-modal/leave-feedback-modal.component';
+import { SliderCommentComponent } from './components/slider-comment/slider-comment.component';
+import { SliderGalleryComponent } from './components/slider-gallery/slider-gallery.component';
 // import { ModalOutletComponent } from './components/modal-outlet/modal-outlet.component';
 
 @NgModule({
@@ -39,7 +41,9 @@ import { OrderShowModalComponent } from './components/order-show-modal/order-sho
     ParodyTheaterComponent,
     CommentComponent,
     OrderShowModalComponent,
-    // SliderComponent,
+    LeaveFeedbackModalComponent,
+    SliderCommentComponent,
+    SliderGalleryComponent,
     // ModalOutletComponent,
     // PortalDirective,
   ],

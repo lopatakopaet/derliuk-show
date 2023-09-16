@@ -6,6 +6,9 @@
     display: flex;
 
     &__img {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 50%;
       position: relative;
       z-index: 0;
@@ -20,6 +23,8 @@
         position: absolute;
         width: 74px;
         height: 134px;
+        top: 0;
+        left: 0;
         background-image: url("/assets/img/popular-item-decor.png");
         z-index: -1;
       }
@@ -53,4 +58,10 @@
       }
     }
   }
+}
+
+app-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 70px;
 }
