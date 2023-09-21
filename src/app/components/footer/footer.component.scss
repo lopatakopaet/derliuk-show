@@ -46,3 +46,17 @@
     margin-top: -45px;
   }
 }
+
+@media only screen and (max-width: 680px) {
+  .footer {
+    .footer-menu {
+      gap: 25px;
+    }
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .footer {
+    display: none;
+  }
+}

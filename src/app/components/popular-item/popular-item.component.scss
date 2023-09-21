@@ -1,4 +1,28 @@
+//::ng-deep {
+//  app-popular-item {
+:host {
+  display: block;
 
+  &:not(:first-child) {
+    margin-top: 100px;
+  }
+
+  &:nth-child(2) {
+    .main-popular__item {
+      flex-direction: row-reverse;
+    }
+
+    .main-popular__item__img {
+      &:before {
+        right: 0;
+        left: initial;
+        transform: rotateY(180deg);
+      }
+    }
+  }
+}
+
+//}
 
 .main-popular {
 
@@ -32,7 +56,6 @@
 
     &__description {
       width: 50%;
-      //удалить  (под вопросом)
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -64,4 +87,121 @@ app-button {
   display: flex;
   justify-content: center;
   margin-top: 70px;
+}
+
+@media only screen and (max-width: 980px) {
+
+  :host {
+
+    &:not(:first-child) {
+      margin-top: 100px;
+    }
+
+    &:nth-child(2) {
+      .main-popular__item {
+        flex-direction: column;
+      }
+
+      .main-popular__item__img {
+        &:before {
+          right: initial;
+          left: 0;
+          transform: initial;
+        }
+      }
+    }
+  }
+
+  .main-popular {
+
+    &__item {
+      flex-direction: column;
+
+      &__img {
+        width: initial;
+
+        img {
+          max-width: 100%;
+        }
+
+        &:before {
+        }
+      }
+
+      &__description {
+        width: initial;
+
+        .title {
+          margin-top: 50px; //todo
+        }
+
+        .description {
+          margin-top: 30px;
+          color: #E6E6E6;
+          font-family: Arial;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 35px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .main-popular {
+
+    &__item {
+
+
+      &__img {
+
+
+        img {
+
+        }
+
+        &:before {
+        }
+      }
+
+      &__description {
+
+        .title {
+        }
+
+        .description {
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 570px) {
+  .main-popular {
+
+    &__item {
+
+
+      &__img {
+
+
+        img {
+
+        }
+
+        &:before {
+        }
+      }
+
+      &__description {
+
+        .title {
+        }
+
+        .description {
+        }
+      }
+    }
+  }
 }

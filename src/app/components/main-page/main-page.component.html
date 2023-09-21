@@ -18,7 +18,7 @@
     </a>
   </div>
   <div class="main-page__tabs__decor"></div>
-  <div class="main-page__body">
+  <div class="main-page__body main-container">
     <div class="main-popular">
       <router-outlet></router-outlet>
     </div>
@@ -38,15 +38,15 @@
       </div>
     </div>
     <div class="main-popular__comments">
-      <div class="main-popular__title">
+      <div class="main-title">
         ВІДГУКИ
       </div>
-      <div class="main-popular__title__line-decor"></div>
+      <div class="main-title__line-decor"></div>
       <app-slider-comment
         [comments]="comments"
       ></app-slider-comment>
-
     </div>
+
     <div class="leave-feedback-button__wrap">
       <app-button class="leave-feedback-button"
                   (click)="leaveFeedbackModal.show()"

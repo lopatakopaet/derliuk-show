@@ -2,6 +2,8 @@
 .request-call {
   position: relative;
   cursor: pointer;
+  font-size: 0;
+  line-height: 0;
 }
 
 .golden-ring {
@@ -17,4 +19,12 @@
   top: -3px;
   bottom: 0;
   margin: auto;
+}
+@media only screen and (max-width: 640px) {
+  .golden-ring {
+    width: 33px;
+  }
+  .blue-handset {
+    width: 17px;
+  }
 }

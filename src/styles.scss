@@ -1,8 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~reset-css';
 @import "fonts";
-//@import "swiper/swiper-bundle.min.css";
-//@import "swiper/css/bundle";
+
+//1200px
+//992px
+//768px
+//640px
+//570px - смена шрифта на мобильный
+//480px
+//320px
+
+
 
 //удалить, если в админке не будет такого фона
 body {
@@ -98,4 +106,38 @@ input.text-input, textarea {
   border: none;
   color: white;
   font-size: 14px;
+}
+
+.main-container {
+  padding: 0 46px;
+}
+
+@media only screen and (max-width: 800px) {
+  .main-container {
+    padding: 0 32px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .main-container {
+    padding: 0 19px;
+  }
+}
+
+.main-title {
+    color: #AEAFB4;
+    font-family: Cambria;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 35px;
+
+    &__line-decor {
+      height: 2px;
+      width: 100vw;
+      margin-top: 10px;
+      position: absolute;
+      left: 0;
+      background: rgba(255, 255, 255, 0.10);
+    }
 }

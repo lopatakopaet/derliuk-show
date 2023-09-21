@@ -10,6 +10,11 @@
         <a routerLink="rider">{{lang['rider'][i18n.lang]}}</a>
         <a routerLink="contacts">{{lang['contacts'][i18n.lang]}}</a>
       </div>
+      <div class="burger">
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+      </div>
       <div class="button-order">
         <app-button (click)="orderShowModal.show()">
           {{lang['order'][i18n.lang]}}

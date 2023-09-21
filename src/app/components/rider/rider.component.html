@@ -1,11 +1,12 @@
-<div class="rider-wrap">
-  <div class="rider">
-    <div class="rider-img__wrap" *ngIf="showModal">
+<div class="rider__wrap">
+  <div class="rider main-container">
+<!--    <div class="rider-img__wrap" *ngIf="showModal">-->
+    <div class="rider-img__wrap">
       <img src="../../../assets/img/rider-img.png" alt="">
     </div>
-    <div class="rider-description">
+    <div class="rider__description">
       <div class="block-title golden-text">Райдер</div>
-      <div class="rider-list">
+      <div class="rider__list">
         <ul>
           <li>
             <span>
@@ -60,10 +61,20 @@
         </ul>
       </div>
     </div>
-    <app-button (click)="showModal = !showModal">
-      <img class="download-icon" src="../../../assets/img/download-icon.svg" alt="">
-      СКАЧАТИ
-    </app-button>
-    <app-button-request-call></app-button-request-call>
+<!--    <app-button (click)="showModal = !showModal">-->
+   <div class="buttons-wrap">
+     <app-button class="desktop">
+       <img class="download-icon" src="../../../assets/img/download-icon.svg" alt="">
+       СКАЧАТИ
+     </app-button>
+     <app-button-request-call class="desktop"></app-button-request-call>
+   </div>
+    <div class="download-mobile">
+      <div class="download-btn">
+        <img src="assets/img/download-mobile.png" alt="">
+        <span>СКАЧАТИ</span>
+      </div>
+      <app-button-request-call></app-button-request-call>
+    </div>
   </div>
 </div>

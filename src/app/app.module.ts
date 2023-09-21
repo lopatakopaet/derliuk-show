@@ -22,6 +22,7 @@ import { OrderShowModalComponent } from './components/order-show-modal/order-sho
 import { LeaveFeedbackModalComponent } from './components/leave-feedback-modal/leave-feedback-modal.component';
 import { SliderCommentComponent } from './components/slider-comment/slider-comment.component';
 import { SliderGalleryComponent } from './components/slider-gallery/slider-gallery.component';
+import { ItemDetailsComponent } from './components/item-details/item-details.component';
 // import { ModalOutletComponent } from './components/modal-outlet/modal-outlet.component';
 
 @NgModule({
@@ -44,6 +45,7 @@ import { SliderGalleryComponent } from './components/slider-gallery/slider-galle
     LeaveFeedbackModalComponent,
     SliderCommentComponent,
     SliderGalleryComponent,
+    ItemDetailsComponent,
     // ModalOutletComponent,
     // PortalDirective,
   ],

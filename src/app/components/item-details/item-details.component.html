@@ -1,0 +1,74 @@
+
+<div class="item-details__wrap">
+  <div class="item-details">
+    <div class="item-details-img__wrap">
+      <img src="../../../assets/img/delete/item-details.png" alt="">
+    </div>
+    <div class="item-details__description">
+      <div class="block-title golden-text">Стюардеси</div>
+      <div class="description">
+        Шоу-номер стюардеси стане яскравою окрасою Вашого свята. Драйвова музика, професійні танцівники, яскраві костюми.<br>
+        Корпоративные праздники, Новый год, юбилеи, свадьбы, дни рождения, презентации, выставки, клубные вечеринки...
+        Мы танцуем душой и можем сделать любой праздник незабываемым!
+      </div>
+      <div class="program">
+        <div class="golden-text golden-text-low">
+          У програмі:
+        </div>
+        <span>танець, танцювальний майстер-клас.</span>
+      </div>
+      <div class="duration">
+        <div class="golden-text golden-text-low">
+          Тривалість:
+        </div>
+        <span>20-35 хв (можлива різна тривалість).</span>
+      </div>
+    </div>
+  </div>
+
+  <app-button>ЗАМОВИТИ</app-button>
+
+  <div class="item-details__gallery">
+    <div class="main-title">
+      ГАЛЕРЕЯ
+    </div>
+    <div class="main-title__line-decor"></div>
+    <app-slider-gallery></app-slider-gallery>
+  </div>
+
+  <div class="main-popular__comments">
+    <div class="main-title">
+      ВІДГУКИ
+    </div>
+    <div class="main-title__line-decor"></div>
+    <app-slider-comment
+      [comments]="comments"
+    ></app-slider-comment>
+  </div>
+  <div class="leave-feedback-button__wrap">
+    <app-button class="leave-feedback-button"
+                (click)="leaveFeedbackModal.show()"
+    >ЗАЛИШИТИ ВІДГУК
+    </app-button>
+  </div>
+  <div class="main-page__description">
+    Шоу-балет V.I.P. зробить атмосферу вашого свята феєричною! Ми вміємо робити весілля,
+    дні народження, вечірки та сюрпризи яскравими та незабутніми.
+    Танцювальний колектив має великий досвід, тому ми підберемо репертуар саме
+    для вашого свята. Міста проведення: Київ, Житомир, Полтава, Харків, Дніпро
+    та вся Україна. Можлива організація шоу за кордоном, за попереднім узгодженням.
+    У передноворічний період рекомендуємо замовляти свято заздалегідь.
+    Ми маємо вінмінні номери з Дідом Морозом та Снігуркою. Віп балет - це краще
+    шоу України. У нас є номери у стилі бразильського шоу, самби “Карнавал”, стюардес,
+    поліції, рок-н-ролу, бугі-вугі, кан-кану, гавайському, янголів, східному, кантрі ,
+    національному, диско та багато іншого. Ще пропонуємо незабутні номери пародій
+    від Олега Дерлюка. Це відмінне шоу двійників на ваше свято.
+  </div>
+</div>
+
+<dialog #leaveFeedbackModal class="modal-dialog">
+  <app-leave-feedback-modal
+    (close)="leaveFeedbackModal.close()"
+  ></app-leave-feedback-modal>
+</dialog>
+

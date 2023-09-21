@@ -7,6 +7,7 @@ import {RiderComponent} from "./components/rider/rider.component";
 import {ContactsComponent} from "./components/contacts/contacts.component";
 import {ParodyTheaterComponent} from "./components/parody-theater/parody-theater.component";
 import {BalletShowComponent} from "./components/ballet-show/ballet-show.component";
+import {ItemDetailsComponent} from "./components/item-details/item-details.component";
 
 const routes: Routes = [
   {
@@ -49,6 +50,11 @@ const routes: Routes = [
         path: 'contacts',
         pathMatch: 'full',
         component: ContactsComponent,
+      },
+      {
+        path: 'item-details',
+        pathMatch: 'full',
+        component: ItemDetailsComponent,
       }
     ],
   },

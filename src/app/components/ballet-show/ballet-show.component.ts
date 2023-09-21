@@ -1,11 +1,8 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Component,  OnInit, } from '@angular/core';
 import Item from "../../../interfaces/Item";
 import * as dictionary from "../../i18n/i18n.json";
 import {LangItem} from "../../../interfaces/LangInterface";
 
-import {register} from 'swiper/element/bundle';
-import {Swiper} from "swiper";
-import {Navigation} from "swiper/modules"
 import {I18nService} from "../../services/i18n.service";
 
 @Component({
@@ -13,10 +10,7 @@ import {I18nService} from "../../services/i18n.service";
   templateUrl: './ballet-show.component.html',
   styleUrls: ['./ballet-show.component.scss']
 })
-export class BalletShowComponent implements AfterViewInit, OnInit {
-  @ViewChild('swiper') swiperRef: ElementRef<HTMLElement & { swiper?: Swiper } & { initialize: () => void }> | undefined;
-  swiper?: Swiper;
-  swiperEl = document.querySelector('swiper-container');
+export class BalletShowComponent implements OnInit {
   lang: LangItem = dictionary;
 
   popularItemsArr = [
@@ -77,58 +71,9 @@ export class BalletShowComponent implements AfterViewInit, OnInit {
     // }
   ]
 
-  constructor(public i18n: I18nService) {
-    this.swiperEl = document.querySelector('swiper-container')
-    register();
-  }
+  constructor(public i18n: I18nService) {}
 
   ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
-    // @ts-ignore: error message
-    const swiperEl = Object.assign(this.swiperRef.nativeElement, {
-      modules: [Navigation],
-      breakpoints: {
-        // when window width is >= 320px
-        320: {
-          slidesPerView: 1.1,
-          spaceBetween: 20
-        },
-        768: {
-          slidesPerView: 1.5,
-          spaceBetween: 20
-        },
-        // when window width is >= 480px
-        1000: {
-          slidesPerView: 2,
-          spaceBetween: 30
-        },
-        // when window width is >= 640px
-        1024: {
-          slidesPerView: 2.5,
-          spaceBetween: 40
-        },
-        1300: {
-          slidesPerView: 3,
-          spaceBetween: 15
-        }
-      }
-    });
-    swiperEl.initialize();
-
-    // @ts-ignore
-    this.swiper = this.swiperRef.nativeElement.swiper;
-  }
-
-  next(): void {
-    // @ts-ignore: error message
-    this.swiper.slideNext();
-  }
-
-  prev(): void {
-    // @ts-ignore: error message
-    this.swiper.slidePrev();
   }
 
 }

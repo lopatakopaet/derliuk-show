@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   ElementRef,
@@ -9,9 +8,9 @@ import {
   ViewChild
 } from '@angular/core';
 import {Comment} from "../../../interfaces/Comment";
-import { register } from 'swiper/element/bundle';
-import { Swiper} from "swiper";
-import { Navigation} from "swiper/modules"
+// import { register } from 'swiper/element/bundle';
+// import { Swiper} from "swiper";
+// import { Navigation} from "swiper/modules"
 
 
 @Component({
@@ -20,10 +19,10 @@ import { Navigation} from "swiper/modules"
   styleUrls: ['./main-page.component.scss']
 })
 
-export class MainPageComponent  implements AfterViewInit, OnInit {
+export class MainPageComponent  implements OnInit {
   // @Output() next = new EventEmitter();
-  @ViewChild('swiper') swiperRef: ElementRef<HTMLElement & { swiper?: Swiper } & { initialize: () => void }> | undefined;
-  swiper?: Swiper;
+  // @ViewChild('swiper') swiperRef: ElementRef<HTMLElement & { swiper?: Swiper } & { initialize: () => void }> | undefined;
+  // swiper?: Swiper;
 
   comments: Comment[] = [
     {
@@ -49,13 +48,19 @@ export class MainPageComponent  implements AfterViewInit, OnInit {
       comment: 'Дякуємо вам за чудово поставлений весільний танець за досить короткий термін!!! Гості були в захваті, приємно здивовані та розчулені☺️ Всім рекомендуємо, бо саме тут поставлять танець, який буде вам по силі, але при цьому личитиме вам! ',
     },
     {
-      photo: '../../../assets/img/delete/ava2.png',
+      photo: '../../../assets/img/delete/ava4.jpg',
       name: 'Anna4',
-      date: '14.10.2023',
+      date: '20.09.2020',
       rating: 4,
-      comment: 'Замовляли шоу-програму на весілля і дуже задовлені! ' +
-        'Приємно здивував репертуар, який був до смаку і нам, і нашим гостям. ' +
-        'Настрій і атмосфера свята вдались!',
+      comment: 'Олег, ми з жінкою хочемо написати відгук про вашу роботу!\n' +
+        'Коли ми з вами домовлявся про виступ вашого гурту, то ми і уявити не могли як відреагують наші гості на ваш виступ!\n' +
+        'Це неймовірно!!!\n' +
+        'Я довго думав яку програму замовити для нашого свята, бачив в житті багато, але те що ви зробили, це просто АГОНЬ🔥💪!\n' +
+        'Гості були різного статусу та віку, ви підкорили серця всіх, скільки позитивних відгуків я давно не чув від своїх родичів)Це було 45 хвилин вибуху емоцій!\n' +
+        'Ви та ваша команда дуже талановиті професіонали!\n' +
+        'Тому всім хто читає ці відгуки та ще вирішує чи замовляти послуги команди Олега, повірте вам каже ведучий з 15 річним стажем який бачив в житті багато шоу програм, тому замовляйте і не хвилюйтесь, ви залишитесь задоволені на 1000%\n' +
+        'Рекомендував і буду рекомендувати вас!!!\n' +
+        'З повагою родина Кравченко',
     },
     {
       photo: '../../../assets/img/delete/ava.png',
@@ -76,57 +81,57 @@ export class MainPageComponent  implements AfterViewInit, OnInit {
     },
   ]
 
-  swiperEl = document.querySelector('swiper-container');
+  // swiperEl = document.querySelector('swiper-container');
   constructor() {
-    this.swiperEl = document.querySelector('swiper-container')
-    register();
+    // this.swiperEl = document.querySelector('swiper-container')
+    // register();
   }
 
   ngOnInit(): void {
   }
 
-  ngAfterViewInit(): void {
-    // @ts-ignore: error message
-    const swiperEl = Object.assign(this.swiperRef.nativeElement, {
-      modules: [Navigation],
-      breakpoints: {
-        // when window width is >= 320px
-        320: {
-          slidesPerView: 1.1,
-          spaceBetween: 20
-        },
-        768: {
-          slidesPerView: 1.5,
-          spaceBetween: 20
-        },
-        // when window width is >= 480px
-        1000: {
-          slidesPerView: 2,
-          spaceBetween: 30
-        },
-        // when window width is >= 640px
-        1024: {
-          slidesPerView: 2.5,
-          spaceBetween: 40
-        },
-        1300: {
-          slidesPerView: 3,
-          spaceBetween: 40
-        }
-      }
-    });
-    swiperEl.initialize();
-
-    // @ts-ignore
-    this.swiper = this.swiperRef.nativeElement.swiper;
-  }
-
-  next(): void {
-    // @ts-ignore: error message
-    this.swiper.slideNext();
-  }
-  prev(): void {
-    // @ts-ignore: error message
-    this.swiper.slidePrev();
-  }
+  // ngAfterViewInit(): void {
+  //   // @ts-ignore: error message
+  //   const swiperEl = Object.assign(this.swiperRef.nativeElement, {
+  //     modules: [Navigation],
+  //     breakpoints: {
+  //       // when window width is >= 320px
+  //       320: {
+  //         slidesPerView: 1.1,
+  //         spaceBetween: 20
+  //       },
+  //       768: {
+  //         slidesPerView: 1.5,
+  //         spaceBetween: 20
+  //       },
+  //       // when window width is >= 480px
+  //       1000: {
+  //         slidesPerView: 2,
+  //         spaceBetween: 30
+  //       },
+  //       // when window width is >= 640px
+  //       1024: {
+  //         slidesPerView: 2.5,
+  //         spaceBetween: 40
+  //       },
+  //       1300: {
+  //         slidesPerView: 3,
+  //         spaceBetween: 40
+  //       }
+  //     }
+  //   });
+  //   swiperEl.initialize();
+  //
+  //   // @ts-ignore
+  //   this.swiper = this.swiperRef.nativeElement.swiper;
+  // }
+  //
+  // next(): void {
+  //   // @ts-ignore: error message
+  //   this.swiper.slideNext();
+  // }
+  // prev(): void {
+  //   // @ts-ignore: error message
+  //   this.swiper.slidePrev();
+  // }
 }

@@ -25,7 +25,7 @@
   }
 
   .logo-img {
-    width: 221px;
+    width: 170px;
   }
 }
 
@@ -55,19 +55,9 @@
     }
   }
 
-  //button {
-  //  padding: 5px 25px;
-  //  background: rgba(255, 255, 255, 0.05);
-  //  border-radius: 8px;
-  //  border: 1px solid yellow;
-  //  outline: none;
-  //  color: #FFF;
-  //  font-family: Arial;
-  //  font-size: 18px;
-  //  font-style: normal;
-  //  font-weight: 500;
-  //  text-transform: uppercase;
-  //}
+  .burger {
+    display: none;
+  }
 
   .lang {
     display: flex;
@@ -126,5 +116,123 @@
       }
     }
   }
+}
 
+//1200px
+//992px
+//768px
+//640px
+//480px
+//320px
+
+@media only screen and (max-width: 1200px) {
+  .menu {
+    gap: 35px;
+
+    .nav {
+      column-gap: 35px;
+    }
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .header {
+    padding: 10px 30px 22px 30px;
+
+    .logo-img {
+      width: 150px;
+    }
+
+    ::ng-deep {
+      .button-order app-button button {
+        padding: 6px 30px;
+      }
+    }
+  }
+  .menu {
+    gap: 25px;
+
+    .nav {
+      column-gap: 25px;
+    }
+  }
+
+
+}
+
+@media only screen and (max-width: 992px) {
+}
+
+@media only screen and (max-width: 990px) {
+  .menu {
+    flex-direction: row-reverse;
+    .nav {
+      display: none;
+    }
+    .burger {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 25px;
+      height: 21px;
+      cursor: pointer;
+    }
+    .burger-line {
+      height: 3px;
+      width: 100%;
+      background-color: white;
+    }
+  }
+}
+
+
+@media only screen and (max-width: 640px) {
+  .menu {
+    .burger {
+      width: 16px;
+      height: 16px;
+    }
+    .burger-line {
+      height: 2px;
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: 570px) {
+  .header {
+    padding: 13px 30px 15px 30px;
+
+    .logo-img {
+      width: 83px;
+    }
+
+    ::ng-deep {
+      .button-order app-button button {
+        padding: 1px 20px;
+        font-size: 11px;
+        line-height: 18px;
+      }
+      .button-wrap {
+        padding: 1px;
+      }
+    }
+  }
+  .menu {
+    margin-top: 0;
+    gap: 15px;
+    .lang {
+      gap: 10px;
+    }
+    .lang__item {
+      font-size: 11px;
+    }
+  }
+}
+@media only screen and (max-width: 480px) {
+  .header {
+    padding: 13px 12px 15px 12px;
+  }
+}
+@media only screen and (max-width: 360px) {
 }
