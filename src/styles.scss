@@ -11,7 +11,6 @@
 //320px
 
 
-
 //удалить, если в админке не будет такого фона
 body {
   background: #000213;
@@ -62,9 +61,10 @@ a {
 
 app-button {
   &.modal-button {
-        margin-top: 44px;
-        display: flex;
-        justify-content: center;
+    margin-top: 44px;
+    display: flex;
+    justify-content: center;
+
     .button-wrap {
       padding: 1px;
 
@@ -125,19 +125,65 @@ input.text-input, textarea {
 }
 
 .main-title {
+  color: #AEAFB4;
+  font-family: Cambria;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 35px;
+
+  &.show-parody {
+    margin-top: 100px;
+  }
+
+  &__line-decor {
+    height: 2px;
+    width: 100vw;
+    margin-top: 10px;
+    position: absolute;
+    left: 0;
+    background: rgba(255, 255, 255, 0.10);
+  }
+}
+
+@media only screen and (max-width: 570px) {
+  app-button {
+    &.modal-button {
+      margin-top: 44px;
+      display: flex;
+      justify-content: center;
+
+      .button-wrap {
+        padding: 1px;
+
+        button {
+          padding: 6px 40px;
+          color: rgba(255, 255, 255, 0.90);
+          text-align: center;
+          font-family: Arial;
+          font-size: 15px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 22px;
+        }
+      }
+    }
+
+    &.long-button {
+      button {
+        padding: 6px 60px;
+      }
+    }
+  }
+
+  .main-title {
     color: #AEAFB4;
-    font-family: Cambria;
-    font-size: 30px;
-    font-style: normal;
+    font-size: 17px;
     font-weight: 700;
     line-height: 35px;
 
-    &__line-decor {
-      height: 2px;
-      width: 100vw;
-      margin-top: 10px;
-      position: absolute;
-      left: 0;
-      background: rgba(255, 255, 255, 0.10);
+    &.show-parody {
+      margin-top: 55px;
     }
+  }
 }

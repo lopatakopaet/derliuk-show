@@ -4,7 +4,7 @@
 
   .prev-button, .next-button {
     position: absolute;
-    top: 47%;
+    top: 30px;
     cursor: pointer;
   }
 
@@ -14,5 +14,14 @@
 
   .next-button {
     right: -10px;
+  }
+}
+
+@media only screen and (max-width: 570px) {
+  .swiper-comment-wrap {
+    padding: 0;
+  }
+  .prev-button, .next-button {
+    display: none;
   }
 }

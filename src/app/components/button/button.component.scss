@@ -30,3 +30,18 @@ button {
     padding: 1px;
   }
 }
+
+@media only screen and (max-width: 570px) {
+  .button-wrap {
+    padding: 1px;
+    border-radius: 8px;
+    background-image: url("/assets/img/gold-text.png");
+  }
+
+  button {
+    color: #FFF;
+    font-size: 13px;
+    line-height: 20px;
+    padding: 7px 30px;
+  }
+}

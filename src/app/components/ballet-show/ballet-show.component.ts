@@ -1,4 +1,4 @@
-import { Component,  OnInit, } from '@angular/core';
+import {Component, Input, OnInit,} from '@angular/core';
 import Item from "../../../interfaces/Item";
 import * as dictionary from "../../i18n/i18n.json";
 import {LangItem} from "../../../interfaces/LangInterface";

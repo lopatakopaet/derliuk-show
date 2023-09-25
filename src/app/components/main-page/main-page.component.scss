@@ -50,6 +50,7 @@
 
     &.active {
       position: relative;
+      color: #F9F9F9;
 
       &:before {
         content: '';
@@ -82,14 +83,6 @@
   margin: 33px auto;
 }
 
-::ng-deep {
-  .main-title {
-    &.show-parody {
-      margin-top: 100px;
-    }
-  }
-}
-
 .main-popular__another {
   margin-top: 137px;
   .title {
@@ -103,6 +96,7 @@
   }
 
   .subtitle {
+    margin-top: 10px;
     color: #C4C4C4;
     text-align: center;
     font-family: Arial;
@@ -114,14 +108,11 @@
 
   .another-items {
     margin-top: 50px;
-    //display: flex;
-    //flex-wrap: wrap;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 30px 70px;
 
     .item {
-      //width: 25%;
       color: #FFF;
       font-family: Arial;
       font-size: 18px;
@@ -192,6 +183,74 @@ app-slider-comment {
 
 //mobile
 
+@media only screen and (max-width: 768px) {
+  .main-popular__another {
+
+    .another-items {
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 30px;
+    }
+  }
+}
+@media only screen and (max-width: 570px) {
+
+  .main-page__tabs {
+    margin-top: 28px;
+    padding-bottom: 9px;
+    color: rgba(243, 243, 243, 0.70);
+    font-size: 17px;
+    line-height: 18px;
+    gap: 10px;
+
+    .tab {
+      padding: 0 13px;
+    }
+  }
+
+  .main-popular__another {
+
+    margin-top: 66px;
+
+    .title {
+      color: #E7E7E7;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 22px;
+    }
+    .subtitle {
+      color: #C4C4C4;
+      font-size: 13px;
+      line-height: 16px;
+    }
+    .another-items {
+      margin-top: 30px;
+      grid-template-columns: 1fr 1fr;
+      gap: initial;
+      row-gap: 22px;
+      padding-left: 22px;
+
+      .item {
+        color: #FFF;
+        font-size: 14px;
+        line-height: 20px;
+      }
+    }
+  }
+
+  .main-popular__comments {
+    margin-top: 64px;
+  }
+
+  .leave-feedback-button {
+    margin-top: 50px;
+  }
+  .main-page__description {
+    margin: 61px auto 0;
+    color: rgba(255, 255, 255, 0.70);
+    font-size: 14px;
+    line-height: 22px;
+  }
+}
 @media only screen and (max-width: 360px) {
 
 }

@@ -36,12 +36,23 @@
 }
 
 .date {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   color: rgba(255, 255, 255, 0.80);
   font-family: Arial;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
   line-height: 35px;
+
+  .date-icon-mobile {
+    display: none;
+  }
+
+  .date-icon {
+    display: initial;
+  }
 }
 
 .rating {
@@ -50,17 +61,77 @@
 }
 
 .comment {
-  margin-top: 15px;
+  margin-top: 25px;
+  max-height: 270px;
+  overflow: hidden;
   color: rgba(255, 255, 255, 0.80);
   font-family: Arial;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
-  line-height: 190%; /* 34.2px */
+  line-height: 190%;
+
+  &.full {
+    max-height: initial;
+  }
+}
+
+.show-more {
+  margin-top: 20px;
+  text-align: center;
+  cursor: pointer;
 }
 
 .set-comment {
   display: flex;
   justify-content: center;
   margin-top: 90px;
+}
+
+@media only screen and (max-width: 570px) {
+
+  .comment__block {
+    max-width: initial;
+  }
+
+  .comment {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    line-height: 26px;
+    max-height: 137px;
+  }
+
+  .comment-header {
+    gap: 25px;
+  }
+
+  .photo-wrap {
+    width: 98px;
+    height: 98px;
+    img {
+      min-width: 98px;
+    }
+  }
+
+  .name {
+    font-size: 22px;
+    line-height: 40px;
+  }
+
+  .date {
+    font-size: 16px;
+    line-height: 35px; /* 218.75% */
+    .date-icon-mobile {
+      display: initial;
+    }
+
+    .date-icon {
+      display: none;
+    }
+  }
+  .rating {
+    img {
+      width: 25px;
+    }
+  }
 }

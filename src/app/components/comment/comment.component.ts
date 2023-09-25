@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostListener, Input, OnInit, ViewChild} from '@angular/core';
 // import SwiperCore, {Swiper, SwiperOptions,Virtual } from 'swiper';
 // import {SwiperComponent} from "swiper/angular";
 
@@ -12,9 +12,9 @@ import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 })
 export class CommentComponent implements OnInit {
   @Input() comment: any;
+  @Input() showALll: boolean = false;
 
-
-
+  public innerWidth: any;
 
 
 
@@ -97,10 +97,13 @@ export class CommentComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.innerWidth = window.innerWidth;
   }
-  // onSwiper([swiper]: any) {
-  //   console.log(swiper);
-  // }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.innerWidth = window.innerWidth;
+  }
+
   onSlideChange() {
     console.log('slide change');
   }
