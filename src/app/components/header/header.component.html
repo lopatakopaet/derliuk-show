@@ -38,7 +38,7 @@
       <a routerLink="rider" routerLinkActive="active">{{lang['rider'][i18n.lang]}}</a>
       <a routerLink="contacts" routerLinkActive="active">{{lang['contacts'][i18n.lang]}}</a>
   </div>
-  <div class="close-menu">
+  <div class="close-menu" *ngIf="isOpenMenu" (click)="hideMobileMenu()">
     <img src="assets/img/close-menu.png" alt="">
   </div>
 </div>
