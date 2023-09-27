@@ -11,6 +11,7 @@ import {LangItem} from "../../../interfaces/LangInterface";
 export class HeaderComponent implements OnInit {
 
   lang: LangItem = dictionary;
+  isOpenMenu: boolean = false;
 
   constructor(public i18n: I18nService) {
   }
@@ -22,6 +23,14 @@ export class HeaderComponent implements OnInit {
 
   setLang(langName: string): void {
     this.i18n.changeLang(langName);
+  }
+
+  showMobileMenu(): void {
+    this.isOpenMenu = true;
+  }
+
+  hideMobileMenu(): void {
+    this.isOpenMenu = false;
   }
 
   // setDefaultLang(): void {
