@@ -25,8 +25,12 @@
     align-items: center;
   }
 
-  .block-title {
+  .block-title, .block-title__mobile {
     text-align: center;
+  }
+
+  .block-title__mobile {
+    display: none;
   }
 
   .supervisor-name {
@@ -58,7 +62,7 @@
     }
   }
 
-  .phones-wrap, .email-wrap, .social-wrap {
+  .phones-email__wrap {
     margin-top: 50px;
     color: #FFF;
     font-family: Arial;
@@ -99,4 +103,207 @@
 
 .button-write {
   margin-top: 45px;
+}
+
+.button-mobile {
+  display: none;
+}
+
+app-button {
+  display: flex;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 1023px) {
+  .button-desktop {
+    display: none;
+  }
+  .button-mobile {
+    display: block;
+    margin-top: 70px;
+  }
+  .contacts {
+    flex-direction: column;
+    gap: 50px;
+
+    &:before {
+      display: none;
+    }
+
+    .block-title__desktop {
+      display: none;
+    }
+
+    .block-title__mobile {
+      display: initial;
+    }
+
+    .supervisor-block {
+      margin-left: initial;
+      position: relative;
+
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        background-image: url("/assets/img/rider-decor.png");
+        width: 74px;
+        height: 335px;
+        left: 0;
+      }
+    }
+  }
+  .phones-email__wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 40px;
+  }
+
+}
+
+@media only screen and (max-width: 768px) {
+  .phones-email__wrap {
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 570px) {
+  .contacts-wrap {
+    margin: 22px 0 85px;
+  }
+  .contacts {
+    gap: 20px;
+
+    .block-title__mobile {
+      display: initial;
+    }
+
+    .supervisor-name {
+      margin-top: 10px;
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    .role {
+      margin-top: 4px;
+      color: #FFF;
+      font-size: 13px;
+      line-height: 17px;
+    }
+
+    .contacts-description {
+      margin-top: 0;
+      color: #FFF;
+      font-size: 13px;
+      line-height: 22px;
+    }
+
+    .supervisor-block {
+
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        background-image: url("/assets/img/rider-decor.png");
+        background-repeat: no-repeat;
+        left: 0;
+      }
+
+      img {
+        width: 250px;
+      }
+    }
+
+    .phones-wrap {
+      margin-top: 0;
+    }
+
+    .email-wrap {
+      margin-top: 12px;
+    }
+
+    .social-wrap {
+      margin-top: 30px;
+    }
+
+    .phones-email__wrap {
+      font-size: 13px;
+      line-height: 15px;
+      margin-top: 25px;
+
+      ul li {
+        margin-bottom: 18px;
+        padding-left: 11px;
+        list-style-image: url("/assets/img/gold-circle-mobile.png");
+      }
+    }
+  }
+  .button-mobile {
+    margin-top: 20px;
+  }
+  .phones-title, .email-title, .social-title {
+    color: #FFF;
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .contacts {
+    .supervisor-block {
+
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        background-image: url("/assets/img/rider-decor-mobile.png");
+        background-repeat: no-repeat;
+        left: 0;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 410px) {
+  .contacts {
+    .supervisor-block {
+
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        background-image: url("/assets/img/rider-decor-mobile.png");
+        background-repeat: no-repeat;
+        left: 0;
+      }
+
+      img {
+        width: 144px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  .contacts {
+
+    .supervisor-block {
+
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        background-image: url("/assets/img/rider-decor-mobile.png");
+        background-repeat: no-repeat;
+        background-size: initial;
+        left: 0;
+        top: 10px;
+      }
+
+      img {
+        width: 144px;
+      }
+    }
+  }
 }

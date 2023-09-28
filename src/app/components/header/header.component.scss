@@ -52,9 +52,11 @@
       font-weight: 500;
       line-height: 24px;
       text-decoration: none;
-      &:hover{
+
+      &:hover {
         color: #2E40E8;
       }
+
       &.active {
         color: #2E40E8;
       }
@@ -109,8 +111,13 @@
 .close-menu {
   z-index: 1111;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 20px;
+  right: 12px;
+  cursor: pointer;
+
+  img {
+    width: 17px;
+  }
 }
 
 ::ng-deep {
@@ -142,6 +149,7 @@
   padding: 30px;
   gap: 30px;
   z-index: 1111;
+
   a {
     color: #FFF;
     font-family: Arial;
@@ -150,9 +158,11 @@
     font-weight: 500;
     line-height: 24px;
     text-decoration: none;
-    &:hover{
+
+    &:hover {
       color: #2E40E8;
     }
+
     &.active {
       color: #2E40E8;
     }
@@ -207,9 +217,11 @@
 @media only screen and (max-width: 990px) {
   .menu {
     flex-direction: row-reverse;
+
     .nav {
       display: none;
     }
+
     .burger {
       display: flex;
       flex-direction: column;
@@ -218,6 +230,7 @@
       height: 21px;
       cursor: pointer;
     }
+
     .burger-line {
       height: 3px;
       width: 100%;
@@ -233,6 +246,7 @@
       width: 16px;
       height: 16px;
     }
+
     .burger-line {
       height: 2px;
       width: 100%;
@@ -254,6 +268,7 @@
         font-size: 11px;
         line-height: 18px;
       }
+
       .button-wrap {
         padding: 1px;
       }
@@ -262,18 +277,34 @@
   .menu {
     margin-top: 0;
     gap: 15px;
+
     .lang {
       gap: 10px;
     }
+
     .lang__item {
       font-size: 11px;
     }
   }
+
+  .close-menu {
+    img {
+      width: initial;
+    }
+  }
+  .mobile-menu {
+    a {
+      font-size: 15px;
+      line-height: 24px;
+    }
+  }
 }
+
 @media only screen and (max-width: 480px) {
   .header {
     padding: 13px 12px 15px 12px;
   }
 }
+
 @media only screen and (max-width: 360px) {
 }
