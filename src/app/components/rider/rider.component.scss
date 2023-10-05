@@ -27,10 +27,6 @@
   margin-left: 40px;
 }
 
-.rider__description {
-
-}
-
 .rider__list {
   margin-top: 22px;
   color: #FFF;
@@ -64,6 +60,10 @@ app-button-request-call {
   margin-top: 12px;
 }
 
+.block-title__mobile {
+  display: none;
+}
+
 .download-mobile {
   display: none;
   color: #8094FF;
@@ -90,10 +90,19 @@ app-button-request-call {
   }
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 880px) {
   .rider-img__wrap {
     img {
       width: 350px;
+    }
+  }
+  .rider__list li {
+    list-style-position: inside;
+    padding-left: 0;
+  }
+  .rider {
+    &:before {
+      background-size: 80%;
     }
   }
 }
@@ -104,37 +113,51 @@ app-button-request-call {
       width: 320px;
     }
   }
-  .rider__list li {
-    list-style-position: inside;
-    padding-left: 0 ;
+  .block-title__desktop {
+    display: none;
+  }
+  .block-title__mobile {
+    display: block;
+    text-align: center;
+    line-height: 52px;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .rider-img__wrap {
+    img {
+      width: 300px;
+    }
   }
 }
 
 @media only screen and (max-width: 640px) {
   .rider {
     &:before {
-      background-size: contain;
-      width: 55px;
+      background-size: 60%;
     }
   }
   .rider-img__wrap {
     margin-left: 0;
+
     img {
       width: 300px;
     }
   }
-  .rider__list li {
-    font-size: 13px;
-    line-height: 22px;
-    margin-bottom: 17px;
+
+  .rider-img__wrap {
+    img {
+      width: 260px;
+    }
   }
+
   .buttons-wrap {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     margin-top: 40px;
   }
-  .desktop {
+  .button-desktop {
     display: none;
   }
   app-button-request-call {
@@ -156,21 +179,37 @@ app-button-request-call {
   }
 }
 
-@media only screen and (max-width: 540px) {
+@media only screen and (max-width: 570px) {
+  .rider__wrap {
+    margin-top: 22px;
+  }
   .rider {
     &:before {
       background-image: url("/assets/img/rider-decor-mobile.png");
-      width: 21px;
-      height: 48px;
+      background-size: initial;
     }
   }
+  .rider__list li {
+    font-size: 13px;
+    line-height: 22px;
+    margin-bottom: 17px;
+  }
+  .block-title__mobile {
+    line-height: 35px;
+  }
+}
+
+@media only screen and (max-width: 540px) {
+
   .rider-img__wrap {
     img {
       width: 240px;
     }
   }
 }
+
 @media only screen and (max-width: 480px) {
+
   .rider-img__wrap {
     img {
       width: 190px;
@@ -178,7 +217,17 @@ app-button-request-call {
   }
 }
 
+@media only screen and (max-width: 420px) {
+
+  .rider-img__wrap {
+    img {
+      width: 170px;
+    }
+  }
+}
+
 @media only screen and (max-width: 400px) {
+
   .rider-img__wrap {
     img {
       width: 159px;

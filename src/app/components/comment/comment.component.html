@@ -22,10 +22,10 @@
   </div>
   <div class="comment__wrap">
     <div class="comment" #commentElem
-         [ngClass]="{'full': showALll}">{{comment.comment}} {{commentElem.offsetHeight}}, {{innerWidth}}
+         [ngClass]="{'full': showALll}">{{comment.comment}}
     </div>
-    <div *ngIf="(commentElem.offsetHeight > 269 && innerWidth > 570)
-              || (commentElem.offsetHeight > 136 && innerWidth <= 570)"
-      (click)="showALll=!showALll" class="show-more">show more</div>
+    <div *ngIf="(elemOffsetHeight > 269 && innerWidth > 570)
+              || (elemOffsetHeight > 136 && innerWidth <= 570)"
+         (click)="showALll=!showALll" class="show-more">show more</div>
   </div>
 </div>

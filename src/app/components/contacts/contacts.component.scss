@@ -205,7 +205,8 @@ app-button {
         content: '';
         display: block;
         position: absolute;
-        background-image: url("/assets/img/rider-decor.png");
+        //background-image: url("/assets/img/rider-decor.png");
+        background-image: url("/assets/img/rider-decor-mobile.png");
         background-repeat: no-repeat;
         left: 0;
       }
@@ -249,21 +250,21 @@ app-button {
   }
 }
 
-@media only screen and (max-width: 480px) {
-  .contacts {
-    .supervisor-block {
-
-      &:before {
-        content: '';
-        display: block;
-        position: absolute;
-        background-image: url("/assets/img/rider-decor-mobile.png");
-        background-repeat: no-repeat;
-        left: 0;
-      }
-    }
-  }
-}
+//@media only screen and (max-width: 480px) {
+//  .contacts {
+//    .supervisor-block {
+//
+//      &:before {
+//        content: '';
+//        display: block;
+//        position: absolute;
+//        background-image: url("/assets/img/rider-decor-mobile.png");
+//        background-repeat: no-repeat;
+//        left: 0;
+//      }
+//    }
+//  }
+//}
 
 @media only screen and (max-width: 410px) {
   .contacts {

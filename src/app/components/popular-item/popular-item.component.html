@@ -6,6 +6,8 @@
     <div class="title golden-text">{{item.title}}</div>
     <div class="description" [innerHTML]="item.description">
     </div>
-    <app-button class="long-button">ДЕТАЛІ</app-button>
+    <app-button
+      [routerLink]="['item-details', '5']"
+      class="long-button">ДЕТАЛІ</app-button>
   </div>
 </div>

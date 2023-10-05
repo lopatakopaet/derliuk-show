@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute} from '@angular/router';
 import {Comment} from "../../../interfaces/Comment";
+import {switchMap} from "rxjs";
 
 @Component({
   selector: 'app-item-details',
@@ -7,6 +9,7 @@ import {Comment} from "../../../interfaces/Comment";
   styleUrls: ['./item-details.component.scss']
 })
 export class ItemDetailsComponent implements OnInit {
+  id: number | undefined;
   comments: Comment[] = [
     {
       photo: '../../../assets/img/delete/ava1.jpg',
@@ -57,9 +60,16 @@ export class ItemDetailsComponent implements OnInit {
         'Настрій і атмосфера свята вдались!',
     },
   ]
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.paramMap.pipe(
+      switchMap(params => params.getAll('id'))
+    )
+      .subscribe(data=> this.id = +data);
+
+    console.log('this.id', this.id)
   }
+
 
 }

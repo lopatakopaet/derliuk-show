@@ -28,11 +28,26 @@ const routes: Routes = [
             path: 'ballet-show',
             pathMatch: 'full',
             component: BalletShowComponent,
+
+            // children: [
+            //   {
+            //     path: 'item-details/:id',
+            //     pathMatch: 'full',
+            //     component: ItemDetailsComponent,
+            //   }
+            // ]
           },
           {
             path: 'parody-theater',
             pathMatch: 'full',
             component: ParodyTheaterComponent,
+            // children: [
+            //   {
+            //     path: 'item-details/:id',
+            //     pathMatch: 'full',
+            //     component: ItemDetailsComponent,
+            //   }
+            // ]
           }
         ]
       },
@@ -52,7 +67,12 @@ const routes: Routes = [
         component: ContactsComponent,
       },
       {
-        path: 'item-details',
+        path: 'ballet-show/item-details/:id',
+        pathMatch: 'full',
+        component: ItemDetailsComponent,
+      },
+      {
+        path: 'parody-theater/item-details/:id',
         pathMatch: 'full',
         component: ItemDetailsComponent,
       }

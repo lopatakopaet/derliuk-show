@@ -2,7 +2,6 @@
   width: 100%;
   max-width: 1440px;
   margin: 60px auto 90px;
-  padding: 0 46px;
   color: #FFF;
   font-family: Arial;
   font-size: 18px;
@@ -10,8 +9,11 @@
   font-weight: 400;
   line-height: 35px;
 }
+
 .item-details {
   display: flex;
+  position: relative;
+
   &:before {
     content: '';
     display: block;
@@ -20,6 +22,7 @@
     background-repeat: no-repeat;
     width: 74px;
     height: 335px;
+    left: 0;
   }
 
   .item-details-img__wrap {
@@ -30,12 +33,19 @@
     text-align: center;
   }
 }
+
+.item-details__gallery {
+  margin-top: 70px;
+}
+
 .item-details__description {
   flex-grow: 1;
 }
-.description{
+
+.description {
   margin-top: 35px;
 }
+
 .golden-text-low {
   font-family: Cambria;
   font-size: 22px;
@@ -43,13 +53,16 @@
   font-weight: 700;
   line-height: 34px;
 }
+
 .program {
   margin-top: 50px;
 }
+
 .program, .duration {
   display: flex;
   column-gap: 25px;
 }
+
 app-button {
   display: flex;
   justify-content: center;
@@ -83,13 +96,94 @@ app-slider-comment {
 }
 
 .main-page__description {
-  margin: 115px auto 0;
+  margin-top: 80px;
   max-width: 1250px;
-  color: rgba(255, 255, 255, 0.70);
   text-align: center;
-  font-family: Arial;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 34px;
+  //color: rgba(255, 255, 255, 0.70);
+  //text-align: center;
+  //font-family: Arial;
+  //font-size: 18px;
+  //font-style: normal;
+  //font-weight: 400;
+  //line-height: 34px;
+}
+
+@media only screen and (max-width: 1200px) {
+  .item-details-img__wrap {
+    img {
+      width: 500px;
+    }
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .item-details-img__wrap {
+    img {
+      width: 450px;
+    }
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .item-details-img__wrap {
+    img {
+      width: 420px;
+    }
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .item-details {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .item-details-img__wrap {
+    img {
+      width: 500px;
+    }
+  }
+  .block-title {
+    margin-top: 22px;
+  }
+}
+
+@media only screen and (max-width: 570px) {
+  .item-details__wrap {
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .item-details-img__wrap {
+    img {
+      width: 100%;
+    }
+  }
+  .item-details {
+    &:before {
+      background-image: url("/assets/img/rider-decor-mobile.png");
+    }
+  }
+  .description {
+    margin-top: 6px;
+  }
+  .program, .duration {
+    margin-top: 25px;
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+  .golden-text-low {
+    font-size: 16px;
+    line-height: 30px;
+  }
+  app-button {
+    margin-top: 27px ;
+  }
+  .main-page__description {
+    margin-top: 50px;
+    color: rgba(255, 255, 255, 0.70);
+  }
+}
+
+@media only screen and (max-width: 420px) {
+
 }

@@ -1,11 +1,42 @@
 
 <div class="gallery main-container">
-  <div class="gallery-title golden-text">Галерея</div>
+  <div class="block-title golden-text">Галерея</div>
   <div class="gallery-img">
-    <img src="../../../assets/img/delete/gallery1.png" alt="">
-    <img src="../../../assets/img/delete/gallery1.png" alt="">
-    <img src="../../../assets/img/delete/gallery2.png" alt="">
-    <img src="../../../assets/img/delete/gallery1.png" alt="">
-    <img src="../../../assets/img/delete/gallery3.png" alt="">
+    <div class="img__wrap">
+      <img src="../../../assets/img/delete/gallery1.png" alt="">
+      <div class="img__hover">
+        <app-button (click)="orderShowModal.show()">ЗАМОВИТИ НОМЕР</app-button>
+      </div>
+    </div>
+    <div class="img__wrap">
+      <img src="../../../assets/img/delete/gallery1.png" alt="">
+      <div class="img__hover">
+        <app-button (click)="orderShowModal.show()">ЗАМОВИТИ НОМЕР</app-button>
+      </div>
+    </div>
+    <div class="img__wrap">
+      <img src="../../../assets/img/delete/gallery1.png" alt="">
+      <div class="img__hover">
+        <app-button (click)="orderShowModal.show()">ЗАМОВИТИ НОМЕР</app-button>
+      </div>
+    </div>
+    <div class="img__wrap">
+      <img src="../../../assets/img/delete/gallery1.png" alt="">
+      <div class="img__hover">
+        <app-button (click)="orderShowModal.show()">ЗАМОВИТИ НОМЕР</app-button>
+      </div>
+    </div>
+    <div class="img__wrap">
+      <img src="../../../assets/img/delete/gallery1.png" alt="">
+      <div class="img__hover">
+        <app-button (click)="orderShowModal.show()">ЗАМОВИТИ НОМЕР</app-button>
+      </div>
+    </div>
+
   </div>
 </div>
+<dialog #orderShowModal class="modal-dialog">
+  <app-order-show-modal
+    (close)="orderShowModal.close()"
+  ></app-order-show-modal>
+</dialog>
