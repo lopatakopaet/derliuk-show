@@ -28,9 +28,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/glightbox/dist/css/glightbox.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/glightbox/dist/js/glightbox.js"
+            ]
           },
           "configurations": {
             "production": {

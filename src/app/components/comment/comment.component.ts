@@ -20,14 +20,6 @@ export class CommentComponent implements AfterViewInit, OnInit {
   public elemOffsetHeight: any;
 
 
-
-
-
-
-
-
-
-
   // @ViewChild('swiper', { static: false }) swiper?: SwiperComponent;
   // slideNext(){
   //   this.swiper?.swiperRef.slideNext(100);
@@ -48,32 +40,32 @@ export class CommentComponent implements AfterViewInit, OnInit {
   // swiper?: Swiper;
   // @ViewChild('swiperRef')
   // swiperRef: ElementRef | undefined;
-  slides: Array<{title: string}> = [
-    {
-      title: "Slide 1"
-    },
-    {
-      title: "Slide 2"
-    },
-    {
-      title: "Slide 3"
-    },
-    {
-      title: "Slide 4"
-    },
-    {
-      title: "Slide 5"
-    },
-    {
-      title: "Slide 6"
-    },
-    {
-      title: "Slide 7"
-    },
-    {
-      title: "Slide 8"
-    },
-  ]
+  // slides: Array<{title: string}> = [
+  //   {
+  //     title: "Slide 1"
+  //   },
+  //   {
+  //     title: "Slide 2"
+  //   },
+  //   {
+  //     title: "Slide 3"
+  //   },
+  //   {
+  //     title: "Slide 4"
+  //   },
+  //   {
+  //     title: "Slide 5"
+  //   },
+  //   {
+  //     title: "Slide 6"
+  //   },
+  //   {
+  //     title: "Slide 7"
+  //   },
+  //   {
+  //     title: "Slide 8"
+  //   },
+  // ]
 
   // public config: SwiperOptions = {
   //   slidesPerView: 1,

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
 import {Comment} from "../../../interfaces/Comment";
 import {switchMap} from "rxjs";
+import {Gallery} from "../../../interfaces/Gallery";
 
 @Component({
   selector: 'app-item-details',
@@ -59,6 +60,32 @@ export class ItemDetailsComponent implements OnInit {
         'Приємно здивував репертуар, який був до смаку і нам, і нашим гостям. ' +
         'Настрій і атмосфера свята вдались!',
     },
+  ]
+  gallery: Gallery[] = [
+    {
+      photo: '../../../assets/img/delete/slide1.png',
+      id: 1,
+    },
+    {
+      photo: '../../../assets/img/delete/slide2.png',
+      id: 2,
+    },
+    {
+      photo: '../../../assets/img/delete/slide1.png',
+      id: 3,
+    },
+    {
+      photo: '../../../assets/img/delete/slide2.png',
+      id: 4,
+    },
+    {
+      photo: '../../../assets/img/delete/slide1.png',
+      id: 5,
+    },
+    {
+      photo: '../../../assets/img/delete/slide2.png',
+      id: 6,
+    }
   ]
   constructor(private route: ActivatedRoute) { }
 

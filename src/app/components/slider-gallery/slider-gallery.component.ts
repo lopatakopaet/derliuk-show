@@ -11,6 +11,8 @@ import {
 import { register } from 'swiper/element/bundle';
 import { Swiper} from "swiper";
 import { Navigation} from "swiper/modules"
+// @ts-ignore
+import GLightbox from 'glightbox';
 @Component({
   selector: 'app-slider-gallery',
   templateUrl: './slider-gallery.component.html',
@@ -20,6 +22,8 @@ export class SliderGalleryComponent implements AfterViewInit, OnInit {
   @ViewChild('swiper') swiperRef: ElementRef<HTMLElement & { swiper?: Swiper } & { initialize: () => void }> | undefined;
   swiper?: Swiper;
   @Input() comments: any;
+  @Input() gallery: any;
+  lightbox:any;
 
   swiperEl = document.querySelector('swiper-container');
   constructor() {
@@ -28,6 +32,7 @@ export class SliderGalleryComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   ngAfterViewInit(): void {
@@ -64,6 +69,11 @@ export class SliderGalleryComponent implements AfterViewInit, OnInit {
 
     // @ts-ignore
     this.swiper = this.swiperRef.nativeElement.swiper;
+
+    //lightbox settings
+    this.lightbox = GLightbox({
+      selector: ".glightbox"
+    });
   }
 
   next(): void {

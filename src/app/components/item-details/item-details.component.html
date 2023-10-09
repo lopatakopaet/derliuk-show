@@ -33,7 +33,9 @@
       ГАЛЕРЕЯ
     </div>
     <div class="main-title__line-decor"></div>
-    <app-slider-gallery></app-slider-gallery>
+    <app-slider-gallery
+      [gallery]="gallery"
+    ></app-slider-gallery>
   </div>
 
   <div class="main-popular__comments">
@@ -64,6 +66,7 @@
     національному, диско та багато іншого. Ще пропонуємо незабутні номери пародій
     від Олега Дерлюка. Це відмінне шоу двійників на ваше свято.
   </div>
+
 </div>
 
 <dialog #leaveFeedbackModal class="modal-dialog">
