@@ -82,6 +82,7 @@ app-button {
   }
 }
 
+
 .input-wrap {
   display: flex;
   align-items: center;
@@ -124,7 +125,7 @@ input.text-input, textarea {
   }
 }
 
-.main-title {
+.main-title, .main-title__admin {
   color: #AEAFB4;
   font-family: Cambria;
   font-size: 30px;
@@ -144,6 +145,10 @@ input.text-input, textarea {
     left: 0;
     background: rgba(255, 255, 255, 0.10);
   }
+}
+
+.main-title__admin {
+  color: #FFFFFF;
 }
 
 @media only screen and (max-width: 570px) {

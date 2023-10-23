@@ -1,5 +1,9 @@
 
 button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
   position: relative;
   color: #FFF;
   font-family: Arial;

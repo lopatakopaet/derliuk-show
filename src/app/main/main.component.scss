@@ -4,6 +4,12 @@
   width: 100%;
   background: #000213;
 
+  //для позиционированния футера
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   //.container {
   //  width: 100%;
   //  max-width: 1440px;

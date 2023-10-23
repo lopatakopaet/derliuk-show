@@ -8,6 +8,8 @@ import {ContactsComponent} from "./components/contacts/contacts.component";
 import {ParodyTheaterComponent} from "./components/parody-theater/parody-theater.component";
 import {BalletShowComponent} from "./components/ballet-show/ballet-show.component";
 import {ItemDetailsComponent} from "./components/item-details/item-details.component";
+import {AdminMainComponent} from "./components/admin/admin-main/admin-main.component";
+import {AdminBalletPageComponent} from "./components/admin/admin-ballet-page/admin-ballet-page.component";
 
 const routes: Routes = [
   {
@@ -28,26 +30,11 @@ const routes: Routes = [
             path: 'ballet-show',
             pathMatch: 'full',
             component: BalletShowComponent,
-
-            // children: [
-            //   {
-            //     path: 'item-details/:id',
-            //     pathMatch: 'full',
-            //     component: ItemDetailsComponent,
-            //   }
-            // ]
           },
           {
             path: 'parody-theater',
             pathMatch: 'full',
             component: ParodyTheaterComponent,
-            // children: [
-            //   {
-            //     path: 'item-details/:id',
-            //     pathMatch: 'full',
-            //     component: ItemDetailsComponent,
-            //   }
-            // ]
           }
         ]
       },
@@ -75,8 +62,20 @@ const routes: Routes = [
         path: 'parody-theater/item-details/:id',
         pathMatch: 'full',
         component: ItemDetailsComponent,
-      }
+      },
+
     ],
+  },
+  {
+    path: 'admin',
+    component: AdminMainComponent,
+    children: [
+      {
+        path: 'ballet-page',
+        pathMatch: 'full',
+        component: AdminBalletPageComponent,
+      },
+    ]
   },
   { path: '**', component: MainComponent },
   // {

@@ -1,0 +1,57 @@
+.menu__wrap {
+  display: flex;
+  flex-direction: column;
+  width: 260px;
+  height: 100%;
+  padding: 15px 27px;
+  background: #000213;
+  color: #FFF;
+  font-family: Arial;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+.menu {
+  margin-top: 23px;
+  .page  {
+    margin-bottom: 20px;
+    cursor: pointer;
+    ul {
+      margin-left: 30px;
+      li {
+        margin-top: 20px;
+        padding-left: 10px;
+        list-style-image: url(/assets/img/gold-circle.png);
+        cursor: pointer;
+      }
+    }
+  }
+  .page-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+  .page-item {
+    position: relative;
+    top: 3px;
+  }
+}
+
+.line-decor {
+  height: 1px;
+  background: rgba(217, 217, 217, 0.10);
+  width: 100%;
+  margin-bottom: 20px;
+}
+.logo-img {
+  width: 157px;
+}
+
+.exit {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}

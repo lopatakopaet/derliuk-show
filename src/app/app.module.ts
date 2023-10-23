@@ -23,6 +23,10 @@ import { LeaveFeedbackModalComponent } from './components/leave-feedback-modal/l
 import { SliderCommentComponent } from './components/slider-comment/slider-comment.component';
 import { SliderGalleryComponent } from './components/slider-gallery/slider-gallery.component';
 import { ItemDetailsComponent } from './components/item-details/item-details.component';
+import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
+import { AdminHeaderComponent } from './components/admin/admin-header/admin-header.component';
+import { AdminMenuComponent } from './components/admin/admin-menu/admin-menu.component';
+import { AdminBalletPageComponent } from './components/admin/admin-ballet-page/admin-ballet-page.component';
 // import { ModalOutletComponent } from './components/modal-outlet/modal-outlet.component';
 
 @NgModule({
@@ -46,6 +50,10 @@ import { ItemDetailsComponent } from './components/item-details/item-details.com
     SliderCommentComponent,
     SliderGalleryComponent,
     ItemDetailsComponent,
+    AdminMainComponent,
+    AdminHeaderComponent,
+    AdminMenuComponent,
+    AdminBalletPageComponent,
     // ModalOutletComponent,
     // PortalDirective,
   ],

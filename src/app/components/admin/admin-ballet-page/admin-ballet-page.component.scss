@@ -1,0 +1,146 @@
+.ballet-page {
+  margin-top: 34px;
+}
+
+.main-photo__title {
+  color: #FFF;
+  font-family: Cambria;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 35px;
+}
+
+.main-photo__img {
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 12px;
+}
+
+.main-text {
+  margin-top: 55px;
+}
+.main-text__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.main-text__content {
+  margin-top: 12px;
+  color: #E6E6E6;
+  font-family: Arial;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 34px
+}
+
+.items__header,  .comment__header, .seo__header{
+  margin-top: 30px;
+  display:  flex;
+  justify-content: space-between;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  gap: 26px;
+}
+
+.item__wrap {
+  margin-top: 30px;
+}
+
+.item__photo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-width: 570px;
+  height: 377px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.title {
+  font-family: Cambria;
+  font-size: 44px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+  cursor: pointer;
+  &:hover {
+    color: #2E40E8;
+    background-image: none;
+    -webkit-background-clip: inherit;
+    -webkit-text-fill-color: inherit;
+    -webkit-box-decoration-break: inherit;
+  }
+}
+
+.item__description {
+  margin-top: 19px;
+  color: #FFF;
+  font-family: Arial;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 35px;
+}
+
+.number-title {
+  margin-top: 20px;
+  color: #FFF;
+  font-family: Arial;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 34px
+}
+
+.number {
+  margin-top: 3px;
+  width: 220px;
+  height: 46px;
+  border-radius: 8px;
+  background: #16182F;
+  outline: none;
+  border: none;
+  text-align: center;
+  color: #FFF;
+  font-family: Arial;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 50px;
+}
+
+.item-edit {
+  position: absolute;
+  bottom: 18px;
+  right: 22px;
+  display: flex;
+  gap: 14px;
+}
+
+.show-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+
+
+
+.seo__text {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.70);
+  font-family: Arial;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 34px;
+  white-space: pre-line;
+}
