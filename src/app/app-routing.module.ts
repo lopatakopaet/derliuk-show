@@ -12,6 +12,7 @@ import {AdminMainComponent} from "./components/admin/admin-main/admin-main.compo
 import {AdminBalletPageComponent} from "./components/admin/admin-ballet-page/admin-ballet-page.component";
 import {AdminItemDetailsComponent} from "./components/admin/admin-item-details/admin-item-details.component";
 import {AdminRiderComponent} from "./components/admin/admin-rider/admin-rider.component";
+import {AdminGalleryComponent} from "./components/admin/admin-gallery/admin-gallery.component";
 
 const routes: Routes = [
   {
@@ -81,6 +82,11 @@ const routes: Routes = [
         path: 'ballet-page/item-details/:id',
         pathMatch: 'full',
         component: AdminItemDetailsComponent,
+      },
+      {
+        path: 'gallery',
+        pathMatch: 'full',
+        component: AdminGalleryComponent,
       },
       {
         path: 'rider',
