@@ -1,0 +1,29 @@
+.list-form {
+  display: flex;
+  flex-direction: column;
+}
+
+::ng-deep {
+  .admin-list-input {
+    margin-bottom: 32px;
+    background: #252a59;
+    outline: none;
+    padding: 10px;
+    color: #FFF;
+    font-family: Arial;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 35px;
+  }
+}
+
+.admin-icon {
+  display: flex;
+}
+
+.save-list {
+  display: flex;
+  justify-content: center;
+  margin-top: 37px;
+}

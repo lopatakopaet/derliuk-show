@@ -27,6 +27,8 @@ import { AdminMainComponent } from './components/admin/admin-main/admin-main.com
 import { AdminHeaderComponent } from './components/admin/admin-header/admin-header.component';
 import { AdminMenuComponent } from './components/admin/admin-menu/admin-menu.component';
 import { AdminBalletPageComponent } from './components/admin/admin-ballet-page/admin-ballet-page.component';
+import { AdminItemDetailsComponent } from './components/admin/admin-item-details/admin-item-details.component';
+import { AdminRiderComponent } from './components/admin/admin-rider/admin-rider.component';
 // import { ModalOutletComponent } from './components/modal-outlet/modal-outlet.component';
 
 @NgModule({
@@ -54,6 +56,8 @@ import { AdminBalletPageComponent } from './components/admin/admin-ballet-page/a
     AdminHeaderComponent,
     AdminMenuComponent,
     AdminBalletPageComponent,
+    AdminItemDetailsComponent,
+    AdminRiderComponent,
     // ModalOutletComponent,
     // PortalDirective,
   ],
