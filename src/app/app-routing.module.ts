@@ -13,6 +13,7 @@ import {AdminBalletPageComponent} from "./components/admin/admin-ballet-page/adm
 import {AdminItemDetailsComponent} from "./components/admin/admin-item-details/admin-item-details.component";
 import {AdminRiderComponent} from "./components/admin/admin-rider/admin-rider.component";
 import {AdminGalleryComponent} from "./components/admin/admin-gallery/admin-gallery.component";
+import {AdminContactsComponent} from "./components/admin/admin-contacts/admin-contacts.component";
 
 const routes: Routes = [
   {
@@ -92,6 +93,11 @@ const routes: Routes = [
         path: 'rider',
         pathMatch: 'full',
         component: AdminRiderComponent,
+      },
+      {
+        path: 'contacts',
+        pathMatch: 'full',
+        component: AdminContactsComponent,
       },
     ]
   },

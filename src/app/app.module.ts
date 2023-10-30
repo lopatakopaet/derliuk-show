@@ -30,6 +30,9 @@ import { AdminBalletPageComponent } from './components/admin/admin-ballet-page/a
 import { AdminItemDetailsComponent } from './components/admin/admin-item-details/admin-item-details.component';
 import { AdminRiderComponent } from './components/admin/admin-rider/admin-rider.component';
 import { AdminGalleryComponent } from './components/admin/admin-gallery/admin-gallery.component';
+import { AdminContactsComponent } from './components/admin/admin-contacts/admin-contacts.component';
+import {ApiService} from "./services/api.service";
+import {HttpClientModule} from "@angular/common/http";
 // import { ModalOutletComponent } from './components/modal-outlet/modal-outlet.component';
 
 @NgModule({
@@ -60,6 +63,7 @@ import { AdminGalleryComponent } from './components/admin/admin-gallery/admin-ga
     AdminItemDetailsComponent,
     AdminRiderComponent,
     AdminGalleryComponent,
+    AdminContactsComponent,
     // ModalOutletComponent,
     // PortalDirective,
   ],
@@ -68,8 +72,11 @@ import { AdminGalleryComponent } from './components/admin/admin-gallery/admin-ga
     AppRoutingModule,
     // SwiperModule,
     AngularSvgIconModule.forRoot(),
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    ApiService
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
 })
