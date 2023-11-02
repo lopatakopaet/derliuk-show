@@ -64,11 +64,12 @@ function addBalletShowItems({item_name, item_description}, cb) {
 //     console.log(err, results);
 //     // cb(results);
 //   });
-let data = {
-  item_name: 'Antre',
-  item_description: 'Казково-легкий, чарівний номер стане красивим відкриттям програми чи івенту. Пориньте разом з нами у феєрію свята.',
 
-}
+
+// let data = {
+//   item_name: 'Antre',
+//   item_description: 'Казково-легкий, чарівний номер стане красивим відкриттям програми чи івенту. Пориньте разом з нами у феєрію свята.',
+// }
 // addBalletShowItems(data);
 
 module.exports = {

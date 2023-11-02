@@ -4,6 +4,29 @@
   </div>
   <div class="main-photo">
     <img class="main-photo__img" src="../../../assets/img/main-banner.png" alt="">
+<!--    <img class="main-photo__img" src="/assets/uploads/filedata-1698943168119.jpg" alt="">-->
+    <div class="img__hover">
+<!--      (submit)="handleSubmit($event, MainPhotoForm)"-->
+      <form #MainPhotoForm action="api/upload" method="post" enctype="multipart/form-data" (submit)="handleSubmit($event, MainPhotoForm)">
+        <label>Файл</label><br>
+<!--        (change)="mainPhotoSubmit.click()"-->
+        <input #mainPhotoInput type="file" name="filedata" /><br><br>
+        <input #mainPhotoSubmit type="submit" value="Send"/>
+      </form>
+      <app-button class="admin-medium-btn" (click)="mainPhotoInput.click()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <g clip-path="url(#clip0_1530_1211)">
+            <path d="M13.605 2.30244L13.6051 2.30236L13.6016 2.29943C13.2699 2.02068 12.8457 1.87643 12.4128 1.89518C11.9799 1.91394 11.5698 2.09432 11.2635 2.40071L2.85174 10.8125L2.85168 10.8124L2.84897 10.8153L2.75109 10.9214L2.75101 10.9213L2.74792 10.925C2.48687 11.2365 2.34376 11.63 2.34366 12.0365V12.0365V16.3048H2.34352L2.34381 16.3102L2.34871 16.3999L2.34856 16.3999L2.34915 16.4054C2.37394 16.6316 2.48137 16.8407 2.65083 16.9926C2.8203 17.1445 3.03988 17.2286 3.26747 17.2286H7.53573V17.2286L7.53971 17.2285L7.68326 17.2228L7.68327 17.2229L7.6881 17.2225C8.09298 17.1866 8.47235 17.0095 8.75977 16.7221L17.1723 8.30955L17.1724 8.30962L17.1754 8.30631L17.2709 8.20191L17.2709 8.20197L17.2736 8.19875C17.5521 7.8671 17.6962 7.44311 17.6775 7.01043C17.6587 6.57776 17.4785 6.16782 17.1723 5.86151L17.1723 5.86149L13.7115 2.40071L13.7116 2.40065L13.7086 2.39787L13.605 2.30244ZM9.9272 6.32647L13.2466 9.64583L7.49513 15.3973H4.17495V12.0787L9.9272 6.32647ZM11.2211 5.03254L12.4875 3.76616L15.8069 7.08552L14.5405 8.3519L11.2211 5.03254Z" fill="white" stroke="white" stroke-width="0.2"/>
+          </g>
+          <defs>
+            <clipPath id="clip0_1530_1211">
+              <rect width="19.5755" height="19.5755" fill="white"/>
+            </clipPath>
+          </defs>
+        </svg>
+        Змінити
+      </app-button>
+    </div>
   </div>
 </div>
 
