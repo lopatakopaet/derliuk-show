@@ -40,9 +40,9 @@ function getAll(cb) {
 //       cb(results);
 //     });
 // }
-function addBalletShowItems({item_name, item_description}, cb) {
-  db.execute('INSERT INTO `balletShowItems` (item_name, item_description) VALUES (?,?)',
-    [item_name, item_description],
+function addBalletShowItems({title, descriptionUa, descriptionEng}, cb) {
+  db.execute('INSERT INTO `balletShowItems` (title, descriptionUa, descriptionEng) VALUES (?,?,?)',
+    [title, descriptionUa, descriptionEng || null],
     (err, results, fields) => {
       console.log(err, results);
       cb();

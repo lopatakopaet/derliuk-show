@@ -9,8 +9,9 @@ import {ApiService} from "../../../services/api.service";
 export class AdminBalletPageComponent implements OnInit {
 
   data: any = {
-    item_name: 'Antre1111111111',
-    item_description: 'Казково-легкий, чарівний номер стане красивим відкриттям програми чи івенту. Пориньте разом з нами у феєрію свята.',
+    title: 'Antre3',
+    descriptionUa: 'Казково-легкий, чарівний номер стане красивим відкриттям програми чи івенту. Пориньте разом з нами у феєрію свята.',
+    // descriptionEng: "",
   }
 
   constructor(private apiService: ApiService) { }

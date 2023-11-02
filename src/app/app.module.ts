@@ -33,6 +33,7 @@ import { AdminGalleryComponent } from './components/admin/admin-gallery/admin-ga
 import { AdminContactsComponent } from './components/admin/admin-contacts/admin-contacts.component';
 import {ApiService} from "./services/api.service";
 import {HttpClientModule} from "@angular/common/http";
+import { AdminItemComponent } from './components/admin/admin-item/admin-item.component';
 // import { ModalOutletComponent } from './components/modal-outlet/modal-outlet.component';
 
 @NgModule({
@@ -64,6 +65,7 @@ import {HttpClientModule} from "@angular/common/http";
     AdminRiderComponent,
     AdminGalleryComponent,
     AdminContactsComponent,
+    AdminItemComponent,
     // ModalOutletComponent,
     // PortalDirective,
   ],
