@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../environments/environment";
 
@@ -10,9 +10,22 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  public getAll(): Observable<any> { // todo: добавить интерфейс
-    return this.http.get<any>(`${environment.apiUrl}/getAll`, {
+  /**
+   * Получить все данные с табл номеров баллета
+   */
+  public getBalletShowItems(): Observable<any> { // todo: добавить интерфейс
+    return this.http.get<any>(`${environment.apiUrl}/getBalletShowItems`, {
 
+    })
+  }
+
+  /**
+   * Получить номер баллета по id
+   * @param id
+   */
+  public getBalletShowItem(id: string | number): Observable<any> { // todo: добавить интерфейс
+    return this.http.post<any>(`${environment.apiUrl}/getBalletShowItem`, {
+      id
     })
   }
 
@@ -22,12 +35,19 @@ export class ApiService {
     })
   }
 
+  public changeBalletShowItem(data: any): Observable<any> { // todo: добавить интерфейс
+    return this.http.post<any>(`${environment.apiUrl}/changeBalletShowItem`, {
+      data
+    })
+  }
+
   /**
    * Отправить файл на сервер
    * @param $event
    * @param formHtml
    */
-  public saveFile($event: Event, formHtml: HTMLFormElement): Promise<any> { // todo: добавить интерфейс
+  // public saveFile($event: Event, formHtml: HTMLFormElement): Promise<any> { // todo: добавить интерфейс
+  public saveFile(formHtml: HTMLFormElement): Promise<any> { // todo: добавить интерфейс
     /** @type {HTMLFormElement} */
     const form: HTMLFormElement | null = formHtml;
     const url = new URL(form?.action);

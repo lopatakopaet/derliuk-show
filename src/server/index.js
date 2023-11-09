@@ -1,4 +1,4 @@
-const {getAll, addBalletShowItems} = require('./db');
+const {getBalletShowItems, getBalletShowItem, addBalletShowItems, changeBalletShowItem} = require('./db');
 let path = require('path');
 const express = require('express');
 const multer = require("multer");
@@ -213,15 +213,31 @@ server.listen(process.env.PORT || 8080)
 //   res.send('test');
 // });
 
-app.get('/api/getAll', function (req, res) {
-  getAll((data)=> {
+app.get('/api/getBalletShowItems', function (req, res) {
+  getBalletShowItems((data)=> {
     res.send(data);
   })
 });
+
+app.post('/api/getBalletShowItem', function (req, res) {
+  getBalletShowItem(req.body.id, (data) => {
+    res.send(data);
+  })
+});
+
 app.post('/api/addBalletShowItems', function (req, res) {
   console.log('req', req.body)
   addBalletShowItems(req.body.data, (data)=> {
-    res.send('true');
+    // res.send('true');
+    res.send(data);
+  })
+});
+
+app.post('/api/changeBalletShowItem', function (req, res) {
+  console.log('req', req.body)
+  changeBalletShowItem(req.body.data, (err, results)=> {
+    // res.send('true');
+    res.send({err, results});
   })
 });
 

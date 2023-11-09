@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from "../../../services/api.service";
+import {Item} from "../../../../interfaces/Item";
 
 @Component({
   selector: 'app-admin-ballet-page',
@@ -7,6 +8,8 @@ import {ApiService} from "../../../services/api.service";
   styleUrls: ['./admin-ballet-page.component.scss']
 })
 export class AdminBalletPageComponent implements OnInit {
+
+  balletShowItems?: Item[];
 
   data: any = {
     title: 'Antre3',
@@ -17,18 +20,22 @@ export class AdminBalletPageComponent implements OnInit {
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
-    this.apiService.getAll().subscribe(data=>{
-      console.log("data",data)
+    this.apiService.getBalletShowItems().subscribe(data=>{
+      this.balletShowItems = data
+      console.log(data);
     })
 
-    this.apiService.addBalletShowItems(this.data).subscribe(answer=>{
-      console.log("data",answer)
-    })
+    // рабочий запрос
+    // this.apiService.addBalletShowItems(this.data).subscribe(answer=>{
+    //   console.log("data",answer)
+    // })
+
+
+
   }
 
-   handleSubmit($event: Event, formHtml: HTMLFormElement): void {
-
-     this.apiService.saveFile($event, formHtml).then( answer =>{
+   savePhoto(formHtml: HTMLFormElement): void {
+     this.apiService.saveFile(formHtml).then( answer =>{
        console.log("data",answer)
      })
 
@@ -66,7 +73,7 @@ export class AdminBalletPageComponent implements OnInit {
     //   .then(response => response.json())
     //   .then(data => console.log('data', data));
 
-     $event.preventDefault();
+     // $event.preventDefault();
   }
 
 }

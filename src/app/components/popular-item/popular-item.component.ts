@@ -7,7 +7,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class PopularItemComponent implements OnInit {
 
-  @Input() item: any;
+  @Input() item: any; // todo iterface
 
   constructor() { }
 

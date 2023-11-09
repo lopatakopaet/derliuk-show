@@ -23,11 +23,19 @@ db.execute('SELECT * FROM `balletShowItems`',
     // console.log(err, results)
   });
 
-function getAll(cb) {
+function getBalletShowItems(cb) {
   db.execute('SELECT * FROM `balletShowItems`',
     null,
     (err, results, fields) => {
       // console.log(err, results);
+      cb(results);
+    });
+}
+
+function getBalletShowItem(id, cb) {
+  db.execute('SELECT * FROM `balletShowItems` WHERE `id` = id',
+    null,
+    (err, results, fields) => {
       cb(results);
     });
 }
@@ -40,12 +48,21 @@ function getAll(cb) {
 //       cb(results);
 //     });
 // }
-function addBalletShowItems({title, descriptionUa, descriptionEng}, cb) {
-  db.execute('INSERT INTO `balletShowItems` (title, descriptionUa, descriptionEng) VALUES (?,?,?)',
-    [title, descriptionUa, descriptionEng || null],
+function addBalletShowItems({photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en}, cb) {
+  db.execute('INSERT INTO `balletShowItems` (photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+    [photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en || null],
     (err, results, fields) => {
       console.log(err, results);
-      cb();
+      cb(results);
+    });
+}
+
+function changeBalletShowItem({photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en, id}, cb) {
+  db.execute('UPDATE `balletShowItems` SET photo = ?, description_ua = ?, description_en = ?, title_ua = ?, title_en = ?, inProgram_ua = ?, inProgram_en = ?, duration_ua = ?, duration_en = ?, seoText_ua = ?, seoText_en = ? WHERE `id` = ?',
+    [photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en, id || null],
+    (err, results, fields) => {
+      console.log(err, results);
+      cb(err, results);
     });
 }
 
@@ -73,6 +90,8 @@ function addBalletShowItems({title, descriptionUa, descriptionEng}, cb) {
 // addBalletShowItems(data);
 
 module.exports = {
-  getAll,
+  getBalletShowItems,
+  getBalletShowItem,
   addBalletShowItems,
+  changeBalletShowItem,
 };

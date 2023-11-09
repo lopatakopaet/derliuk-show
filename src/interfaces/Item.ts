@@ -1,12 +1,17 @@
 export interface Item {
-  id: number;
+  id?: number;
   photo: string;
-  descriptionUa: string;
-  descriptionEng: string;
-  title: string;
-  inProgram: string;
-  duration: string;
-  seoText: string;
+  description_ua?: string;
+  description_en?: string;
+  title_ua: string;
+  title_en: string;
+  inProgram_ua: string;
+  inProgram_en: string;
+  duration_ua: string;
+  duration_en: string;
+  seoText_ua: string;
+  seoText_en: string;
+  [key: string]: any;
 }
 
 
