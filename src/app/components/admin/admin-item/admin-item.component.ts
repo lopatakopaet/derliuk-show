@@ -75,10 +75,11 @@ export class AdminItemComponent implements OnInit, AfterViewInit {
 
   saveItem(): void {
     let title = this.itemForm?.nativeElement.querySelector('.item__title')?.textContent;
-    let description = this.itemForm?.nativeElement.querySelector('.item__description')?.textContent;
+    // @ts-ignore
+    let description = this.itemForm?.nativeElement.querySelector('.item__description')?.innerHTML;
     let inProgram = this.itemForm?.nativeElement.querySelector('.item__in-program')?.textContent;
     let duration = this.itemForm?.nativeElement.querySelector('.item__duration')?.textContent;
-    let seoText = this.itemForm?.nativeElement.querySelector('.seo-text')?.textContent;
+    let seoText = this.itemForm?.nativeElement.querySelector('.seo-text')?.innerHTML;
 
     this.data["title_" + this.i18n.lang] = title || "";
     this.data["description_" + this.i18n.lang] = description || "";

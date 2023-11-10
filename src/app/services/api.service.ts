@@ -41,6 +41,25 @@ export class ApiService {
     })
   }
 
+  // СТРАНИЦА КОНТАКТЫ
+  public getContacts(): Observable<any> { // todo: добавить интерфейс
+    return this.http.get<any>(`${environment.apiUrl}/getContacts`, {
+
+    })
+  }
+
+  public addContacts(data: any): Observable<any> { // todo: добавить интерфейс
+    return this.http.post<any>(`${environment.apiUrl}/addContacts`, {
+      data
+    })
+  }
+
+  public changeContacts(data: any): Observable<any> { // todo: добавить интерфейс
+    return this.http.post<any>(`${environment.apiUrl}/changeContacts`, {
+      data
+    })
+  }
+
   /**
    * Отправить файл на сервер
    * @param $event

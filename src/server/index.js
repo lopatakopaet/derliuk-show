@@ -1,4 +1,4 @@
-const {getBalletShowItems, getBalletShowItem, addBalletShowItem, changeBalletShowItem} = require('./db');
+const {getBalletShowItems, getBalletShowItem, addBalletShowItem, changeBalletShowItem, getContacts, addContacts, changeContacts} = require('./db');
 let path = require('path');
 const express = require('express');
 const multer = require("multer");
@@ -213,6 +213,8 @@ server.listen(process.env.PORT || 8080)
 //   res.send('test');
 // });
 
+// Номера баллета
+
 app.get('/api/getBalletShowItems', function (req, res) {
   getBalletShowItems((data)=> {
     res.send(data);
@@ -240,6 +242,33 @@ app.post('/api/changeBalletShowItem', function (req, res) {
     res.send({err, results});
   })
 });
+
+// Номера баллета КОНЕЦ
+
+// Страница КОНТАКТЫ
+app.get('/api/getContacts', function (req, res) {
+  getContacts((data)=> {
+    res.send(data);
+  })
+});
+
+app.post('/api/addContacts', function (req, res) {
+  console.log('req', req.body)
+  addContacts(req.body.data, (data)=> {
+    // res.send('true');
+    res.send(data);
+  })
+});
+
+app.post('/api/changeContacts', function (req, res) {
+  console.log('req', req.body)
+  changeContacts(req.body.data, (data)=> {
+    // res.send('true');
+    res.send(data);
+  })
+});
+
+// Страница КОНТАКТЫ КОНЕЦ
 
 
 // app.get("/youroute", (req, res, next) => {

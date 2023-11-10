@@ -88,14 +88,8 @@
         {{item['title_' + i18n.lang] || "Назва номера"}}
       </div>
 
-      <div *ngIf="fullMode" class="item__description content-editable" [contentEditable]="fullMode">
-<!--        {{item && item['description_'][i18n.lang] || 'Короткий опис для головної сторінки та сторінки номера'}}-->
-        {{item['description_' + i18n.lang] || 'Короткий опис для головної сторінки та сторінки номера'}}
+      <div class="item__description content-editable" [contentEditable]="fullMode" [innerHTML]="item['description_' + i18n.lang] || 'Короткий опис для головної сторінки та сторінки номера'">
       </div>
-
-<!--      <div *ngIf="!fullMode" class="item__description" [contentEditable]="fullMode">-->
-<!--        {{item?.description_ua || "Короткий опис для головної сторінки та сторінки номера"}}-->
-<!--      </div>-->
 
     </div>
   </div>
@@ -125,8 +119,7 @@
     </app-button>
   </div>
 
-  <div class="seo-text content-editable" [contentEditable]="fullMode">
-    {{item['seoText' + i18n.lang] || "Додайте текст з ключовими словами"}}
+  <div class="seo-text content-editable" [contentEditable]="fullMode" [innerHTML]="item['seoText_' + i18n.lang] || 'Додайте текст з ключовими словами'">
   </div>
 </div>
 

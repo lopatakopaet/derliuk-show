@@ -17,11 +17,13 @@ db.connect((err) => {
   }
 });
 
-db.execute('SELECT * FROM `balletShowItems`',
-  null,
-  (err, results, fields) => {
-    // console.log(err, results)
-  });
+// Номера баллета
+
+// db.execute('SELECT * FROM `balletShowItems`',
+//   null,
+//   (err, results, fields) => {
+//     // console.log(err, results)
+//   });
 
 function getBalletShowItems(cb) {
   db.execute('SELECT * FROM `balletShowItems`',
@@ -40,14 +42,6 @@ function getBalletShowItem(id, cb) {
     });
 }
 
-// function addBalletShowItem(cb, data) {
-//   db.execute('INSERT INTO `balletShowItems` SET item_name=data.item_name,item_description=data.item_description)',
-//     null,
-//     (err, results, fields) => {
-//       console.log(err, results);
-//       cb(results);
-//     });
-// }
 function addBalletShowItem({photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en}, cb) {
   db.execute('INSERT INTO `balletShowItems` (photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
     [photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en || null],
@@ -65,6 +59,40 @@ function changeBalletShowItem({photo, description_ua, description_en, title_ua, 
       cb(err, results);
     });
 }
+
+// Номера баллета КОНЕЦ
+
+// Страница КОНТАКТЫ
+
+function getContacts(cb) {
+  db.execute('SELECT * FROM `contactsPage`',
+    null,
+    (err, results, fields) => {
+      // console.log(err, results);
+      cb(results);
+    });
+}
+
+
+function addContacts(data, cb) {
+  db.execute('INSERT INTO `contactsPage` (data)  VALUES(?)',
+    [data],
+    (err, results, fields) => {
+      console.log(err, results);
+      cb(results);
+    });
+}
+
+function changeContacts({data, id}, cb) {
+  db.execute('UPDATE `contactsPage` SET data = ? WHERE `id` = ?',
+    [data, id || null],
+    (err, results, fields) => {
+      console.log(err, results);
+      cb(err, results);
+    });
+}
+
+// Страница КОНТАКТЫ КОНЕЦ
 
 // db.execute('INSERT INTO `balletShowItems` (item_name, item_description) VALUES ("Disco Show", "Запальний та енергійний номер перенесе глядача в атмосферу 80-х.\n' +
 //   'Відчуйте драйв і танцюйте разом з нами! «V.I.P.» балет подарує яскраві враження та атмосферу свята. З нами Ваш корпоратив, весілля, день народження, клубна вечірка чи презентація стануть незабутніми.")',
@@ -94,4 +122,7 @@ module.exports = {
   getBalletShowItem,
   addBalletShowItem,
   changeBalletShowItem,
+  getContacts,
+  addContacts,
+  changeContacts,
 };

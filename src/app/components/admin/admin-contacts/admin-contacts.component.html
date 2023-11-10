@@ -1,8 +1,13 @@
-<div class="page-wrap">
-  <div class="description">
-    Переконаний, що життя має бути наповнене яскравими фарбами. Особливо під час важивих подій, сімейних свят. Наша
-    команда перетворить Ваш захід у справжню феєрію, яку ви запам’ятаєте на все життя! У нашому репертуарі понад <a
-    href="">30 танцювальних номерів</a> та <a href="">20 пародій</a>. Працюємо для Вас з повною віддачею!
+<div class="page-wrap" #contactsForm>
+<!--  <div class="description" contenteditable="true">-->
+<!--    Переконаний, що життя має бути наповнене яскравими фарбами. Особливо під час важивих подій, сімейних свят. Наша-->
+<!--    команда перетворить Ваш захід у справжню феєрію, яку ви запам’ятаєте на все життя! У нашому репертуарі понад <a href="/ballet-show"-->
+<!--    >30 танцювальних номерів</a> та <a href="/parody-theater" >20 пародій</a>. Працюємо для Вас з повною віддачею!-->
+<!--  </div>-->
+  <div class="description" contenteditable="true" [innerHTML]="contacts?.description">
+<!--    Переконаний, що життя має бути наповнене яскравими фарбами. Особливо під час важивих подій, сімейних свят. Наша-->
+<!--    команда перетворить Ваш захід у справжню феєрію, яку ви запам’ятаєте на все життя! У нашому репертуарі понад <a href="/ballet-show"-->
+<!--  >30 танцювальних номерів</a> та <a href="/parody-theater" >20 пародій</a>. Працюємо для Вас з повною віддачею!-->
   </div>
 
   <div class="contacts">
@@ -12,21 +17,21 @@
       </div>
       <div class="contacts-wrap">
         <div class="contacts-input__wrap">
-          <input class="contacts-input" value="+ 38 (099 )239-58-36">
+          <input class="contacts-input phone-input" value="+ 38 (099) 239-58-36">
           <div class="input-icon__wrap">
             <img class="input-icon" src="assets/img/white-pencil.svg" alt="">
             <img class="input-icon" src="assets/img/white-tresh.svg" alt="">
           </div>
         </div>
         <div class="contacts-input__wrap">
-          <input class="contacts-input" value="+ 38 (099 )239-58-36">
+          <input class="contacts-input phone-input" value="+ 38 (099) 222-22-22">
           <div class="input-icon__wrap">
             <img class="input-icon" src="assets/img/white-pencil.svg" alt="">
             <img class="input-icon" src="assets/img/white-tresh.svg" alt="">
           </div>
         </div>
         <div class="contacts-input__wrap">
-          <input class="contacts-input" value="+ 38 (099 )239-58-36">
+          <input class="contacts-input phone-input" value="+ 38 (099) 111-11-11">
           <div class="input-icon__wrap">
             <img class="input-icon" src="assets/img/white-pencil.svg" alt="">
             <img class="input-icon" src="assets/img/white-tresh.svg" alt="">
@@ -36,11 +41,11 @@
     </div>
     <div class="contacts-block">
       <div class="contacts-title">
-        Телефони:
+        Email:
       </div>
       <div class="contacts-wrap">
         <div class="contacts-input__wrap">
-          <input class="contacts-input" placeholder="Вкажіть електронну пошту">
+          <input class="contacts-input  email-input" placeholder="Вкажіть електронну пошту">
           <div class="input-icon__wrap">
             <img class="input-icon" src="assets/img/white-pencil.svg" alt="">
             <img class="input-icon" src="assets/img/white-tresh.svg" alt="">
@@ -49,4 +54,7 @@
       </div>
     </div>
   </div>
+  <app-button class="admin-big-btn save-item-btn" (click)="saveContacts();">
+    Зберегти
+  </app-button>
 </div>
