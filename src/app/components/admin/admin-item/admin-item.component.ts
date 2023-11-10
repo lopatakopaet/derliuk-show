@@ -53,6 +53,8 @@ export class AdminItemComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    console.log('fullMode', this.fullMode)
+    console.log('item ', this.item)
     if (this.fullMode) {
       this.itemId = this.route.snapshot.paramMap.get('id') || "0";
       if (this.itemId === "0") {
@@ -86,12 +88,12 @@ export class AdminItemComponent implements OnInit, AfterViewInit {
     // debugger
 
     // если загрузили новое фото
-    if (this.MainPhotoForm && this.imageSrc) {
+    if (this.MainPhotoForm && this.imageSrc && !this.itemId) {
       this.apiService.saveFile(this.MainPhotoForm.nativeElement)
         .then(answer => {
           if (answer.message === "File uploaded succesfully") {
             this.data.photo = answer.data.url;
-            this.addBalletShowItems(this.data);
+            this.addBalletShowItem(this.data);
             console.log('this.data9999', this.data)
             // debugger
           } else {
@@ -100,17 +102,31 @@ export class AdminItemComponent implements OnInit, AfterViewInit {
           }
         })
     }
-    // если фото не загружали, но есть старое (редактируем существующий номер)
-    else if (!this.imageSrc && this.item.photo) {
+
+    else if (this.itemId && !this.imageSrc) {
       this.data.photo = this.item.photo;
       this.data.id = this.item.id;
-      console.log('changeBalletShowItem', this.data)
       this.changeBalletShowItem(this.data);
+    }
+
+    else if (this.MainPhotoForm && this.itemId && this.imageSrc) {
+      this.data.id = this.item.id;
+      this.apiService.saveFile(this.MainPhotoForm.nativeElement)
+        .then(answer => {
+          if (answer.message === "File uploaded succesfully") {
+            this.data.photo = answer.data.url;
+            this.changeBalletShowItem(this.data);
+            // debugger
+          } else {
+            alert("Помилка при заватаженні файла")
+            console.error('answer', answer);
+          }
+        })
     }
   }
 
-  addBalletShowItems(data: Item): void {
-    this.apiService.addBalletShowItems(data).subscribe(req => {
+  addBalletShowItem(data: Item): void {
+    this.apiService.addBalletShowItem(data).subscribe(req => {
       console.log("req", req);
     })
   }
@@ -138,8 +154,8 @@ export class AdminItemComponent implements OnInit, AfterViewInit {
     })
   }
 
+  // превью фото
   readURL(event: Event, elem: HTMLInputElement): void {
-    console.log('elem', elem.value);
 
     if (!elem.value) {
       this.imageSrc = "";

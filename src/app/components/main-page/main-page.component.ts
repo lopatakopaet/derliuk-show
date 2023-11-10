@@ -8,6 +8,7 @@ import {
   ViewChild
 } from '@angular/core';
 import {Comment} from "../../../interfaces/Comment";
+import {Route, ActivatedRoute, Params, Router, NavigationEnd  } from "@angular/router";
 // import { register } from 'swiper/element/bundle';
 // import { Swiper} from "swiper";
 // import { Navigation} from "swiper/modules"
@@ -80,14 +81,38 @@ export class MainPageComponent  implements OnInit {
         'Настрій і атмосфера свята вдались!',
     },
   ]
-
+  currentRoute?: string;
   // swiperEl = document.querySelector('swiper-container');
-  constructor() {
+  constructor(private router: Router) {
     // this.swiperEl = document.querySelector('swiper-container')
     // register();
+    console.log(router.url);
+
+
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
+    // this.router.events.subscribe((evt) => {
+    //   if (evt instanceof NavigationEnd) {
+    //     this.router.navigated = false;
+    //   }
+    // });
+
+
+
+
+    // @ts-ignore
+    // router.events.filter(event => event instanceof NavigationEnd)
+    //   // @ts-ignore
+    //   .subscribe(event =>
+    //   {
+    //     this.currentRoute = event.url;
+    //     console.log(event);
+    //   });
   }
 
   ngOnInit(): void {
+
   }
 
   // ngAfterViewInit(): void {

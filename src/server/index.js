@@ -1,4 +1,4 @@
-const {getBalletShowItems, getBalletShowItem, addBalletShowItems, changeBalletShowItem} = require('./db');
+const {getBalletShowItems, getBalletShowItem, addBalletShowItem, changeBalletShowItem} = require('./db');
 let path = require('path');
 const express = require('express');
 const multer = require("multer");
@@ -225,9 +225,9 @@ app.post('/api/getBalletShowItem', function (req, res) {
   })
 });
 
-app.post('/api/addBalletShowItems', function (req, res) {
+app.post('/api/addBalletShowItem', function (req, res) {
   console.log('req', req.body)
-  addBalletShowItems(req.body.data, (data)=> {
+  addBalletShowItem(req.body.data, (data)=> {
     // res.send('true');
     res.send(data);
   })

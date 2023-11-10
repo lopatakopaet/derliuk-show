@@ -26,7 +26,7 @@ export class AdminBalletPageComponent implements OnInit {
     })
 
     // рабочий запрос
-    // this.apiService.addBalletShowItems(this.data).subscribe(answer=>{
+    // this.apiService.addBalletShowItem(this.data).subscribe(answer=>{
     //   console.log("data",answer)
     // })
 

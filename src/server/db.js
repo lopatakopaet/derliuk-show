@@ -33,14 +33,14 @@ function getBalletShowItems(cb) {
 }
 
 function getBalletShowItem(id, cb) {
-  db.execute('SELECT * FROM `balletShowItems` WHERE `id` = id',
-    null,
+  db.execute('SELECT * FROM `balletShowItems` WHERE `id` = ?' ,
+    [id],
     (err, results, fields) => {
       cb(results);
     });
 }
 
-// function addBalletShowItems(cb, data) {
+// function addBalletShowItem(cb, data) {
 //   db.execute('INSERT INTO `balletShowItems` SET item_name=data.item_name,item_description=data.item_description)',
 //     null,
 //     (err, results, fields) => {
@@ -48,7 +48,7 @@ function getBalletShowItem(id, cb) {
 //       cb(results);
 //     });
 // }
-function addBalletShowItems({photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en}, cb) {
+function addBalletShowItem({photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en}, cb) {
   db.execute('INSERT INTO `balletShowItems` (photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
     [photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en || null],
     (err, results, fields) => {
@@ -87,11 +87,11 @@ function changeBalletShowItem({photo, description_ua, description_en, title_ua, 
 //   item_name: 'Antre',
 //   item_description: 'Казково-легкий, чарівний номер стане красивим відкриттям програми чи івенту. Пориньте разом з нами у феєрію свята.',
 // }
-// addBalletShowItems(data);
+// addBalletShowItem(data);
 
 module.exports = {
   getBalletShowItems,
   getBalletShowItem,
-  addBalletShowItems,
+  addBalletShowItem,
   changeBalletShowItem,
 };

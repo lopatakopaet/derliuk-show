@@ -29,8 +29,8 @@ export class ApiService {
     })
   }
 
-  public addBalletShowItems(data: any): Observable<any> { // todo: добавить интерфейс
-    return this.http.post<any>(`${environment.apiUrl}/addBalletShowItems`, {
+  public addBalletShowItem(data: any): Observable<any> { // todo: добавить интерфейс
+    return this.http.post<any>(`${environment.apiUrl}/addBalletShowItem`, {
       data
     })
   }
