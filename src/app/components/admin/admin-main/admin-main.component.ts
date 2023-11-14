@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Item} from "../../../../interfaces/Item";
+import {BalletShowItemsService} from "../../../services/getBalletShowItems";
+import {ApiService} from "../../../services/api.service";
 
 @Component({
   selector: 'app-admin-main',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminMainComponent implements OnInit {
 
-  constructor() { }
+  balletShowItems?: Item[];
+  constructor(private balletShowItemsService: BalletShowItemsService,
+              private apiService: ApiService) { }
 
   ngOnInit(): void {
+    this.apiService.getBalletShowItems().subscribe(data => {
+      this.balletShowItems = data;
+      // set balletShowItems
+      this.balletShowItemsService.changeBalletShowItems(data);
+    })
+    this.balletShowItemsService?.balletItems$.subscribe((data: Item[]) => {
+      this.balletShowItems = data;
+      console.log('this.balletShowItems', this.balletShowItemsService.balletItems$);
+    });
   }
 
 }

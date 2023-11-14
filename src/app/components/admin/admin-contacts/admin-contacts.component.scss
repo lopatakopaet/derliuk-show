@@ -7,15 +7,19 @@
   line-height: 35px;
 }
 
-.description {
-  a {
-    color: #5F61FB;
-    font-family: Arial;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 35px;
-    text-decoration-line: underline;
+::ng-deep {
+  .admin-description {
+    background: #16182F;
+    padding: 4px 18px;
+    a {
+      color: #5F61FB;
+      font-family: Arial;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 35px;
+      text-decoration-line: underline;
+    }
   }
 }
 
@@ -66,4 +70,9 @@
   font-style: normal;
   font-weight: 400;
   line-height: 32px;
+}
+
+.save-item-btn {
+  justify-content: center;
+  margin-top: 35px;
 }

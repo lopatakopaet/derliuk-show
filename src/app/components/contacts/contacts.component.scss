@@ -46,7 +46,7 @@
     font-weight: 700;
     line-height: 40px;
   }
-
+::ng-deep {
   .contacts-description {
     margin-top: 17px;
     color: #FFF;
@@ -61,6 +61,7 @@
       text-decoration-line: underline;
     }
   }
+}
 
   .phones-email__wrap {
     margin-top: 50px;

@@ -8,7 +8,12 @@ import {I18nService} from "../../services/i18n.service";
   styleUrls: ['./contacts.component.scss']
 })
 export class ContactsComponent implements OnInit {
-  contacts: string = "";
+  contacts?: {
+    description: string;
+    phones?: [];
+    email?: [];
+    [key: string]: any
+  };
   textTest: any = ' Переконаний, що життя має бути наповнене яскравими фарбами. Особливо під час важивих подій, сімейних свят. Наша\n' +
     '    команда перетворить Ваш захід у справжню феєрію, яку ви запам’ятаєте на все життя! У нашому репертуарі понад <a routerLink="ballet-show" routerLinkActive="active"\n' +
     '    >30 танцювальних номерів</a> та <a href="/parody-theater">20 пародій</a>. Працюємо для Вас з повною віддачею!'
@@ -23,7 +28,7 @@ export class ContactsComponent implements OnInit {
   getContacts(): any {
     this.apiService.getContacts().subscribe(data => {
       console.log("data",data)
-      this.contacts = data[0]
+      this.contacts = JSON.parse(data[0].data);
     })
   }
 }

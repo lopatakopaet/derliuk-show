@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from "../../../services/api.service";
 import {Item} from "../../../../interfaces/Item";
+import {BalletShowItemsService} from "../../../services/getBalletShowItems";
 
 @Component({
   selector: 'app-admin-ballet-page',
@@ -17,21 +18,22 @@ export class AdminBalletPageComponent implements OnInit {
     // descriptionEng: "",
   }
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService,
+              private balletShowItemsService: BalletShowItemsService) { }
 
   ngOnInit(): void {
-    this.apiService.getBalletShowItems().subscribe(data=>{
-      this.balletShowItems = data
-      console.log(data);
-    })
+    this.balletShowItems = this.balletShowItemsService.currentBalletItems;
+    console.log('this.balletShowItems111111', this.balletShowItems);
+    this.balletShowItemsService?.balletItems$.subscribe((data: Item[]) => {
+      this.balletShowItems = data;
+      console.log('this.balletShowItems AdminBalletPageComponent', this.balletShowItems);
+    });
 
-    // рабочий запрос
-    // this.apiService.addBalletShowItem(this.data).subscribe(answer=>{
-    //   console.log("data",answer)
+
+    // this.apiService.getBalletShowItems().subscribe(data=>{
+    //   this.balletShowItems = data
+    //   console.log(data);
     // })
-
-
-
   }
 
    savePhoto(formHtml: HTMLFormElement): void {

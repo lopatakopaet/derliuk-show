@@ -14,7 +14,7 @@
     </div>
     <div class="contacts-block">
       <div class="block-title block-title__desktop golden-text">Контакти</div>
-      <div class="contacts-description" [innerHTML]="textTest">
+      <div class="contacts-description" [innerHTML]="contacts?.description">
       </div>
       <div class="button-write button-mobile">
         <app-button>
@@ -25,15 +25,17 @@
         <div class="phones-wrap">
           <div class="phones-title">Телефони:</div>
           <ul>
-            <li><span>+ 38 (099 )239-58-36 </span></li>
-            <li><span>+ 38 (096) 685-22-90</span></li>
-            <li><span>+ 38 (093) 698-97-72</span></li>
+            <li *ngFor="let phone of contacts?.phones">
+              <span>{{phone}}</span>
+            </li>
           </ul>
         </div>
         <div class="email-wrap">
           <div class="email-title">Email:</div>
           <ul>
-            <li><span>derlykshow@gmail.com</span></li>
+            <li *ngFor="let email of contacts?.email">
+              <span>{{email}}</span>
+            </li>
           </ul>
         </div>
         <div class="social-wrap">

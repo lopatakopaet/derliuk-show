@@ -1,3 +1,8 @@
+
+.hidden {
+  display: none;
+}
+
 .menu__wrap {
   display: flex;
   flex-direction: column;
@@ -43,6 +48,18 @@
 
     &.active {
       font-weight: 700;
+    }
+  }
+
+  .hide-menu-items {
+    display: flex;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    justify-content: center;
+    cursor: pointer;
+    &:hover {
+      background: #1D203E;
     }
   }
 

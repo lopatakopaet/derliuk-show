@@ -14,6 +14,10 @@ export class AdminContactsComponent implements OnInit {
     [key: string]: any
   };
   contactsId: number = 1; // для базы данных, все данные хранятся в json в первой строке таблицы
+  contactsDescriptionDefault : string = "Переконаний, що життя має бути наповнене яскравими фарбами. Особливо під час важивих подій, сімейних свят. Наша\n" +
+    "    команда перетворить Ваш захід у справжню феєрію, яку ви запам’ятаєте на все життя! У нашому репертуарі понад <a href=\"/ballet-show\"\n" +
+    "  >30 танцювальних номерів</a> та <a href=\"/parody-theater\" >20 пародій</a>. Працюємо для Вас з повною віддачею!"
+
   constructor(private apiService: ApiService,
               public i18n: I18nService) { }
 
@@ -28,7 +32,6 @@ export class AdminContactsComponent implements OnInit {
     this.apiService.getContacts().subscribe(data => {
       console.log("data",data)
       this.contacts = JSON.parse(data[0].data);
-      // this.contacts = data[0].data;
       console.log("this.contacts1", this.contacts)
       console.log("this.contacts",this.contacts?.description)
     })
@@ -45,12 +48,13 @@ export class AdminContactsComponent implements OnInit {
     let phonesElem = this.contactsForm?.nativeElement.querySelectorAll('.phone-input');
     let emailsElem = this.contactsForm?.nativeElement.querySelectorAll('.email-input');
 
-    if (description) {
+     if (description) {
       data.description = description;
-    } else {
-      console.error("description are empty")
-      return
-    }
+     }
+     //else {
+    //   console.error("description are empty")
+    //   return
+    // }
     if (phonesElem) {
       phonesElem.forEach((val, i) => {
         // @ts-ignore
@@ -65,9 +69,9 @@ export class AdminContactsComponent implements OnInit {
       })
     }
     contactsData = JSON.stringify(data);
-    console.log('contactsData',contactsData)
     this.apiService.changeContacts({data: contactsData, id: this.contactsId}).subscribe(data => {
-      console.log(data)
+      this.getContacts();
+      console.log("dataasdfasdf",data)
     })
 
     // for (let i = 0, i < phonesElem.length; i++) {

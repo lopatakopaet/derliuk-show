@@ -1,8 +1,9 @@
 import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Item} from "../../../../interfaces/Item";
 import {ApiService} from "../../../services/api.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Data, Params, Router} from "@angular/router";
 import {I18nService} from "../../../services/i18n.service";
+import {BalletShowItemsService} from "../../../services/getBalletShowItems";
 
 @Component({
   selector: 'app-admin-item',
@@ -45,24 +46,26 @@ export class AdminItemComponent implements OnInit, AfterViewInit {
     seoText_ua: "",
     seoText_en: "",
   };
-
+  currentRoute?: string;
 
   constructor(private apiService: ApiService,
               private route: ActivatedRoute,
-              public i18n: I18nService) {
+              public i18n: I18nService,
+              private router: Router,
+              private balletShowItemsService: BalletShowItemsService) {
   }
 
   ngOnInit(): void {
-    console.log('fullMode', this.fullMode)
-    console.log('item ', this.item)
-    if (this.fullMode) {
-      this.itemId = this.route.snapshot.paramMap.get('id') || "0";
-      if (this.itemId === "0") {
-        this.itemId = null;
-      } else {
-        this.getBalletShowItem(this.itemId)
-      }
-    }
+    this.route.params.subscribe(params => {
+        if (this.fullMode) {
+          this.itemId = this.route.snapshot.paramMap.get('id') || "0";
+          if (this.itemId === "0") {
+            this.itemId = null;
+          } else {
+            this.getBalletShowItem(this.itemId)
+          }
+        }
+    })
   }
 
   ngAfterViewInit() {
@@ -95,8 +98,6 @@ export class AdminItemComponent implements OnInit, AfterViewInit {
           if (answer.message === "File uploaded succesfully") {
             this.data.photo = answer.data.url;
             this.addBalletShowItem(this.data);
-            console.log('this.data9999', this.data)
-            // debugger
           } else {
             alert("Помилка при заватаженні файла")
             console.error('answer', answer);
@@ -114,10 +115,9 @@ export class AdminItemComponent implements OnInit, AfterViewInit {
       this.data.id = this.item.id;
       this.apiService.saveFile(this.MainPhotoForm.nativeElement)
         .then(answer => {
-          if (answer.message === "File uploaded succesfully") {
+          if (answer.message === "File uploaded successfully") {
             this.data.photo = answer.data.url;
             this.changeBalletShowItem(this.data);
-            // debugger
           } else {
             alert("Помилка при заватаженні файла")
             console.error('answer', answer);
@@ -129,12 +129,18 @@ export class AdminItemComponent implements OnInit, AfterViewInit {
   addBalletShowItem(data: Item): void {
     this.apiService.addBalletShowItem(data).subscribe(req => {
       console.log("req", req);
+      this.apiService.getBalletShowItems().subscribe(items => {
+        this.balletShowItemsService.changeBalletShowItems(items);
+      })
     })
   }
 
   changeBalletShowItem(data: Item): void {
     this.apiService.changeBalletShowItem(data).subscribe(req => {
       console.log("req", req);
+      this.apiService.getBalletShowItems().subscribe(items => {
+        this.balletShowItemsService.changeBalletShowItems(items);
+      })
     })
   }
 
