@@ -34,6 +34,7 @@ import { AdminContactsComponent } from './components/admin/admin-contacts/admin-
 import {ApiService} from "./services/api.service";
 import {HttpClientModule} from "@angular/common/http";
 import { AdminItemComponent } from './components/admin/admin-item/admin-item.component';
+import {CdkDrag, CdkDropList, CdkDropListGroup, DragDropModule} from "@angular/cdk/drag-drop";
 // import { ModalOutletComponent } from './components/modal-outlet/modal-outlet.component';
 
 @NgModule({
@@ -75,6 +76,7 @@ import { AdminItemComponent } from './components/admin/admin-item/admin-item.com
     // SwiperModule,
     AngularSvgIconModule.forRoot(),
     HttpClientModule,
+    DragDropModule
   ],
   providers: [
     ApiService

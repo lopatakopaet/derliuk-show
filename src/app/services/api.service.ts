@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../environments/environment";
 import {Item} from "../../interfaces/Item";
+import {Gallery} from "../../interfaces/Gallery";
 
 @Injectable({
   providedIn: 'root'
@@ -61,6 +62,37 @@ export class ApiService {
     })
   }
 
+  // СТРАНИЦА КОНТАКТЫ КОНЕЦ
+
+  // СТРАНИЦА ГАЛЕРЕЯ
+  public getGallery(): Observable<Gallery[]> { // todo: добавить интерфейс
+    return this.http.get<any>(`${environment.apiUrl}/getGalleryItems`, {
+
+    })
+  }
+  public addGalleryItem(data: {photo: string; idPosition: number}): Observable<any> { // todo: добавить интерфейс
+    return this.http.post<any>(`${environment.apiUrl}/addGalleryItem`, {
+      data
+    })
+  }
+
+  public changeGalleryItem(data: Gallery): Observable<any> { // todo: добавить интерфейс
+    return this.http.post<any>(`${environment.apiUrl}/changeGalleryItem`, {
+      data
+    })
+  }
+  public changeGalleryItemPosition(data: Gallery[]): Observable<any> { // todo: добавить интерфейс
+    return this.http.post<any>(`${environment.apiUrl}/changeGalleryItemPosition`, {
+      data
+    })
+  }
+  public deleteGalleryItem(id: string | number): Observable<any> { // todo: добавить интерфейс
+    return this.http.post<any>(`${environment.apiUrl}/deleteGalleryItem`, {
+      id
+    })
+  }
+  // СТРАНИЦА ГАЛЕРЕЯ КОНЕЦ
+
   /**
    * Отправить файл на сервер
    * @param $event
@@ -78,7 +110,6 @@ export class ApiService {
     /** @type {Parameters<fetch>[1]} */
     const fetchOptions = {
       method: form.method, body: undefined
-
     };
 
     if (form.method.toLowerCase() === 'post') {
@@ -98,5 +129,10 @@ export class ApiService {
     // return this.http.post<any>(`${environment.apiUrl}/upload`, {
     //   formData
     // })
+  }
+  public deleteFile(data: {filePath: string}): Observable<any> { // todo: добавить интерфейс
+    return this.http.post<any>(`${environment.apiUrl}/deleteFile`, {
+      data
+    })
   }
 }

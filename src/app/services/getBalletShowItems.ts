@@ -7,16 +7,9 @@ import {ApiService} from "./api.service";
   providedIn: 'root',
 })
 export class BalletShowItemsService {
-  // balletShowItems?: Item;
-  // public balletItems$ = new Subject<Item[]>();
-
   private balletItems = new Subject<Item[]>();
-  // private balletItems = new Subject<Item[]>();
   public balletItems$ = this.balletItems.asObservable();
   public currentBalletItems?: Item[];
-
-  // constructor(private apiService: ApiService) { }
-
   public changeBalletShowItems(data: Item[]) {
     this.balletItems.next(data);
     this.currentBalletItems = data;

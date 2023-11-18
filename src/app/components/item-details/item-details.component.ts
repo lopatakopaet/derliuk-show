@@ -65,26 +65,32 @@ export class ItemDetailsComponent implements OnInit {
     {
       photo: '../../../assets/img/delete/slide1.png',
       id: 1,
+      idPosition: 1
     },
     {
       photo: '../../../assets/img/delete/slide2.png',
       id: 2,
+      idPosition: 2
     },
     {
       photo: '../../../assets/img/delete/slide1.png',
       id: 3,
+      idPosition: 3
     },
     {
       photo: '../../../assets/img/delete/slide2.png',
       id: 4,
+      idPosition: 4
     },
     {
       photo: '../../../assets/img/delete/slide1.png',
       id: 5,
+      idPosition: 5
     },
     {
       photo: '../../../assets/img/delete/slide2.png',
       id: 6,
+      idPosition: 6
     }
   ]
   constructor(private route: ActivatedRoute) { }

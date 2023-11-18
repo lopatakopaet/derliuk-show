@@ -1,4 +1,16 @@
-const {getBalletShowItems, getBalletShowItem, addBalletShowItem, changeBalletShowItem, getContacts, addContacts, changeContacts} = require('./db');
+const {getBalletShowItems,
+  getBalletShowItem,
+  addBalletShowItem,
+  changeBalletShowItem,
+  getContacts,
+  addContacts,
+  changeContacts,
+  getGallery,
+  addGalleryItem,
+  changeGalleryItem,
+  changeGalleryItemPosition,
+  deleteGalleryItem,
+} = require('./db');
 let path = require('path');
 const express = require('express');
 const multer = require("multer");
@@ -109,8 +121,6 @@ const deleteFile = (file) => {
     }
   });
 };
-
-
 const acceptedFileTypes = [
   "image/jpeg",
   "image/png",
@@ -133,6 +143,26 @@ const validateFileTypes = (file) => {
   return true;
 };
 
+app.use(express.json()) // for parsing application/json
+
+app.post("/api/deleteFile",function (req, res) {
+
+  console.log("req.body", req.body);
+  let filePath = path.join(__dirname, `../${req.body.data.filePath}`);
+  console.log("filePath", filePath);
+
+  fs.unlink(filePath, (err) => {
+    if (err) {
+      console.error(err);
+      throw new Error("Failed to delete file");
+    }
+
+  });
+  return res.status(200).json({
+    message: "File deleted",
+  });
+})
+
 app.post("/api/upload", upload.single("filedata"), (req, res) => {
   const file = req.file;
 
@@ -148,7 +178,7 @@ app.post("/api/upload", upload.single("filedata"), (req, res) => {
   }
 
   return res.status(200).json({
-    message: "File uploaded succesfully",
+    message: "File uploaded successfully",
     data: {
       // url: `${HOST}:${PORT}/uploads/${file.filename}`,
 
@@ -176,21 +206,11 @@ app.post("/api/upload", upload.single("filedata"), (req, res) => {
 
 
 
-
-
-
-
-app.use(express.json()) // for parsing application/json
-
 // app.use(express.static(__dirname));
 // app.use(multer({dest:"uploads"}).single("filedata"));
 
 let server;
 if(process.env.ENV === 'prod') {
-  // const privateKey  = fs.readFileSync(process.env.PRIVATE_KEY, 'utf8');
-  // const certificate = fs.readFileSync(process.env.CERTIFICATE, 'utf8');
-  // const credentials = {key: privateKey, cert: certificate};
-  // server = https.createServer(credentials, app)
 } else {
   server = http.createServer(app)
 }
@@ -269,6 +289,42 @@ app.post('/api/changeContacts', function (req, res) {
 });
 
 // Страница КОНТАКТЫ КОНЕЦ
+//
+// Страница Галерея
+app.get('/api/getGalleryItems', function (req, res) {
+  getGallery((data)=> {
+    res.send(data);
+  })
+});
+
+app.post('/api/addGalleryItem', function (req, res) {
+  console.log('req', req.body)
+  addGalleryItem(req.body.data, (data)=> {
+    // res.send('true');
+    res.send(data);
+  })
+});
+
+app.post('/api/changeGalleryItem', function (req, res) {
+  changeGalleryItem(req.body.data, (data)=> {
+    // res.send('true');
+    res.send(data);
+  })
+});
+
+app.post('/api/changeGalleryItemPosition', function (req, res) {
+  changeGalleryItemPosition(req.body.data, (data)=> {
+    // res.send('true');
+    res.send(data);
+  })
+});
+app.post('/api/deleteGalleryItem', function (req, res) {
+  deleteGalleryItem(req.body.id, (data)=> {
+    // res.send('true');
+    res.send(data);
+  })
+});
+// Страница Галерея КОНЕЦ
 
 
 // app.get("/youroute", (req, res, next) => {

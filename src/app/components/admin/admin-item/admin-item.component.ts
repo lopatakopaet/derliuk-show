@@ -12,9 +12,7 @@ import {BalletShowItemsService} from "../../../services/getBalletShowItems";
 })
 export class AdminItemComponent implements OnInit, AfterViewInit {
 
-  // @ViewChild("MainPhotoForm") MainPhotoForm?: HTMLFormElement;
   @ViewChild("MainPhotoForm") MainPhotoForm?: ElementRef;
-  // @ViewChild("mainPhotoInput") mainPhotoInput?: ElementRef;
   @ViewChild('itemForm') itemForm: ElementRef<HTMLDivElement> | undefined;
   @Input() item: Item = {
     id: 0,
@@ -95,7 +93,7 @@ export class AdminItemComponent implements OnInit, AfterViewInit {
     if (this.MainPhotoForm && this.imageSrc && !this.itemId) {
       this.apiService.saveFile(this.MainPhotoForm.nativeElement)
         .then(answer => {
-          if (answer.message === "File uploaded succesfully") {
+          if (answer.message === "File uploaded successfully") {
             this.data.photo = answer.data.url;
             this.addBalletShowItem(this.data);
           } else {
@@ -103,9 +101,7 @@ export class AdminItemComponent implements OnInit, AfterViewInit {
             console.error('answer', answer);
           }
         })
-    }
-
-    else if (this.itemId && !this.imageSrc) {
+    } else if (this.itemId && !this.imageSrc) {
       this.data.photo = this.item.photo;
       this.data.id = this.item.id;
       this.changeBalletShowItem(this.data);

@@ -5,7 +5,7 @@
   background: #000213;
 
   //для позиционированния футера
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -17,5 +17,11 @@
   //}
 }
 
+app-header {
+  position: sticky;
+  top: 0;
+  background: #000213;
+  z-index: 1111;
+}
 
 
