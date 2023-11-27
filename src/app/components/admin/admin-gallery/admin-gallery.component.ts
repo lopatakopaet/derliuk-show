@@ -19,7 +19,7 @@ export class AdminGalleryComponent implements OnInit {
       idPosition: 0
     }
   ];
-  constructor(private apiService: ApiService,) { }
+  constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
     this.getGalleryItems();
@@ -30,7 +30,7 @@ export class AdminGalleryComponent implements OnInit {
     // moveItemInArray(event.container.data, event.previousIndex,event.currentIndex)
 
     // moveItemInArray(this.photos, event.previousIndex,event.currentIndex)
-console.log('event', event)
+    console.log('event', event)
   }
 
 
@@ -72,10 +72,6 @@ console.log('event', event)
     event.dataTransfer.effectAllowed = "move";
   }
 
-  // savePhoto(formHtml: HTMLFormElement): any {
-  //   this.apiService.saveFile(formHtml)
-  // }
-
   savePhoto(): void {
     if (this.MainPhotoForm) {
       this.apiService.saveFile(this.MainPhotoForm.nativeElement)
@@ -95,19 +91,14 @@ console.log('event', event)
     }
   }
 
-  deletePhoto(filePath: string): void {
+  deletePhoto(photo: Gallery): void {
     let data = {
-      filePath: filePath
+      filePath: photo.photo
     }
-    console.log('data filePath', data)
     this.apiService.deleteFile(data).subscribe(res=> {
-      // this.delPhotoFromDB(data.)
-    })
-  }
-
-  delPhotoFromDB(id: number):void {
-    this.apiService.deleteGalleryItem(id).subscribe(res=> {
-
+      this.apiService.deleteGalleryItem(photo.id).subscribe(res=> {
+        this.getGalleryItems();
+      })
     })
   }
 
@@ -120,7 +111,6 @@ console.log('event', event)
     this.photoForChange = undefined;
     this.mainPhotoInput?.nativeElement.click();
   }
-
 
   saveNewPhotoItem(photoUrl: string):void {
     let data = {
@@ -156,21 +146,4 @@ console.log('event', event)
       this.sortPhotos(this.photos);
     })
   }
-
-
-
-  // savePhoto(): void {
-  //   if (this.MainPhotoForm) {
-  //     this.apiService.saveFile(this.MainPhotoForm.nativeElement)
-  //       .then(answer => {
-  //         if (answer.message === "File uploaded successfully") {
-  //           this.data.photo = answer.data.url;
-  //           this.addBalletShowItem(this.data);
-  //         } else {
-  //           alert("Помилка при заватаженні файла")
-  //           console.error('answer', answer);
-  //         }
-  //       })
-  //   }
-  // }
 }

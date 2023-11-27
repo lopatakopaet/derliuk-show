@@ -145,6 +145,35 @@ function deleteGalleryItem(id, cb) {
 
 // Страница Галерея КОНЕЦ
 
+// Страница Райдер
+function getRiderData(cb) {
+  db.execute('SELECT * FROM `RiderData`',
+    null,
+    (err, results, fields) => {
+      // console.log(err, results);
+      cb(results);
+    });
+}
+
+function addRiderData(data, cb) {
+  db.execute('INSERT INTO `RiderData` (data)  VALUES(?)',
+    [data],
+    (err, results, fields) => {
+      cb(results);
+    });
+}
+
+function changeRiderData({data, id}, cb) {
+  db.execute('UPDATE `RiderData` SET data = ? WHERE `id` = ?',
+    [data, id || 1], // всегда записываем дату в первый id
+    (err, results, fields) => {
+      console.log(err, results);
+      cb(err, results);
+    });
+}
+
+// Страница Райдер КОНЕЦ
+
 // db.execute('INSERT INTO `balletShowItems` (item_name, item_description) VALUES ("Disco Show", "Запальний та енергійний номер перенесе глядача в атмосферу 80-х.\n' +
 //   'Відчуйте драйв і танцюйте разом з нами! «V.I.P.» балет подарує яскраві враження та атмосферу свята. З нами Ваш корпоратив, весілля, день народження, клубна вечірка чи презентація стануть незабутніми.")',
 //   null,
@@ -181,4 +210,7 @@ module.exports = {
   changeGalleryItem,
   changeGalleryItemPosition,
   deleteGalleryItem,
+  getRiderData,
+  addRiderData,
+  changeRiderData,
 };

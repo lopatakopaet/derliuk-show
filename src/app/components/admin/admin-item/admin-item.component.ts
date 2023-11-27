@@ -87,7 +87,6 @@ export class AdminItemComponent implements OnInit, AfterViewInit {
     this.data["inProgram_" + this.i18n.lang] = inProgram || "";
     this.data["duration_" + this.i18n.lang] = duration || "";
     this.data["seoText_" + this.i18n.lang] = seoText || "";
-    // debugger
 
     // если загрузили новое фото
     if (this.MainPhotoForm && this.imageSrc && !this.itemId) {

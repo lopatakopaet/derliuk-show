@@ -30,10 +30,7 @@ export class AdminContactsComponent implements OnInit {
 
   getContacts(): void {
     this.apiService.getContacts().subscribe(data => {
-      console.log("data",data)
       this.contacts = JSON.parse(data[0].data);
-      console.log("this.contacts1", this.contacts)
-      console.log("this.contacts",this.contacts?.description)
     })
   }
 
@@ -71,7 +68,6 @@ export class AdminContactsComponent implements OnInit {
     contactsData = JSON.stringify(data);
     this.apiService.changeContacts({data: contactsData, id: this.contactsId}).subscribe(data => {
       this.getContacts();
-      console.log("dataasdfasdf",data)
     })
 
     // for (let i = 0, i < phonesElem.length; i++) {

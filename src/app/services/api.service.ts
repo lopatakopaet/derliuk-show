@@ -93,6 +93,26 @@ export class ApiService {
   }
   // СТРАНИЦА ГАЛЕРЕЯ КОНЕЦ
 
+  // СТРАНИЦА РАЙДЕР
+  public getRiderData(): Observable<any> { // todo: добавить интерфейс
+    return this.http.get<any>(`${environment.apiUrl}/getRiderData`, {
+
+    })
+  }
+
+  public addRiderData(data: any): Observable<any> { // todo: добавить интерфейс
+    return this.http.post<any>(`${environment.apiUrl}/addRiderData`, {
+      data
+    })
+  }
+
+  public changeRiderData(data: any): Observable<any> { // todo: добавить интерфейс
+    return this.http.post<any>(`${environment.apiUrl}/changeRiderData`, {
+      data
+    })
+  }
+  // СТРАНИЦА РАЙДЕР КОНЕЦ
+
   /**
    * Отправить файл на сервер
    * @param $event

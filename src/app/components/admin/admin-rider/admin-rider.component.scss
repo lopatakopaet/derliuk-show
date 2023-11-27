@@ -4,17 +4,28 @@
 }
 
 ::ng-deep {
+  .admin-list-input__wrap {
+    position: relative;
+  }
   .admin-list-input {
+    position: relative;
     margin-bottom: 32px;
     background: #252a59;
     outline: none;
-    padding: 10px;
+    padding: 10px 30px 10px 10px;
     color: #FFF;
     font-family: Arial;
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
     line-height: 35px;
+
+  }
+  .admin-list-del {
+    position: absolute;
+    right: 7px;
+    top: 16px;
+    cursor: pointer;
   }
 }
 
@@ -25,5 +36,43 @@
 .save-list {
   display: flex;
   justify-content: center;
-  margin-top: 37px;
+  margin: 37px auto;
+}
+
+.add-doc {
+  margin-top: 51px;
+}
+
+.rider-doc-name__wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 22px;
+  padding: 0 14px 0 17px;
+  width: 261px;
+  height: 38px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.50);
+  background: #16182F;
+  outline: none;
+  color: #FFF;
+  font-family: Arial;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 35px;
+}
+
+.rider-doc-name {
+  margin-left: 9px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-wrap: nowrap;
+}
+
+.del-doc {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }

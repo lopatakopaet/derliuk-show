@@ -10,6 +10,9 @@ const {getBalletShowItems,
   changeGalleryItem,
   changeGalleryItemPosition,
   deleteGalleryItem,
+  getRiderData,
+  addRiderData,
+  changeRiderData,
 } = require('./db');
 let path = require('path');
 const express = require('express');
@@ -85,12 +88,7 @@ const fs = require("fs");
 //   });
 // });
 
-// end test2
 
-
-
-
-// test
 // Specifies the file upload location
 const diskStorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -146,10 +144,7 @@ const validateFileTypes = (file) => {
 app.use(express.json()) // for parsing application/json
 
 app.post("/api/deleteFile",function (req, res) {
-
-  console.log("req.body", req.body);
   let filePath = path.join(__dirname, `../${req.body.data.filePath}`);
-  console.log("filePath", filePath);
 
   fs.unlink(filePath, (err) => {
     if (err) {
@@ -186,28 +181,6 @@ app.post("/api/upload", upload.single("filedata"), (req, res) => {
     },
   });
 });
-//
-// app.get("/api/uploads/:filename", (req, res) => {
-//   const file = req.params.filename;
-//   console.log('file', file);
-//   const filePath = path.join(__dirname, "uploads", file);
-//
-//   if (!fs.existsSync(filePath)) {
-//     return res.status(404).json({
-//       message: "File not found",
-//     });
-//   }
-//
-//   return res.sendFile(filePath);
-// });
-
-// and test
-
-
-
-
-// app.use(express.static(__dirname));
-// app.use(multer({dest:"uploads"}).single("filedata"));
 
 let server;
 if(process.env.ENV === 'prod') {
@@ -215,23 +188,6 @@ if(process.env.ENV === 'prod') {
   server = http.createServer(app)
 }
 server.listen(process.env.PORT || 8080)
-
-// app.post("/upload", upload.single("filedata"), function (req, res, next) {
-//
-//   let filedata = req.file;
-//
-//   console.log(filedata);
-//   if(!filedata)
-//     res.send("Ошибка при загрузке файла");
-//   else
-//     res.send("Файл загружен");
-// });
-
-
-// app.get('/api', function (req, res) {
-//   // res.sendFile(path.resolve(__dirname + '/../public/index.html'));
-//   res.send('test');
-// });
 
 // Номера баллета
 
@@ -325,6 +281,30 @@ app.post('/api/deleteGalleryItem', function (req, res) {
   })
 });
 // Страница Галерея КОНЕЦ
+
+// Страница Райдер
+app.get('/api/getRiderData', function (req, res) {
+  getRiderData((data)=> {
+    res.send(data);
+  })
+});
+
+app.post('/api/addRiderData', function (req, res) {
+  console.log('req', req.body)
+  addRiderData(req.body.data, (data)=> {
+    // res.send('true');
+    res.send(data);
+  })
+});
+
+app.post('/api/changeRiderData', function (req, res) {
+  console.log('req', req.body)
+  changeRiderData(req.body.data, (data)=> {
+    // res.send('true');
+    res.send(data);
+  })
+});
+// Страница Райдер КОНЕЦ
 
 
 // app.get("/youroute", (req, res, next) => {

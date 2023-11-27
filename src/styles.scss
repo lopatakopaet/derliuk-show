@@ -60,6 +60,7 @@ a {
 }
 
 app-button {
+  width: fit-content;
   &.modal-button {
     margin-top: 44px;
     display: flex;
