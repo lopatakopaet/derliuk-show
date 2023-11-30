@@ -1,4 +1,7 @@
-const {getBalletShowItems,
+const {
+  getMainPage,
+  changeMainPage,
+  getBalletShowItems,
   getBalletShowItem,
   addBalletShowItem,
   changeBalletShowItem,
@@ -115,7 +118,7 @@ const deleteFile = (file) => {
   fs.unlink(file.path, (err) => {
     if (err) {
       console.error(err);
-      throw new Error("Failed to delete file");
+      // throw new Error("Failed to delete file");
     }
   });
 };
@@ -143,19 +146,25 @@ const validateFileTypes = (file) => {
 
 app.use(express.json()) // for parsing application/json
 
-app.post("/api/deleteFile",function (req, res) {
+app.post("/api/deleteFile",function (req, res, next) {
   let filePath = path.join(__dirname, `../${req.body.data.filePath}`);
-
-  fs.unlink(filePath, (err) => {
+ let status;
+ let message;
+  fs.unlink(filePath, (err, success) => {
     if (err) {
       console.error(err);
-      throw new Error("Failed to delete file");
+      status = 500;
+      message = "Filed delete file"
+      next(err)
+    } else {
+      status = 200;
+      message = "File deleted"
+      res.send(success)
     }
-
   });
-  return res.status(200).json({
-    message: "File deleted",
-  });
+  // return res.status(status).json({
+  //   message: message,
+  // });
 })
 
 app.post("/api/upload", upload.single("filedata"), (req, res) => {
@@ -188,6 +197,30 @@ if(process.env.ENV === 'prod') {
   server = http.createServer(app)
 }
 server.listen(process.env.PORT || 8080)
+
+// ГЛАВНАЯ БАЛЕТ
+app.get('/api/getMainPage', function (req, res, next) {
+  getMainPage(req.query.tableName, (err, success) => {
+    if (err) {
+      next(err);
+    } else {
+      res.send(success)
+    }
+  });
+})
+app.post('/api/changeMainPage', function (req, res, next) {
+  console.log('adf',req.body.data);
+  changeMainPage(req.body.data, (err, success) => {
+    if (err) {
+      res.send(err)
+      next(err);
+    } else {
+      res.send(success)
+    }
+  })
+});
+
+// ГЛАВНАЯ БАЛЕТ КОНЕЙ
 
 // Номера баллета
 

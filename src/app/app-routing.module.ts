@@ -38,7 +38,8 @@ const routes: Routes = [
           {
             path: 'parody-theater',
             pathMatch: 'full',
-            component: ParodyTheaterComponent,
+            component: BalletShowComponent,
+            // component: ParodyTheaterComponent,
           }
         ]
       },
@@ -81,6 +82,16 @@ const routes: Routes = [
       },
       {
         path: 'ballet-page/item-details/:id',
+        pathMatch: 'full',
+        component: AdminItemDetailsComponent,
+      },
+      {
+        path: 'parody-page',
+        pathMatch: 'full',
+        component: AdminBalletPageComponent,
+      },
+      {
+        path: 'parody-page/item-details/:id',
         pathMatch: 'full',
         component: AdminItemDetailsComponent,
       },

@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ApiService} from "../../../services/api.service";
 import {Item} from "../../../../interfaces/Item";
 import {BalletShowItemsService} from "../../../services/getBalletShowItems";
+import {BalletPage} from "../../../../interfaces/BalletPage";
+import {I18nService} from "../../../services/i18n.service";
+import {Router} from "@angular/router";
+import {Gallery} from "../../../../interfaces/Gallery";
 
 @Component({
   selector: 'app-admin-ballet-page',
@@ -9,8 +13,28 @@ import {BalletShowItemsService} from "../../../services/getBalletShowItems";
   styleUrls: ['./admin-ballet-page.component.scss']
 })
 export class AdminBalletPageComponent implements OnInit {
+  @ViewChild('MainPageForm') mainPageForm: ElementRef<HTMLDivElement> | undefined;
+  @ViewChild("MainPhotoForm") MainPhotoForm?: ElementRef;
+  @ViewChild("mainPhotoInput") mainPhotoInput?: ElementRef;
 
+  tableName: string = "BalletPage"; // для запросов в БД, указываем с какой таблицой работаем]
+  hrefPageName: string = "ballet-page"// название страницы из url
   balletShowItems?: Item[];
+  pageData: BalletPage = {
+    id: 1,
+    mainPhoto: '',
+    mainText_ua: '',
+    mainText_en: '',
+    seoText_ua: '',
+    seoText_en: '',
+  };
+  pageNewData: {
+    tableName: string;
+    data: BalletPage;
+  } = {
+    tableName: this.tableName,
+    data: this.pageData
+  }
 
   data: any = {
     title: 'Antre3',
@@ -19,27 +43,79 @@ export class AdminBalletPageComponent implements OnInit {
   }
 
   constructor(private apiService: ApiService,
-              private balletShowItemsService: BalletShowItemsService) { }
-
-  ngOnInit(): void {
-    this.balletShowItems = this.balletShowItemsService.currentBalletItems;
-    console.log('this.balletShowItems111111', this.balletShowItems);
-    this.balletShowItemsService?.balletItems$.subscribe((data: Item[]) => {
-      this.balletShowItems = data;
-      console.log('this.balletShowItems AdminBalletPageComponent', this.balletShowItems);
-    });
-
-
-    // this.apiService.getBalletShowItems().subscribe(data=>{
-    //   this.balletShowItems = data
-    //   console.log(data);
-    // })
+              private balletShowItemsService: BalletShowItemsService,
+              public i18n: I18nService,
+              private router: Router,
+             ) {
+    let href = this.router.url;
+    // получаем название страницы из url
+    this.hrefPageName = href.split('/').slice(-1).join();
+    this.tableName = this.hrefPageName == 'ballet-page' ? 'BalletPage' : "ParodyPage";
+    this.pageNewData.tableName = this.tableName;
+    console.log(this.tableName);
   }
 
-   savePhoto(formHtml: HTMLFormElement): void {
-     this.apiService.saveFile(formHtml).then( answer =>{
-       console.log("data",answer)
-     })
+  ngOnInit(): void {
+
+
+    this.balletShowItems = this.balletShowItemsService.currentBalletItems;
+    this.balletShowItemsService?.balletItems$.subscribe((data: Item[]) => {
+      this.balletShowItems = data;
+    });
+
+    this.apiService.getMainPage(this.tableName).subscribe(data=>{
+      this.pageData = data[0];
+      this.pageNewData.data = data[0];
+
+    })
+  }
+
+  /**
+   * Смена данных на странице (фото, главный текс и сео текст)
+   */
+  changeMainPage(oldPhoto?: string): void {
+    console.log(this.pageNewData);
+    this.apiService.changeMainPage(this.pageNewData).subscribe({
+      next: (v) => {
+        if (oldPhoto) {
+          this.deletePhoto(oldPhoto);
+        }
+        alert('Дані змінено')
+      },
+      error: (e) => alert('Не вдалося змінити дані =('),
+      complete: () => {}
+    })
+  }
+
+  changeMainPhoto(): void {
+     // this.apiService.saveFile(formHtml).then( answer =>{
+     //   console.log("data",answer)
+     // })
+
+     if (this.MainPhotoForm) {
+       this.apiService.saveFile(this.MainPhotoForm.nativeElement)
+         .then(answer => {
+           if (answer.message === "File uploaded successfully") {
+             if (this.pageNewData.data.mainPhoto) {
+               let oldPhoto = this.pageNewData.data.mainPhoto;
+               console.log('1111', oldPhoto);
+               this.pageNewData.data.mainPhoto = answer.data.url;
+               console.log('2222', oldPhoto);
+
+               this.changeMainPage(oldPhoto);
+             } else {
+               this.pageNewData.data.mainPhoto = answer.data.url;
+               this.changeMainPage();
+             }
+
+           } else {
+             alert("Помилка при заватаженні файла")
+             console.error('answer', answer);
+           }
+         })
+     }
+
+
 
 
     //  /** @type {HTMLFormElement} */
@@ -76,6 +152,31 @@ export class AdminBalletPageComponent implements OnInit {
     //   .then(data => console.log('data', data));
 
      // $event.preventDefault();
+  }
+
+  changeMainText(): void {
+    let text = this.mainPageForm?.nativeElement.querySelector('.main-text__content')?.innerHTML;
+    if (text && this.pageData.id) {
+      this.pageNewData.data['mainText_' + this.i18n.lang] = text;
+      this.changeMainPage();
+    }
+  }
+
+  changeSeoText(): void {
+    let text = this.mainPageForm?.nativeElement.querySelector('.seo__text')?.innerHTML;
+    if (text && this.pageData.id) {
+      this.pageNewData.data['seoText_' + this.i18n.lang] = text;
+      this.changeMainPage();
+    }
+  }
+
+  deletePhoto(photo: string): void {
+    let data = {
+      filePath: photo
+    }
+    this.apiService.deleteFile(data).subscribe({
+      complete: () => {}
+    })
   }
 
 }

@@ -1,4 +1,4 @@
-.ballet-page {
+.main-page {
   margin-top: 34px;
 }
 
@@ -8,6 +8,13 @@
   align-items: center;
   justify-content: center;
   margin-top: 12px;
+  min-height: 200px;
+  min-width: 200px;
+
+  img {
+    min-height: 200px;
+    min-width: 200px;
+  }
 
   img:hover + .img__hover {
     display: flex;
@@ -64,6 +71,11 @@
   font-style: normal;
   font-weight: 500;
   line-height: 34px
+}
+
+.save-main-text {
+  width: fit-content;
+  margin: 37px auto 55px;
 }
 
 .items__header,  .comment__header, .seo__header{

@@ -13,12 +13,6 @@ export class BalletShowItemsService {
   public changeBalletShowItems(data: Item[]) {
     this.balletItems.next(data);
     this.currentBalletItems = data;
-    // this.apiService.getBalletShowItems().subscribe(data => {
-    //   this.balletItems$ = data;
-    //   console.log("CERVISE", data);
-    //   this.balletItems$.next(data);
-    //
-    // })
 
   }
 

@@ -59,6 +59,14 @@ a {
   top: 0;
 }
 
+.content-editable {
+  background: #16182F;
+  padding: 4px 18px;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+}
+
 app-button {
   width: fit-content;
   &.modal-button {

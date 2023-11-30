@@ -4,6 +4,10 @@ import * as dictionary from "../../i18n/i18n.json";
 import {LangItem} from "../../../interfaces/LangInterface";
 
 import {I18nService} from "../../services/i18n.service";
+import {MainPageService} from "../../services/main-page.service";
+import {ApiService} from "../../services/api.service";
+import {Router} from "@angular/router";
+import {BalletPage} from "../../../interfaces/BalletPage";
 
 @Component({
   selector: 'app-ballet-show',
@@ -12,7 +16,16 @@ import {I18nService} from "../../services/i18n.service";
 })
 export class BalletShowComponent implements OnInit {
   lang: LangItem = dictionary;
-
+  tableName: string = "BalletPage"; // для запросов в БД, указываем с какой таблицой работаем]
+  hrefPageName: string = "ballet-page"// название страницы из url
+  pageData: BalletPage = {
+    id: 1,
+    mainPhoto: '',
+    mainText_ua: '',
+    mainText_en: '',
+    seoText_ua: '',
+    seoText_en: '',
+  };
   // popularItemsArr = [
   //   new Item({
   //     photo: 'assets/img/delete/item-1.png',
@@ -71,9 +84,24 @@ export class BalletShowComponent implements OnInit {
   //   // }
   // ]
 
-  constructor(public i18n: I18nService) {}
+  constructor(public i18n: I18nService,
+              private apiService: ApiService,
+              private mainPageService: MainPageService,
+              private router: Router) {
+    // получаем название страницы из url
+    let href = router.url;
+    this.hrefPageName = href.split('/').slice(-1).join();
+    this.tableName = this.hrefPageName == 'ballet-show' ? 'BalletPage' : "ParodyPage";
+    // this.mainPageService.mainPagePhoto = "asfdasdas";
+  }
 
   ngOnInit(): void {
+    this.apiService.getMainPage(this.tableName).subscribe(data=>{
+      this.pageData = data[0];
+      this.mainPageService.changeMainPagePhoto(this.pageData.mainPhoto);
+      this.mainPageService.mainPagePhoto$.subscribe(photo => console.log('ballet', photo));
+    })
+
   }
 
 }

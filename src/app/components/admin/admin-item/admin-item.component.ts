@@ -69,10 +69,10 @@ export class AdminItemComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
 
   }
-
-  savePhoto(formHtml: HTMLFormElement): any {
-    this.apiService.saveFile(formHtml)
-  }
+  //
+  // savePhoto(formHtml: HTMLFormElement): any {
+  //   this.apiService.saveFile(formHtml)
+  // }
 
   saveItem(): void {
     let title = this.itemForm?.nativeElement.querySelector('.item__title')?.textContent;
@@ -123,7 +123,6 @@ export class AdminItemComponent implements OnInit, AfterViewInit {
 
   addBalletShowItem(data: Item): void {
     this.apiService.addBalletShowItem(data).subscribe(req => {
-      console.log("req", req);
       this.apiService.getBalletShowItems().subscribe(items => {
         this.balletShowItemsService.changeBalletShowItems(items);
       })
@@ -132,7 +131,6 @@ export class AdminItemComponent implements OnInit, AfterViewInit {
 
   changeBalletShowItem(data: Item): void {
     this.apiService.changeBalletShowItem(data).subscribe(req => {
-      console.log("req", req);
       this.apiService.getBalletShowItems().subscribe(items => {
         this.balletShowItemsService.changeBalletShowItems(items);
       })

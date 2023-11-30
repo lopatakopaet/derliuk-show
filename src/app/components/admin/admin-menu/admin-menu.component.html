@@ -9,20 +9,24 @@
        </div>
      </div>
       <ul *ngIf="hideBalletShowItems">
-<!--      <ul>-->
         <li *ngFor="let balletShowItem of balletShowItems" [routerLink]="['ballet-page/item-details', balletShowItem?.id]">
           <span class="page-item">{{balletShowItem['title_' + i18n.lang]}}</span>
         </li>
-
-<!--        <li>-->
-<!--          <span class="page-item">Disco Show</span>-->
-<!--        </li>-->
-<!--        <li>-->
-<!--          <span class="page-item">Antre</span>-->
-<!--        </li>-->
       </ul>
     </div>
-    <div class="page">Головна пародії</div>
+    <div class="page">
+      <div class="page-name">
+      <a class="menu-link" routerLink="parody-page" routerLinkActive="active">Головна пародії</a>
+      <div class="hide-menu-items" (click)="hideBalletShowItems = !hideBalletShowItems">
+        <img class="" src="../../../assets/img/menu-arrow.png" alt="">
+      </div>
+    </div>
+      <ul *ngIf="hideBalletShowItems">
+        <li *ngFor="let balletShowItem of balletShowItems" [routerLink]="['ballet-page/item-details', balletShowItem?.id]">
+          <span class="page-item">{{balletShowItem['title_' + i18n.lang]}}</span>
+        </li>
+      </ul>
+    </div>
     <div class="page">Прокат костюмів</div>
     <div class="page">
       <a class="menu-link" routerLink="gallery" routerLinkActive="active">Галерея</a>

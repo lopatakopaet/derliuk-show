@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {environment} from "../../environments/environment";
 import {Item} from "../../interfaces/Item";
 import {Gallery} from "../../interfaces/Gallery";
+import {BalletPage} from "../../interfaces/BalletPage";
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,26 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
+  // СТРАНИЦА БАЛЕТ/ПАРОДИИ
+
+  public getMainPage(tableName: string | number): Observable<any> { // todo: добавить интерфейс
+    return this.http.get<any>(`${environment.apiUrl}/getMainPage`, {
+      params: {
+        tableName
+      }
+    })
+  }
+
+  public changeMainPage(data: {tableName: string; data: BalletPage }): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/changeMainPage`, {
+      data
+    })
+  }
+
+  // СТРАНИЦА БАЛЕТ конец
+
   /**
-   * Получить все данные с табл номеров баллета
+   * Получить все данные с табл номеров балета
    */
   public getBalletShowItems(): Observable<Item[]> { // todo: добавить интерфейс
     return this.http.get<Item[]>(`${environment.apiUrl}/getBalletShowItems`, {

@@ -9,6 +9,8 @@ import {
 } from '@angular/core';
 import {Comment} from "../../../interfaces/Comment";
 import {Route, ActivatedRoute, Params, Router, NavigationEnd  } from "@angular/router";
+import {MainPageService} from "../../services/main-page.service";
+import {Subscription } from 'rxjs';
 // import { register } from 'swiper/element/bundle';
 // import { Swiper} from "swiper";
 // import { Navigation} from "swiper/modules"
@@ -21,9 +23,17 @@ import {Route, ActivatedRoute, Params, Router, NavigationEnd  } from "@angular/r
 })
 
 export class MainPageComponent  implements OnInit {
+  mainPhoto: string = '';
+  private subs?: Subscription; // подписка на баннер ( передаем из дочернего компонента)
+  // @Output() getMainPhoto = new EventEmitter();
   // @Output() next = new EventEmitter();
   // @ViewChild('swiper') swiperRef: ElementRef<HTMLElement & { swiper?: Swiper } & { initialize: () => void }> | undefined;
   // swiper?: Swiper;
+
+
+  getMainPhotoHandler(data: string): void {
+    console.log(data);
+  }
 
   comments: Comment[] = [
     {
@@ -83,7 +93,9 @@ export class MainPageComponent  implements OnInit {
   ]
   currentRoute?: string;
   // swiperEl = document.querySelector('swiper-container');
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private mainPageService: MainPageService,
+              ) {
     // this.swiperEl = document.querySelector('swiper-container')
     // register();
     console.log(router.url);
@@ -98,7 +110,16 @@ export class MainPageComponent  implements OnInit {
     //   }
     // });
 
-
+    // this.route.params.subscribe(params => {
+    //   if (this.fullMode) {
+    //     this.itemId = this.route.snapshot.paramMap.get('id') || "0";
+    //     if (this.itemId === "0") {
+    //       this.itemId = null;
+    //     } else {
+    //       this.getBalletShowItem(this.itemId)
+    //     }
+    //   }
+    // })
 
 
     // @ts-ignore
@@ -112,7 +133,12 @@ export class MainPageComponent  implements OnInit {
   }
 
   ngOnInit(): void {
-
+    // подписка на получение главного баннера
+    this.subs = this.mainPageService.mainPagePhoto$.subscribe(photo => this.mainPhoto = photo);
+  }
+  ngOnDestroy(): void {
+    // отмена подписки на главный баннер
+    this.subs?.unsubscribe();
   }
 
   // ngAfterViewInit(): void {

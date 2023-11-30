@@ -21,12 +21,7 @@ export class AdminMenuComponent implements OnInit {
     this.balletShowItems = this.balletShowItemsService.currentBalletItems;
     this.balletShowItemsService?.balletItems$.subscribe((data: Item[]) => {
       this.balletShowItems = data;
-      console.log('this.balletShowItems', this.balletShowItemsService.balletItems$);
     });
-    this.apiService.getBalletShowItems().subscribe(data => {
-      this.balletShowItems = data
-      console.log(data);
-    })
   }
 
 }

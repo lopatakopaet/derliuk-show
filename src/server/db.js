@@ -17,13 +17,27 @@ db.connect((err) => {
   }
 });
 
-// Номера баллета
+// ГЛАВНАЯ БАЛЕТ/ПАРОДИИ
+function getMainPage(tableName, cb) {
+  db.execute(`SELECT * FROM ${tableName}`,
+    null,
+    cb)
+}
 
-// db.execute('SELECT * FROM `balletShowItems`',
-//   null,
-//   (err, results, fields) => {
-//     // console.log(err, results)
-//   });
+function changeMainPage({tableName, data}, cb) {
+  db.execute(`UPDATE ${tableName} SET mainPhoto = ?, mainText_ua = ?, mainText_en = ?, seoText_ua = ?, seoText_en = ? WHERE id = ?`,
+    [data.mainPhoto, data.mainText_ua, data.mainText_en, data.seoText_ua, data.seoText_en, data.id],
+    cb);
+}
+
+// function changeMainPage({tableName, data}, cb) {
+//   db.execute('UPDATE ' + `${tableName}` + ' SET mainPhoto = ?, mainText_ua = ?, mainText_en = ?, seoText_ua, seoText_en WHERE id = ?',
+//     [data.mainPhoto, data.mainText_ua, data.mainText_en, data.seoText_ua, data.seoText_en, data.id || null],
+//     cb);
+// }
+// ГЛАВНАЯ БАЛЕТ КОНЕЦ
+
+// Номера балета
 
 function getBalletShowItems(cb) {
   db.execute('SELECT * FROM `balletShowItems`',
@@ -123,7 +137,7 @@ function changeGalleryItem({photo, idPosition, id}, cb) {
 }
 
 function changeGalleryItemPosition(data, cb) {
-  let error, res;
+  let res = 'ok';
   for (let i = 0; i < data.length; i++ ) {
     db.execute('UPDATE `GalleryItems` SET idPosition = ?  WHERE `id` = ?',
       [data[i].idPosition, data[i].id || null],
@@ -131,7 +145,7 @@ function changeGalleryItemPosition(data, cb) {
         // cb(err, results);
       });
   }
-  cb(error, res);
+  cb(res);
 }
 
 function deleteGalleryItem(id, cb) {
@@ -198,6 +212,8 @@ function changeRiderData({data, id}, cb) {
 // addBalletShowItem(data);
 
 module.exports = {
+  getMainPage,
+  changeMainPage,
   getBalletShowItems,
   getBalletShowItem,
   addBalletShowItem,
