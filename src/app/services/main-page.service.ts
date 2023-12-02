@@ -6,8 +6,8 @@ import { Subject } from 'rxjs';
 })
 export class MainPageService {
 
-  public mainPagePhoto$ = new Subject<string>();
-  public changeMainPagePhoto(newPhoto: string) {
-    this.mainPagePhoto$.next(newPhoto);
+  public mainText$ = new Subject<{mainText_ua: string; mainText_en: string }>();
+  public changeMainText$(newText: {mainText_ua: string; mainText_en: string }) {
+    this.mainText$.next(newText);
   }
 }

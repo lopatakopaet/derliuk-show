@@ -4,11 +4,11 @@
     <div class="page">
      <div class="page-name">
        <a class="menu-link" routerLink="ballet-page" routerLinkActive="active">Головна балет</a>
-       <div class="hide-menu-items" (click)="hideBalletShowItems = !hideBalletShowItems">
+       <div *ngIf="balletShowItems?.length" class="hide-menu-items" (click)="isShowBalletShowItems = !isShowBalletShowItems">
          <img class="" src="../../../assets/img/menu-arrow.png" alt="">
        </div>
      </div>
-      <ul *ngIf="hideBalletShowItems">
+      <ul *ngIf="isShowBalletShowItems">
         <li *ngFor="let balletShowItem of balletShowItems" [routerLink]="['ballet-page/item-details', balletShowItem?.id]">
           <span class="page-item">{{balletShowItem['title_' + i18n.lang]}}</span>
         </li>
@@ -17,13 +17,13 @@
     <div class="page">
       <div class="page-name">
       <a class="menu-link" routerLink="parody-page" routerLinkActive="active">Головна пародії</a>
-      <div class="hide-menu-items" (click)="hideBalletShowItems = !hideBalletShowItems">
+      <div *ngIf="parodyItems?.length" class="hide-menu-items" (click)="isShowParodyItems = !isShowParodyItems">
         <img class="" src="../../../assets/img/menu-arrow.png" alt="">
       </div>
     </div>
-      <ul *ngIf="hideBalletShowItems">
-        <li *ngFor="let balletShowItem of balletShowItems" [routerLink]="['ballet-page/item-details', balletShowItem?.id]">
-          <span class="page-item">{{balletShowItem['title_' + i18n.lang]}}</span>
+      <ul *ngIf="isShowParodyItems">
+        <li *ngFor="let parodyItem of parodyItems" [routerLink]="['ballet-page/item-details', parodyItem?.id]">
+          <span class="page-item">{{parodyItem['title_' + i18n.lang]}}</span>
         </li>
       </ul>
     </div>

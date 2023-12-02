@@ -34,9 +34,11 @@ export class ApiService {
   /**
    * Получить все данные с табл номеров балета
    */
-  public getBalletShowItems(): Observable<Item[]> { // todo: добавить интерфейс
-    return this.http.get<Item[]>(`${environment.apiUrl}/getBalletShowItems`, {
-
+  public getMostPopularItems(tableName: string | number): Observable<Item[]> { // todo: добавить интерфейс
+    return this.http.get<Item[]>(`${environment.apiUrl}/getMostPopularItems`, {
+      params: {
+        tableName
+      }
     })
   }
 
@@ -44,9 +46,13 @@ export class ApiService {
    * Получить номер баллета по id
    * @param id
    */
-  public getBalletShowItem(id: string | number): Observable<any> { // todo: добавить интерфейс
-    return this.http.post<any>(`${environment.apiUrl}/getBalletShowItem`, {
-      id
+  public getBalletShowItem(tableName: string, id: string | number): Observable<any> { // todo: добавить интерфейс
+    return this.http.get<any>(`${environment.apiUrl}/getBalletShowItem`, {
+      params: {
+        tableName,
+        id
+      }
+
     })
   }
 

@@ -39,25 +39,29 @@ function changeMainPage({tableName, data}, cb) {
 
 // Номера балета
 
-function getBalletShowItems(cb) {
-  db.execute('SELECT * FROM `balletShowItems`',
+// function getBalletShowItems(cb) {
+//   db.execute('SELECT * FROM `balletShowItems`',
+//     null,
+//     (err, results, fields) => {
+//       // console.log(err, results);
+//       cb(results);
+//     });
+// }
+
+function getMostPopularItems(tableName,cb) {
+  db.execute(`SELECT * FROM ${tableName}`,
     null,
-    (err, results, fields) => {
-      // console.log(err, results);
-      cb(results);
-    });
+    cb)
 }
 
-function getBalletShowItem(id, cb) {
-  db.execute('SELECT * FROM `balletShowItems` WHERE `id` = ?' ,
+function getBalletShowItem({tableName, id}, cb) {
+  db.execute(`SELECT * FROM ${tableName} WHERE id = ?` ,
     [id],
-    (err, results, fields) => {
-      cb(results);
-    });
+    cb);
 }
 
-function addBalletShowItem({photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en}, cb) {
-  db.execute('INSERT INTO `balletShowItems` (photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+function addBalletShowItem({tableName, photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en}, cb) {
+  db.execute(`INSERT INTO ${tableName} (photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en) VALUES (?,?,?,?,?,?,?,?,?,?,?)`,
     [photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en || null],
     (err, results, fields) => {
       console.log(err, results);
@@ -65,8 +69,8 @@ function addBalletShowItem({photo, description_ua, description_en, title_ua, tit
     });
 }
 
-function changeBalletShowItem({photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en, id}, cb) {
-  db.execute('UPDATE `balletShowItems` SET photo = ?, description_ua = ?, description_en = ?, title_ua = ?, title_en = ?, inProgram_ua = ?, inProgram_en = ?, duration_ua = ?, duration_en = ?, seoText_ua = ?, seoText_en = ? WHERE `id` = ?',
+function changeBalletShowItem({tableName, photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en, id}, cb) {
+  db.execute(`UPDATE ${tableName} SET photo = ?, description_ua = ?, description_en = ?, title_ua = ?, title_en = ?, inProgram_ua = ?, inProgram_en = ?, duration_ua = ?, duration_en = ?, seoText_ua = ?, seoText_en = ? WHERE id = ?`,
     [photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en, id || null],
     (err, results, fields) => {
       console.log(err, results);
@@ -214,7 +218,7 @@ function changeRiderData({data, id}, cb) {
 module.exports = {
   getMainPage,
   changeMainPage,
-  getBalletShowItems,
+  getMostPopularItems,
   getBalletShowItem,
   addBalletShowItem,
   changeBalletShowItem,

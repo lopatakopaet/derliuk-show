@@ -11,6 +11,11 @@ import {Comment} from "../../../interfaces/Comment";
 import {Route, ActivatedRoute, Params, Router, NavigationEnd  } from "@angular/router";
 import {MainPageService} from "../../services/main-page.service";
 import {Subscription } from 'rxjs';
+import {ApiService} from "../../services/api.service";
+import {BalletPage} from "../../../interfaces/BalletPage";
+import {I18nService} from "../../services/i18n.service";
+import {LangItem} from "../../../interfaces/LangInterface";
+import * as dictionary from "../../i18n/i18n.json";
 // import { register } from 'swiper/element/bundle';
 // import { Swiper} from "swiper";
 // import { Navigation} from "swiper/modules"
@@ -24,16 +29,19 @@ import {Subscription } from 'rxjs';
 
 export class MainPageComponent  implements OnInit {
   mainPhoto: string = '';
+  tableName: string = "BalletPage"; // для запросов в БД, указываем с какой таблицой работаем]
+  hrefPageName: string = "ballet-page"// название страницы из url
+  lang: LangItem = dictionary;
+  pageData: BalletPage = {
+    id: 1,
+    mainPhoto: '',
+    mainText_ua: '',
+    mainText_en: '',
+    seoText_ua: '',
+    seoText_en: '',
+  };
+
   private subs?: Subscription; // подписка на баннер ( передаем из дочернего компонента)
-  // @Output() getMainPhoto = new EventEmitter();
-  // @Output() next = new EventEmitter();
-  // @ViewChild('swiper') swiperRef: ElementRef<HTMLElement & { swiper?: Swiper } & { initialize: () => void }> | undefined;
-  // swiper?: Swiper;
-
-
-  getMainPhotoHandler(data: string): void {
-    console.log(data);
-  }
 
   comments: Comment[] = [
     {
@@ -95,6 +103,9 @@ export class MainPageComponent  implements OnInit {
   // swiperEl = document.querySelector('swiper-container');
   constructor(private router: Router,
               private mainPageService: MainPageService,
+              private apiService: ApiService,
+              private route: ActivatedRoute,
+              public i18n: I18nService,
               ) {
     // this.swiperEl = document.querySelector('swiper-container')
     // register();
@@ -133,12 +144,23 @@ export class MainPageComponent  implements OnInit {
   }
 
   ngOnInit(): void {
-    // подписка на получение главного баннера
-    this.subs = this.mainPageService.mainPagePhoto$.subscribe(photo => this.mainPhoto = photo);
-  }
-  ngOnDestroy(): void {
-    // отмена подписки на главный баннер
-    this.subs?.unsubscribe();
+    // смена данных при переключением между пародиями и балетом
+    this.route.params.subscribe(params => {
+      let href = this.router.url;
+      this.hrefPageName = href.split('/').slice(-1).join();
+      this.tableName = this.hrefPageName == 'ballet-show' ? 'BalletPage' : "ParodyPage";
+      this.apiService.getMainPage(this.tableName).subscribe(data=>{
+        this.pageData = data[0];
+        let mainText = {
+          mainText_ua: this.pageData.mainText_ua,
+          mainText_en: this.pageData.mainText_en,
+        }
+        this.mainPageService.changeMainText$(mainText);
+        this.mainPageService.mainText$.subscribe(text => console.log('ballet', text));
+      })
+    })
+
+    // this.apiService.
   }
 
   // ngAfterViewInit(): void {

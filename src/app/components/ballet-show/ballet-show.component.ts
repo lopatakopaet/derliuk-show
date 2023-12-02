@@ -8,6 +8,7 @@ import {MainPageService} from "../../services/main-page.service";
 import {ApiService} from "../../services/api.service";
 import {Router} from "@angular/router";
 import {BalletPage} from "../../../interfaces/BalletPage";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-ballet-show',
@@ -15,10 +16,7 @@ import {BalletPage} from "../../../interfaces/BalletPage";
   styleUrls: ['./ballet-show.component.scss']
 })
 export class BalletShowComponent implements OnInit {
-  lang: LangItem = dictionary;
-  tableName: string = "BalletPage"; // для запросов в БД, указываем с какой таблицой работаем]
-  hrefPageName: string = "ballet-page"// название страницы из url
-  pageData: BalletPage = {
+  @Input() pageData: BalletPage = {
     id: 1,
     mainPhoto: '',
     mainText_ua: '',
@@ -26,6 +24,20 @@ export class BalletShowComponent implements OnInit {
     seoText_ua: '',
     seoText_en: '',
   };
+  mainText: {
+    mainText_ua: string;
+    mainText_en: string;
+    [key: string]: any;
+  } = {
+    mainText_ua: '',
+    mainText_en: '',
+
+  }
+  private subs?: Subscription;
+  lang: LangItem = dictionary;
+  tableName: string = "BalletPage"; // для запросов в БД, указываем с какой таблицой работаем]
+  // hrefPageName: string = "ballet-page"// название страницы из url
+
   // popularItemsArr = [
   //   new Item({
   //     photo: 'assets/img/delete/item-1.png',
@@ -88,20 +100,14 @@ export class BalletShowComponent implements OnInit {
               private apiService: ApiService,
               private mainPageService: MainPageService,
               private router: Router) {
-    // получаем название страницы из url
-    let href = router.url;
-    this.hrefPageName = href.split('/').slice(-1).join();
-    this.tableName = this.hrefPageName == 'ballet-show' ? 'BalletPage' : "ParodyPage";
-    // this.mainPageService.mainPagePhoto = "asfdasdas";
   }
 
   ngOnInit(): void {
-    this.apiService.getMainPage(this.tableName).subscribe(data=>{
-      this.pageData = data[0];
-      this.mainPageService.changeMainPagePhoto(this.pageData.mainPhoto);
-      this.mainPageService.mainPagePhoto$.subscribe(photo => console.log('ballet', photo));
-    })
-
+    this.subs = this.mainPageService.mainText$.subscribe(text => this.mainText = text);
+  }
+  ngOnDestroy(): void {
+    // отмена подписки на главный text
+    this.subs?.unsubscribe();
   }
 
 }

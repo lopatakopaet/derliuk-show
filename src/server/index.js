@@ -1,7 +1,7 @@
 const {
   getMainPage,
   changeMainPage,
-  getBalletShowItems,
+  getMostPopularItems,
   getBalletShowItem,
   addBalletShowItem,
   changeBalletShowItem,
@@ -224,15 +224,23 @@ app.post('/api/changeMainPage', function (req, res, next) {
 
 // Номера баллета
 
-app.get('/api/getBalletShowItems', function (req, res) {
-  getBalletShowItems((data)=> {
-    res.send(data);
+app.get('/api/getMostPopularItems', function (req, res, next) {
+  getMostPopularItems(req.query.tableName, (err, success) => {
+    if (err) {
+      next(err);
+    } else {
+      res.send(success)
+    }
   })
 });
 
-app.post('/api/getBalletShowItem', function (req, res) {
-  getBalletShowItem(req.body.id, (data) => {
-    res.send(data);
+app.get('/api/getBalletShowItem', function (req, res, next) {
+  getBalletShowItem(req.query, (err, success) => {
+    if (err) {
+      next(err);
+    } else {
+      res.send(success)
+    }
   })
 });
 

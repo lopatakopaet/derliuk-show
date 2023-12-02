@@ -4,8 +4,9 @@ import {Item} from "../../../../interfaces/Item";
 import {BalletShowItemsService} from "../../../services/getBalletShowItems";
 import {BalletPage} from "../../../../interfaces/BalletPage";
 import {I18nService} from "../../../services/i18n.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Gallery} from "../../../../interfaces/Gallery";
+import {ParodyItemsService} from "../../../services/getParodyItems";
 
 @Component({
   selector: 'app-admin-ballet-page',
@@ -18,8 +19,10 @@ export class AdminBalletPageComponent implements OnInit {
   @ViewChild("mainPhotoInput") mainPhotoInput?: ElementRef;
 
   tableName: string = "BalletPage"; // для запросов в БД, указываем с какой таблицой работаем]
+  tableItemsName: string = "balletShowItems"; // для запросов в БД, указываем с какой таблицой работаем]
   hrefPageName: string = "ballet-page"// название страницы из url
   balletShowItems?: Item[];
+  parodyItems?: Item[];
   pageData: BalletPage = {
     id: 1,
     mainPhoto: '',
@@ -44,24 +47,48 @@ export class AdminBalletPageComponent implements OnInit {
 
   constructor(private apiService: ApiService,
               private balletShowItemsService: BalletShowItemsService,
+              private parodyItemsService: ParodyItemsService,
               public i18n: I18nService,
               private router: Router,
+              private route: ActivatedRoute,
              ) {
     let href = this.router.url;
-    // получаем название страницы из url
+    // получаем название страницы из url и установка таблицы, в которую будет запись данных для главной страницы (фото, сеотекст, главный текст)
     this.hrefPageName = href.split('/').slice(-1).join();
     this.tableName = this.hrefPageName == 'ballet-page' ? 'BalletPage' : "ParodyPage";
     this.pageNewData.tableName = this.tableName;
-    console.log(this.tableName);
   }
 
   ngOnInit(): void {
 
+    this.route.params.subscribe(params => {
+      let href = this.router.url;
+      this.hrefPageName = href.split('/').slice(-1).join();
+      if (this.hrefPageName == 'ballet-page') {
+        this.tableItemsName = 'balletShowItems';
+        this.balletShowItems = this.balletShowItemsService.currentBalletItems;
+        this.balletShowItemsService?.balletItems$.subscribe((data: Item[]) => {
+          this.balletShowItems = data;
+        });
+      } else if (this.hrefPageName == 'parody-page') {
+        this.tableItemsName = 'parodyItems';
+        this.parodyItems = this.parodyItemsService.currentParodyItems;
+        this.parodyItemsService?.parodyItems$.subscribe((data: Item[]) => {
+          this.parodyItems = data;
+        });
+      }
+    })
 
-    this.balletShowItems = this.balletShowItemsService.currentBalletItems;
-    this.balletShowItemsService?.balletItems$.subscribe((data: Item[]) => {
-      this.balletShowItems = data;
-    });
+
+    // this.balletShowItems = this.balletShowItemsService.currentBalletItems;
+    // this.balletShowItemsService?.balletItems$.subscribe((data: Item[]) => {
+    //   this.balletShowItems = data;
+    // });
+
+    // this.balletShowItems = this.balletShowItemsService.currentBalletItems;
+    // this.balletShowItemsService?.balletItems$.subscribe((data: Item[]) => {
+    //   this.balletShowItems = data;
+    // });
 
     this.apiService.getMainPage(this.tableName).subscribe(data=>{
       this.pageData = data[0];

@@ -1,16 +1,17 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Item} from "../../../../interfaces/Item";
 import {ApiService} from "../../../services/api.service";
 import {ActivatedRoute, Data, Params, Router} from "@angular/router";
 import {I18nService} from "../../../services/i18n.service";
 import {BalletShowItemsService} from "../../../services/getBalletShowItems";
+import {ParodyItemsService} from "../../../services/getParodyItems";
 
 @Component({
   selector: 'app-admin-item',
   templateUrl: './admin-item.component.html',
   styleUrls: ['./admin-item.component.scss']
 })
-export class AdminItemComponent implements OnInit, AfterViewInit {
+export class AdminItemComponent implements OnInit {
 
   @ViewChild("MainPhotoForm") MainPhotoForm?: ElementRef;
   @ViewChild('itemForm') itemForm: ElementRef<HTMLDivElement> | undefined;
@@ -32,6 +33,7 @@ export class AdminItemComponent implements OnInit, AfterViewInit {
   imageSrc?: string;
   itemId?: string | null;
   data: Item = {
+    tableName: "",
     photo: "",
     description_ua: "",
     description_en: "",
@@ -45,34 +47,35 @@ export class AdminItemComponent implements OnInit, AfterViewInit {
     seoText_en: "",
   };
   currentRoute?: string;
+  tableItemsName: string = "balletShowItems"; // для запросов в БД, указываем с какой таблицой работаем]
 
   constructor(private apiService: ApiService,
               private route: ActivatedRoute,
               public i18n: I18nService,
               private router: Router,
-              private balletShowItemsService: BalletShowItemsService) {
+              private balletShowItemsService: BalletShowItemsService,
+              private parodyItemsService: ParodyItemsService,) {
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
+      let hrefArr = this.router.url.split('/');
+      if (hrefArr.includes('ballet-page')) {
+        this.tableItemsName = 'balletShowItems';
+      } else if (hrefArr.includes('parody-page')) {
+        this.tableItemsName = 'parodyItems';
+      }
         if (this.fullMode) {
+          // если id == 0, значит номер новый, не из бд
           this.itemId = this.route.snapshot.paramMap.get('id') || "0";
           if (this.itemId === "0") {
             this.itemId = null;
           } else {
-            this.getBalletShowItem(this.itemId)
+            this.getBalletShowItem(this.tableItemsName, this.itemId)
           }
         }
     })
   }
-
-  ngAfterViewInit() {
-
-  }
-  //
-  // savePhoto(formHtml: HTMLFormElement): any {
-  //   this.apiService.saveFile(formHtml)
-  // }
 
   saveItem(): void {
     let title = this.itemForm?.nativeElement.querySelector('.item__title')?.textContent;
@@ -87,6 +90,7 @@ export class AdminItemComponent implements OnInit, AfterViewInit {
     this.data["inProgram_" + this.i18n.lang] = inProgram || "";
     this.data["duration_" + this.i18n.lang] = duration || "";
     this.data["seoText_" + this.i18n.lang] = seoText || "";
+    this.data.tableName = this.tableItemsName;
 
     // если загрузили новое фото
     if (this.MainPhotoForm && this.imageSrc && !this.itemId) {
@@ -122,36 +126,61 @@ export class AdminItemComponent implements OnInit, AfterViewInit {
   }
 
   addBalletShowItem(data: Item): void {
-    this.apiService.addBalletShowItem(data).subscribe(req => {
-      this.apiService.getBalletShowItems().subscribe(items => {
-        this.balletShowItemsService.changeBalletShowItems(items);
+    let isAddItem = confirm('Додати номер?');
+
+    if (isAddItem) {
+      this.apiService.addBalletShowItem(data).subscribe({
+        next: (v) => {
+          this.apiService.getMostPopularItems(this.tableItemsName).subscribe({
+            next: (v) => {
+              if (this.tableItemsName == 'balletShowItems') {
+                this.balletShowItemsService.changeBalletShowItems(v);
+              } else if (this.tableItemsName == 'parodyItems') {
+                this.parodyItemsService.changeParodyItems(v);
+              }
+              },
+            error: (e) => {alert('Не вдалося додати номер =(')},
+            complete: () => {}
+          })
+          alert("Номер додано");
+        },
+        error: (e) => {alert('Не вдалося додати номер =(')},
+        complete: () => {}
       })
-    })
+    }
   }
 
   changeBalletShowItem(data: Item): void {
-    this.apiService.changeBalletShowItem(data).subscribe(req => {
-      this.apiService.getBalletShowItems().subscribe(items => {
-        this.balletShowItemsService.changeBalletShowItems(items);
+    let isChangeItem = confirm('Зберігти нові данні?');
+    if (isChangeItem) {
+      this.apiService.changeBalletShowItem(data).subscribe({
+        next: (v) => {
+          this.apiService.getMostPopularItems(this.tableItemsName).subscribe({
+            next: (v) => {
+              if (this.tableItemsName == 'balletShowItems') {
+                this.balletShowItemsService.changeBalletShowItems(v);
+              } else if (this.tableItemsName == 'parodyItems') {
+                this.parodyItemsService.changeParodyItems(v);
+              }
+            },
+            error: (e) => {alert('Не вдалося додати номер =(')},
+            complete: () => {}
+          })
+          alert("Данні оновлено");
+        },
+        error: (e) => {alert('Не вдалося змінити данні =(')},
+        complete: () => {}
       })
-    })
+    }
   }
 
-  // getItemData(): Item {
-  //   this.data.title = this.itemForm?.nativeElement.querySelector('.item-title')?.textContent || "";
-  //   return this.data;
-  // }
-
-  // savePhoto($event: Event, formHtml: HTMLFormElement): void {
-  //   this.apiService.saveFile($event, formHtml).then(answer => {
-  //     console.log("data", answer)
-  //   })
-  // }
-
-  getBalletShowItem(id: string | number): any {
-    this.apiService.getBalletShowItem(id).subscribe(data => {
+  getBalletShowItem(tableName: string, id: string | number): any {
+    this.apiService.getBalletShowItem(tableName, id).subscribe(data => {
       this.item = data[0]
     })
+  }
+  removeItem(tableName: string, id: string | number): void {
+
   }
 
   // превью фото

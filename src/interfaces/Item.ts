@@ -1,4 +1,5 @@
 export interface Item {
+  tableName?: string;
   id?: number;
   photo: string;
   description_ua?: string;
