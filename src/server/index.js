@@ -5,6 +5,7 @@ const {
   getBalletShowItem,
   addBalletShowItem,
   changeBalletShowItem,
+  deleteItem,
   getContacts,
   addContacts,
   changeContacts,
@@ -252,11 +253,24 @@ app.post('/api/addBalletShowItem', function (req, res) {
   })
 });
 
-app.post('/api/changeBalletShowItem', function (req, res) {
+app.post('/api/changeBalletShowItem', function (req, res, next) {
   console.log('req', req.body)
-  changeBalletShowItem(req.body.data, (err, results)=> {
-    // res.send('true');
-    res.send({err, results});
+  changeBalletShowItem(req.body.data, (err, success)=> {
+    if (err) {
+      next(err);
+    } else {
+      res.send(success)
+    }
+  })
+});
+
+app.post('/api/deleteItem', function (req, res, next) {
+  deleteItem(req.body.data, (err, success)=> {
+    if (err) {
+      next(err);
+    } else {
+      res.send(success)
+    }
   })
 });
 
@@ -315,10 +329,13 @@ app.post('/api/changeGalleryItemPosition', function (req, res) {
     res.send(data);
   })
 });
-app.post('/api/deleteGalleryItem', function (req, res) {
-  deleteGalleryItem(req.body.id, (data)=> {
-    // res.send('true');
-    res.send(data);
+app.post('/api/deleteGalleryItem', function (req, res, next) {
+  deleteGalleryItem(req.body.id, (err, success)=> {
+    if (err) {
+      next(err);
+    } else {
+      res.send(success)
+    }
   })
 });
 // Страница Галерея КОНЕЦ

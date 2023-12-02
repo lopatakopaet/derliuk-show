@@ -28,6 +28,7 @@ export class AdminItemComponent implements OnInit {
     duration_en: "",
     seoText_ua: "",
     seoText_en: "",
+    idPosition: ""
   };
   @Input() fullMode?: boolean = false;
   imageSrc?: string;
@@ -45,6 +46,7 @@ export class AdminItemComponent implements OnInit {
     duration_en: "",
     seoText_ua: "",
     seoText_en: "",
+    idPosition: ""
   };
   currentRoute?: string;
   tableItemsName: string = "balletShowItems"; // для запросов в БД, указываем с какой таблицой работаем]
@@ -131,6 +133,7 @@ export class AdminItemComponent implements OnInit {
     if (isAddItem) {
       this.apiService.addBalletShowItem(data).subscribe({
         next: (v) => {
+          // обновить список номеров
           this.apiService.getMostPopularItems(this.tableItemsName).subscribe({
             next: (v) => {
               if (this.tableItemsName == 'balletShowItems') {
@@ -139,7 +142,7 @@ export class AdminItemComponent implements OnInit {
                 this.parodyItemsService.changeParodyItems(v);
               }
               },
-            error: (e) => {alert('Не вдалося додати номер =(')},
+            error: (e) => {},
             complete: () => {}
           })
           alert("Номер додано");
@@ -179,8 +182,48 @@ export class AdminItemComponent implements OnInit {
       this.item = data[0]
     })
   }
-  removeItem(tableName: string, id: string | number): void {
 
+  // получить и обновить номера на странице
+  getMostPopularItems(): void {
+    this.apiService.getMostPopularItems(this.tableItemsName).subscribe({
+      next: (v) => {
+        if (this.tableItemsName == 'balletShowItems') {
+          this.balletShowItemsService.changeBalletShowItems(v);
+        } else if (this.tableItemsName == 'parodyItems') {
+          this.parodyItemsService.changeParodyItems(v);
+        }
+      },
+      error: (e) => {},
+      complete: () => {}
+    })
+  }
+
+  removeItem(tableName: string, item: Item): void {
+    let isRemoveItem = confirm('Видалити номер?');
+    if (isRemoveItem) {
+      let fileForRemove = {
+        filePath: item.photo
+      }
+      let itemData = {
+        tableName: this.tableItemsName,
+        id: item.id
+      }
+      this.apiService.deleteFile(fileForRemove).subscribe({
+        next: (v) => {
+        },
+        error: (e) => {
+        },
+        complete: () => {
+          this.apiService.deleteItem(itemData).subscribe({
+            next: (v) => {alert('Номер видалено')},
+            error: (e) => {alert('Не вдалося видалити номер =(')},
+            complete: () => {
+              this.getMostPopularItems();
+            }
+          })
+        }
+      })
+    }
   }
 
   // превью фото

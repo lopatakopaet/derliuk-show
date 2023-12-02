@@ -12,6 +12,7 @@ export interface Item {
   duration_en: string;
   seoText_ua: string;
   seoText_en: string;
+  idPosition: number | string;
   [key: string]: any;
 }
 

@@ -22,7 +22,7 @@
       </div>
     </div>
       <ul *ngIf="isShowParodyItems">
-        <li *ngFor="let parodyItem of parodyItems" [routerLink]="['ballet-page/item-details', parodyItem?.id]">
+        <li *ngFor="let parodyItem of parodyItems" [routerLink]="['parody-page/item-details', parodyItem?.id]">
           <span class="page-item">{{parodyItem['title_' + i18n.lang]}}</span>
         </li>
       </ul>

@@ -68,6 +68,12 @@ export class ApiService {
     })
   }
 
+  public deleteItem(data: any): Observable<any> { // todo: добавить интерфейс
+    return this.http.post<any>(`${environment.apiUrl}/deleteItem`, {
+      data
+    })
+  }
+
   // СТРАНИЦА КОНТАКТЫ
   public getContacts(): Observable<any> { // todo: добавить интерфейс
     return this.http.get<any>(`${environment.apiUrl}/getContacts`, {

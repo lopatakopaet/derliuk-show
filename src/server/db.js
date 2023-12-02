@@ -72,10 +72,13 @@ function addBalletShowItem({tableName, photo, description_ua, description_en, ti
 function changeBalletShowItem({tableName, photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en, id}, cb) {
   db.execute(`UPDATE ${tableName} SET photo = ?, description_ua = ?, description_en = ?, title_ua = ?, title_en = ?, inProgram_ua = ?, inProgram_en = ?, duration_ua = ?, duration_en = ?, seoText_ua = ?, seoText_en = ? WHERE id = ?`,
     [photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en, id || null],
-    (err, results, fields) => {
-      console.log(err, results);
-      cb(err, results);
-    });
+    cb);
+}
+
+function deleteItem({tableName, id}, cb) {
+  db.execute(`DELETE FROM ${tableName} WHERE id = ?`,
+    [id],
+    cb);
 }
 
 // Номера баллета КОНЕЦ
@@ -155,10 +158,7 @@ function changeGalleryItemPosition(data, cb) {
 function deleteGalleryItem(id, cb) {
   db.execute('DELETE FROM `GalleryItems` WHERE `id` = ?',
     [id],
-    (err, results, fields) => {
-      console.log(err, results);
-      cb(err, results);
-    });
+    cb);
 }
 
 // Страница Галерея КОНЕЦ
@@ -222,6 +222,7 @@ module.exports = {
   getBalletShowItem,
   addBalletShowItem,
   changeBalletShowItem,
+  deleteItem,
   getContacts,
   addContacts,
   changeContacts,
