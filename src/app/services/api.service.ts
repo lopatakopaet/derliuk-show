@@ -74,6 +74,15 @@ export class ApiService {
     })
   }
 
+  public changeItemPosition(tableName: string,data: Item[]): Observable<any> { // todo: добавить интерфейс
+    return this.http.post<any>(`${environment.apiUrl}/changeItemPosition`, {
+      data: {
+        tableName: tableName,
+        data: data
+      }
+    })
+  }
+
   // СТРАНИЦА КОНТАКТЫ
   public getContacts(): Observable<any> { // todo: добавить интерфейс
     return this.http.get<any>(`${environment.apiUrl}/getContacts`, {

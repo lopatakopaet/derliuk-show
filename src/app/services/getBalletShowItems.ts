@@ -11,9 +11,13 @@ export class BalletShowItemsService {
   public balletItems$ = this.balletItems.asObservable();
   public currentBalletItems?: Item[];
   public changeBalletShowItems(data: Item[]) {
-    this.balletItems.next(data);
-    this.currentBalletItems = data;
+    let dataSorted = this.sortItems(data)
+    this.balletItems.next(dataSorted);
+    this.currentBalletItems = dataSorted;
 
+  }
+  sortItems(items: Item[]): Item[] {
+    return items.sort((n1, n2) => n1.idPosition - n2.idPosition)
   }
 
   // public count$ = new Subject<number>();

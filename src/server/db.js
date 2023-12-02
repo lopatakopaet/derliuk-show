@@ -60,18 +60,18 @@ function getBalletShowItem({tableName, id}, cb) {
     cb);
 }
 
-function addBalletShowItem({tableName, photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en}, cb) {
-  db.execute(`INSERT INTO ${tableName} (photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en) VALUES (?,?,?,?,?,?,?,?,?,?,?)`,
-    [photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en || null],
+function addBalletShowItem({tableName, photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en, idPosition}, cb) {
+  db.execute(`INSERT INTO ${tableName} (photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en, idPosition) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,
+    [photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en, idPosition || null],
     (err, results, fields) => {
       console.log(err, results);
       cb(results);
     });
 }
 
-function changeBalletShowItem({tableName, photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en, id}, cb) {
-  db.execute(`UPDATE ${tableName} SET photo = ?, description_ua = ?, description_en = ?, title_ua = ?, title_en = ?, inProgram_ua = ?, inProgram_en = ?, duration_ua = ?, duration_en = ?, seoText_ua = ?, seoText_en = ? WHERE id = ?`,
-    [photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en, id || null],
+function changeBalletShowItem({tableName, photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en, idPosition, id}, cb) {
+  db.execute(`UPDATE ${tableName} SET photo = ?, description_ua = ?, description_en = ?, title_ua = ?, title_en = ?, inProgram_ua = ?, inProgram_en = ?, duration_ua = ?, duration_en = ?, seoText_ua = ?, seoText_en = ?, idPosition = ?, WHERE id = ?`,
+    [photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en, idPosition, id || null],
     cb);
 }
 
@@ -79,6 +79,18 @@ function deleteItem({tableName, id}, cb) {
   db.execute(`DELETE FROM ${tableName} WHERE id = ?`,
     [id],
     cb);
+}
+
+function changeItemPosition({tableName, data}, cb) {
+  let res;
+  for (let i = 0; i < data.length; i++ ) {
+    db.execute(`UPDATE ${tableName} SET idPosition = ?  WHERE id = ?`,
+      [data[i].idPosition, data[i].id || null],
+      (err, results, fields) => {
+        // cb(err, results);
+      });
+  }
+  cb(res);
 }
 
 // Номера баллета КОНЕЦ
@@ -144,7 +156,7 @@ function changeGalleryItem({photo, idPosition, id}, cb) {
 }
 
 function changeGalleryItemPosition(data, cb) {
-  let res = 'ok';
+  let res;
   for (let i = 0; i < data.length; i++ ) {
     db.execute('UPDATE `GalleryItems` SET idPosition = ?  WHERE `id` = ?',
       [data[i].idPosition, data[i].id || null],
@@ -223,6 +235,7 @@ module.exports = {
   addBalletShowItem,
   changeBalletShowItem,
   deleteItem,
+  changeItemPosition,
   getContacts,
   addContacts,
   changeContacts,

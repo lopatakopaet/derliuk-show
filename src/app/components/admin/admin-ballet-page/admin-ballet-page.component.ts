@@ -79,17 +79,6 @@ export class AdminBalletPageComponent implements OnInit {
       }
     })
 
-
-    // this.balletShowItems = this.balletShowItemsService.currentBalletItems;
-    // this.balletShowItemsService?.balletItems$.subscribe((data: Item[]) => {
-    //   this.balletShowItems = data;
-    // });
-
-    // this.balletShowItems = this.balletShowItemsService.currentBalletItems;
-    // this.balletShowItemsService?.balletItems$.subscribe((data: Item[]) => {
-    //   this.balletShowItems = data;
-    // });
-
     this.apiService.getMainPage(this.tableName).subscribe(data=>{
       this.pageData = data[0];
       this.pageNewData.data = data[0];
@@ -115,26 +104,18 @@ export class AdminBalletPageComponent implements OnInit {
   }
 
   changeMainPhoto(): void {
-     // this.apiService.saveFile(formHtml).then( answer =>{
-     //   console.log("data",answer)
-     // })
-
      if (this.MainPhotoForm) {
        this.apiService.saveFile(this.MainPhotoForm.nativeElement)
          .then(answer => {
            if (answer.message === "File uploaded successfully") {
              if (this.pageNewData.data.mainPhoto) {
                let oldPhoto = this.pageNewData.data.mainPhoto;
-               console.log('1111', oldPhoto);
                this.pageNewData.data.mainPhoto = answer.data.url;
-               console.log('2222', oldPhoto);
-
                this.changeMainPage(oldPhoto);
              } else {
                this.pageNewData.data.mainPhoto = answer.data.url;
                this.changeMainPage();
              }
-
            } else {
              alert("Помилка при заватаженні файла")
              console.error('answer', answer);
@@ -205,5 +186,6 @@ export class AdminBalletPageComponent implements OnInit {
       complete: () => {}
     })
   }
+
 
 }

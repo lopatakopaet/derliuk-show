@@ -6,6 +6,7 @@ const {
   addBalletShowItem,
   changeBalletShowItem,
   deleteItem,
+  changeItemPosition,
   getContacts,
   addContacts,
   changeContacts,
@@ -266,6 +267,16 @@ app.post('/api/changeBalletShowItem', function (req, res, next) {
 
 app.post('/api/deleteItem', function (req, res, next) {
   deleteItem(req.body.data, (err, success)=> {
+    if (err) {
+      next(err);
+    } else {
+      res.send(success)
+    }
+  })
+});
+
+app.post('/api/changeItemPosition', function (req, res, next) {
+  changeItemPosition(req.body.data, (err, success)=> {
     if (err) {
       next(err);
     } else {

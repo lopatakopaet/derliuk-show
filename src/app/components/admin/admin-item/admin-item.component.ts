@@ -14,6 +14,7 @@ import {ParodyItemsService} from "../../../services/getParodyItems";
 export class AdminItemComponent implements OnInit {
 
   @ViewChild("MainPhotoForm") MainPhotoForm?: ElementRef;
+  @ViewChild("idPosition") idPosition?: ElementRef;
   @ViewChild('itemForm') itemForm: ElementRef<HTMLDivElement> | undefined;
   @Input() item: Item = {
     id: 0,
@@ -28,7 +29,7 @@ export class AdminItemComponent implements OnInit {
     duration_en: "",
     seoText_ua: "",
     seoText_en: "",
-    idPosition: ""
+    idPosition: 0
   };
   @Input() fullMode?: boolean = false;
   imageSrc?: string;
@@ -46,7 +47,7 @@ export class AdminItemComponent implements OnInit {
     duration_en: "",
     seoText_ua: "",
     seoText_en: "",
-    idPosition: ""
+    idPosition: 0
   };
   currentRoute?: string;
   tableItemsName: string = "balletShowItems"; // для запросов в БД, указываем с какой таблицой работаем]
@@ -226,6 +227,48 @@ export class AdminItemComponent implements OnInit {
     }
   }
 
+  // сохранить новые позиции в БД
+  changeItemsPosition(): void {
+    let newIdPosition = this.idPosition?.nativeElement.value;
+    let OldIdPosition = this.item.idPosition;
+    if (this.tableItemsName == 'balletShowItems') {
+      let items: Item[] | undefined = this.balletShowItemsService.currentBalletItems;
+      if ( items?.length) {
+        if  (newIdPosition > items.length) {
+          newIdPosition = items.length
+        }
+        // items.forEach()
+        for(let i = 0; i < items.length; i++) {
+          if (items[i].idPosition == newIdPosition) {
+            items[i].idPosition = OldIdPosition;
+          } else if (items[i].idPosition == OldIdPosition) {
+            items[i].idPosition = newIdPosition;
+          }
+        }
+        this.apiService.changeItemPosition(this.tableItemsName, items).subscribe({
+          next: (v) => {},
+          error: (e) => {},
+          complete: () => {
+            this.getMostPopularItems()
+          }
+        })
+      }
+
+
+
+
+      console.log(items)
+      // this.balletShowItemsService.changeBalletShowItems(v);
+    } else if (this.tableItemsName == 'parodyItems') {
+      let items = this.parodyItemsService.currentParodyItems;
+
+      // this.parodyItemsService.changeParodyItems(v);
+    }
+    console.log(newIdPosition)
+  //   this.apiService.changeItemPosition(this.photos).subscribe(res=> {
+  //     this.sortPhotos(this.photos);
+  //   })
+  }
   // превью фото
   readURL(event: Event, elem: HTMLInputElement): void {
 
@@ -243,6 +286,17 @@ export class AdminItemComponent implements OnInit {
       reader.onload = e => this.imageSrc = reader.result;
 
       reader.readAsDataURL(file);
+    }
+  }
+
+  keyPressNumbers(event: any) {
+    let charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
     }
   }
 }

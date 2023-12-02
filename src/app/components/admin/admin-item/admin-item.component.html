@@ -98,7 +98,10 @@
     <div class="number-title">
       Порядковий номер
     </div>
-    <input type="text" class="number" value="{{item.idPosition}}" disabled="true">
+    <input #idPosition type="text" class="number" name="idPosition"
+           (keydown)="keyPressNumbers($event)"
+           value="{{item.idPosition}}"
+           (change)="changeItemsPosition()">
   </div>
 
 <div *ngIf="fullMode">
