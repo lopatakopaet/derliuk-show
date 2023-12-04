@@ -70,7 +70,7 @@ function addBalletShowItem({tableName, photo, description_ua, description_en, ti
 }
 
 function changeBalletShowItem({tableName, photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en, idPosition, id}, cb) {
-  db.execute(`UPDATE ${tableName} SET photo = ?, description_ua = ?, description_en = ?, title_ua = ?, title_en = ?, inProgram_ua = ?, inProgram_en = ?, duration_ua = ?, duration_en = ?, seoText_ua = ?, seoText_en = ?, idPosition = ?, WHERE id = ?`,
+  db.execute(`UPDATE ${tableName} SET photo = ?, description_ua = ?, description_en = ?, title_ua = ?, title_en = ?, inProgram_ua = ?, inProgram_en = ?, duration_ua = ?, duration_en = ?, seoText_ua = ?, seoText_en = ?, idPosition = ? WHERE id = ?`,
     [photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en, idPosition, id || null],
     cb);
 }
@@ -81,16 +81,107 @@ function deleteItem({tableName, id}, cb) {
     cb);
 }
 
-function changeItemPosition({tableName, data}, cb) {
-  let res;
-  for (let i = 0; i < data.length; i++ ) {
-    db.execute(`UPDATE ${tableName} SET idPosition = ?  WHERE id = ?`,
-      [data[i].idPosition, data[i].id || null],
-      (err, results, fields) => {
-        // cb(err, results);
-      });
-  }
-  cb(res);
+// function sortItemsAfterDelete(tableName, cb) {
+//   getMostPopularItems(tableName, (err, success) => {
+//     if (err) {
+//       cb(err);
+//     } else {
+//
+//     }
+//   })
+// }
+
+function changItemPositionByOrder(tableName) {
+  let items;
+  getMostPopularItems(tableName, (err, success) => {
+    if (err) {
+      cb(err);
+    } else {
+      items = success;
+      items = sortItems(items);
+      if (items.length) {
+        // меняем idPosition у всех элементов чтобы позиционирование было по порядку
+        for (let i = 0; i < items.length; i++ ) {
+          items[i].idPosition = i + 1;
+          db.execute(`UPDATE ${tableName} SET idPosition = ?  WHERE id = ?`,
+            [items[i].idPosition, items[i].id || null],
+            (err, results, fields) => {
+              // cb(err, results);
+            });
+        }
+      }
+    }
+  })
+}
+
+// Удаляем элемент и меняем всем элементам позиционирование, чтобы было по порядку
+function deleteAndChangePositionItem({tableName, id}, cb) {
+  let items;
+  deleteItem({tableName, id}, (err, success) => {
+    if (err) {
+      cb(err);
+    } else {
+      changItemPositionByOrder(tableName)
+    }
+  })
+  cb(items)
+}
+
+// function changeItemPosition({tableName, data}, cb) {
+//   let res;
+//   for (let i = 0; i < data.length; i++ ) {
+//     db.execute(`UPDATE ${tableName} SET idPosition = ?  WHERE id = ?`,
+//       [data[i].idPosition, data[i].id || null],
+//       (err, results, fields) => {
+//         // cb(err, results);
+//       });
+//   }
+//   cb(res);
+// }
+
+// function changeItemPos({tableName, id}, cb) {
+//   getMostPopularItems(tableName, (result) => {
+//
+//   })
+//
+// }
+
+function changeItemPosition({tableName, item, newPosition}, cb) {
+  let items;
+  let newIdPosition = +newPosition;
+  let OldIdPosition = +item.idPosition;
+  getMostPopularItems(tableName, (err, success) => {
+    if (err) {
+      cb(err);
+    } else {
+      items = success;
+      if (items.length) {
+        // если новая позицая больше длины массива, то переставляем элемент в конец массив
+        if  (newIdPosition > items.length) {
+          newIdPosition = items.length
+        }
+        // меняем idPosition у элементов, у которых меняется позиционирование
+        for (let i = 0; i < items.length; i++ ) {
+          if (items[i].idPosition == newIdPosition) {
+            items[i].idPosition = OldIdPosition;
+            db.execute(`UPDATE ${tableName} SET idPosition = ?  WHERE id = ?`,
+              [items[i].idPosition, items[i].id || null],
+              (err, results, fields) => {
+                // cb(err, results);
+              });
+          } else if (items[i].idPosition == OldIdPosition) {
+            items[i].idPosition = newIdPosition;
+            db.execute(`UPDATE ${tableName} SET idPosition = ?  WHERE id = ?`,
+              [items[i].idPosition, items[i].id || null],
+              (err, results, fields) => {
+                // cb(err, results);
+              });
+          }
+        }
+      }
+    }
+  })
+  cb(items);
 }
 
 // Номера баллета КОНЕЦ
@@ -101,7 +192,6 @@ function getContacts(cb) {
   db.execute('SELECT * FROM `contactsPage`',
     null,
     (err, results, fields) => {
-      // console.log(err, results);
       cb(results);
     });
 }
@@ -111,7 +201,6 @@ function addContacts(data, cb) {
   db.execute('INSERT INTO `contactsPage` (data)  VALUES(?)',
     [data],
     (err, results, fields) => {
-      console.log(err, results);
       cb(results);
     });
 }
@@ -120,7 +209,6 @@ function changeContacts({data, id}, cb) {
   db.execute('UPDATE `contactsPage` SET data = ? WHERE `id` = ?',
     [data, id || null],
     (err, results, fields) => {
-      console.log(err, results);
       cb(err, results);
     });
 }
@@ -132,7 +220,6 @@ function getGallery(cb) {
   db.execute('SELECT * FROM `GalleryItems`',
     null,
     (err, results, fields) => {
-      // console.log(err, results);
       cb(results);
     });
 }
@@ -141,7 +228,6 @@ function addGalleryItem({photo, idPosition}, cb) {
   db.execute('INSERT INTO `GalleryItems` (photo, idPosition) VALUES (?,?)',
     [photo,idPosition],
     (err, results, fields) => {
-      console.log(err, results);
       cb(results);
     });
 }
@@ -150,7 +236,6 @@ function changeGalleryItem({photo, idPosition, id}, cb) {
   db.execute('UPDATE `GalleryItems` SET photo = ?, idPosition = ?  WHERE `id` = ?',
     [photo, idPosition, id || null],
     (err, results, fields) => {
-      console.log(err, results);
       cb(err, results);
     });
 }
@@ -180,7 +265,6 @@ function getRiderData(cb) {
   db.execute('SELECT * FROM `RiderData`',
     null,
     (err, results, fields) => {
-      // console.log(err, results);
       cb(results);
     });
 }
@@ -197,35 +281,15 @@ function changeRiderData({data, id}, cb) {
   db.execute('UPDATE `RiderData` SET data = ? WHERE `id` = ?',
     [data, id || 1], // всегда записываем дату в первый id
     (err, results, fields) => {
-      console.log(err, results);
       cb(err, results);
     });
 }
 
 // Страница Райдер КОНЕЦ
 
-// db.execute('INSERT INTO `balletShowItems` (item_name, item_description) VALUES ("Disco Show", "Запальний та енергійний номер перенесе глядача в атмосферу 80-х.\n' +
-//   'Відчуйте драйв і танцюйте разом з нами! «V.I.P.» балет подарує яскраві враження та атмосферу свята. З нами Ваш корпоратив, весілля, день народження, клубна вечірка чи презентація стануть незабутніми.")',
-//   null,
-//   (err, results, fields) => {
-//     console.log(err, results);
-//     // cb(results);
-//   });
-//
-// db.execute('INSERT INTO `balletShowItems` (item_name, item_description) VALUES ("Disco Show", "Запальний та енергійний номер перенесе глядача в атмосферу 80-х.\n' +
-//   'Відчуйте драйв і танцюйте разом з нами! «V.I.P.» балет подарує яскраві враження та атмосферу свята. З нами Ваш корпоратив, весілля, день народження, клубна вечірка чи презентація стануть незабутніми.")',
-//   null,
-//   (err, results, fields) => {
-//     console.log(err, results);
-//     // cb(results);
-//   });
-
-
-// let data = {
-//   item_name: 'Antre',
-//   item_description: 'Казково-легкий, чарівний номер стане красивим відкриттям програми чи івенту. Пориньте разом з нами у феєрію свята.',
-// }
-// addBalletShowItem(data);
+function sortItems(items) {
+  return items.sort((n1, n2) => n1.idPosition - n2.idPosition)
+}
 
 module.exports = {
   getMainPage,
@@ -235,6 +299,7 @@ module.exports = {
   addBalletShowItem,
   changeBalletShowItem,
   deleteItem,
+  deleteAndChangePositionItem,
   changeItemPosition,
   getContacts,
   addContacts,

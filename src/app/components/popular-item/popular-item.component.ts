@@ -1,4 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Item} from "../../../interfaces/Item";
+import {I18nService} from "../../services/i18n.service";
 
 @Component({
   selector: 'app-popular-item',
@@ -7,9 +9,9 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class PopularItemComponent implements OnInit {
 
-  @Input() item: any; // todo iterface
+  @Input() item?: Item; // todo iterface
 
-  constructor() { }
+  constructor(public i18n: I18nService,) { }
 
   ngOnInit(): void {
   }

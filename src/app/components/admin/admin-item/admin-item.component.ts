@@ -94,6 +94,12 @@ export class AdminItemComponent implements OnInit {
     this.data["duration_" + this.i18n.lang] = duration || "";
     this.data["seoText_" + this.i18n.lang] = seoText || "";
     this.data.tableName = this.tableItemsName;
+    if (this.tableItemsName == 'balletShowItems' && this.balletShowItemsService.currentBalletItems) {
+      this.data.idPosition = this.balletShowItemsService.currentBalletItems?.length + 1 || 1;
+    } else if (this.tableItemsName == 'parodyItems' && this.parodyItemsService.currentParodyItems) {
+      this.data.idPosition = this.parodyItemsService.currentParodyItems?.length + 1 || 1
+    }
+
 
     // если загрузили новое фото
     if (this.MainPhotoForm && this.imageSrc && !this.itemId) {
@@ -201,13 +207,9 @@ export class AdminItemComponent implements OnInit {
 
   removeItem(tableName: string, item: Item): void {
     let isRemoveItem = confirm('Видалити номер?');
-    if (isRemoveItem) {
+    if (isRemoveItem && item.id) {
       let fileForRemove = {
         filePath: item.photo
-      }
-      let itemData = {
-        tableName: this.tableItemsName,
-        id: item.id
       }
       this.apiService.deleteFile(fileForRemove).subscribe({
         next: (v) => {
@@ -215,7 +217,8 @@ export class AdminItemComponent implements OnInit {
         error: (e) => {
         },
         complete: () => {
-          this.apiService.deleteItem(itemData).subscribe({
+          if (item.id)
+          this.apiService.deleteAndChangePositionItem(this.tableItemsName, item.id).subscribe({
             next: (v) => {alert('Номер видалено')},
             error: (e) => {alert('Не вдалося видалити номер =(')},
             complete: () => {
@@ -229,45 +232,12 @@ export class AdminItemComponent implements OnInit {
 
   // сохранить новые позиции в БД
   changeItemsPosition(): void {
-    let newIdPosition = this.idPosition?.nativeElement.value;
-    let OldIdPosition = this.item.idPosition;
-    if (this.tableItemsName == 'balletShowItems') {
-      let items: Item[] | undefined = this.balletShowItemsService.currentBalletItems;
-      if ( items?.length) {
-        if  (newIdPosition > items.length) {
-          newIdPosition = items.length
-        }
-        // items.forEach()
-        for(let i = 0; i < items.length; i++) {
-          if (items[i].idPosition == newIdPosition) {
-            items[i].idPosition = OldIdPosition;
-          } else if (items[i].idPosition == OldIdPosition) {
-            items[i].idPosition = newIdPosition;
-          }
-        }
-        this.apiService.changeItemPosition(this.tableItemsName, items).subscribe({
-          next: (v) => {},
-          error: (e) => {},
-          complete: () => {
-            this.getMostPopularItems()
-          }
-        })
-      }
-
-
-
-
-      console.log(items)
-      // this.balletShowItemsService.changeBalletShowItems(v);
-    } else if (this.tableItemsName == 'parodyItems') {
-      let items = this.parodyItemsService.currentParodyItems;
-
-      // this.parodyItemsService.changeParodyItems(v);
-    }
-    console.log(newIdPosition)
-  //   this.apiService.changeItemPosition(this.photos).subscribe(res=> {
-  //     this.sortPhotos(this.photos);
-  //   })
+    let newIdPosition = +this.idPosition?.nativeElement.value;
+      this.apiService.changeItemPosition(this.tableItemsName, this.item, newIdPosition).subscribe({
+        next: (v) => {this.getMostPopularItems()},
+        error: (e) => {this.getMostPopularItems()},
+        complete: () => {}
+      })
   }
   // превью фото
   readURL(event: Event, elem: HTMLInputElement): void {

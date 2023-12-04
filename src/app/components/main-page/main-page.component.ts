@@ -16,6 +16,9 @@ import {BalletPage} from "../../../interfaces/BalletPage";
 import {I18nService} from "../../services/i18n.service";
 import {LangItem} from "../../../interfaces/LangInterface";
 import * as dictionary from "../../i18n/i18n.json";
+import {Item} from "../../../interfaces/Item";
+import {BalletShowItemsService} from "../../services/getBalletShowItems";
+import {ParodyItemsService} from "../../services/getParodyItems";
 // import { register } from 'swiper/element/bundle';
 // import { Swiper} from "swiper";
 // import { Navigation} from "swiper/modules"
@@ -106,6 +109,8 @@ export class MainPageComponent  implements OnInit {
               private apiService: ApiService,
               private route: ActivatedRoute,
               public i18n: I18nService,
+              private balletShowItemsService: BalletShowItemsService,
+              private parodyItemsService: ParodyItemsService,
               ) {
     // this.swiperEl = document.querySelector('swiper-container')
     // register();
@@ -160,7 +165,22 @@ export class MainPageComponent  implements OnInit {
       })
     })
 
-    // this.apiService.
+    this.getItems('balletShowItems')
+    this.getItems('parodyItems')
+  }
+
+  getItems(tableName: string) :void {
+    this.apiService.getMostPopularItems(tableName).subscribe({
+      next: (v) => {
+        if (tableName == 'balletShowItems') {
+          this.balletShowItemsService.changeBalletShowItems(v);
+        } else if (tableName == 'parodyItems') {
+          this.parodyItemsService.changeParodyItems(v);
+        }
+      },
+      error: (e) => {},
+      complete: () => {}
+    })
   }
 
   // ngAfterViewInit(): void {

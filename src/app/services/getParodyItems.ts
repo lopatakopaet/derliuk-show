@@ -11,7 +11,11 @@ export class ParodyItemsService {
   public parodyItems$ = this.parodyItems.asObservable();
   public currentParodyItems?: Item[];
   public changeParodyItems(data: Item[]) {
-    this.parodyItems.next(data);
-    this.currentParodyItems = data;
+    let dataSorted = this.sortItems(data)
+    this.parodyItems.next(dataSorted);
+    this.currentParodyItems = dataSorted;
+  }
+  sortItems(items: Item[]): Item[] {
+    return items.sort((n1, n2) => n1.idPosition - n2.idPosition)
   }
 }

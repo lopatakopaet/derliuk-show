@@ -1,13 +1,13 @@
 <div class="main-popular__item">
   <div class="main-popular__item__img">
-    <img src="{{item.photo}}" alt="">
+    <img src="{{item?.photo}}" alt="">
   </div>
   <div class="main-popular__item__description">
-    <div class="title golden-text">{{item.title}}</div>
-    <div class="description" [innerHTML]="item.description">
+    <div class="title golden-text">{{item?.['title_' + i18n.lang]}}</div>
+    <div class="description" [innerHTML]="item?.['description_' + i18n.lang]">
     </div>
     <app-button
-      [routerLink]="['item-details', '5']"
+      [routerLink]="['item-details', item?.id]"
       class="long-button">ДЕТАЛІ</app-button>
   </div>
 </div>

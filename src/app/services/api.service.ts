@@ -74,11 +74,21 @@ export class ApiService {
     })
   }
 
-  public changeItemPosition(tableName: string,data: Item[]): Observable<any> { // todo: добавить интерфейс
+  public deleteAndChangePositionItem(tableName: string, id: number): Observable<any> { // todo: добавить интерфейс
+    return this.http.post<any>(`${environment.apiUrl}/deleteAndChangePositionItem`, {
+      data: {
+        tableName,
+        id
+      }
+    })
+  }
+
+  public changeItemPosition(tableName: string, item: Item, newPosition: number): Observable<any> { // todo: добавить интерфейс
     return this.http.post<any>(`${environment.apiUrl}/changeItemPosition`, {
       data: {
-        tableName: tableName,
-        data: data
+        tableName,
+        item,
+        newPosition
       }
     })
   }

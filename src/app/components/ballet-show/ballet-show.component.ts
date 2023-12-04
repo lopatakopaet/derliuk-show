@@ -6,9 +6,11 @@ import {LangItem} from "../../../interfaces/LangInterface";
 import {I18nService} from "../../services/i18n.service";
 import {MainPageService} from "../../services/main-page.service";
 import {ApiService} from "../../services/api.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {BalletPage} from "../../../interfaces/BalletPage";
 import {Subscription} from "rxjs";
+import {BalletShowItemsService} from "../../services/getBalletShowItems";
+import {ParodyItemsService} from "../../services/getParodyItems";
 
 @Component({
   selector: 'app-ballet-show',
@@ -34,9 +36,13 @@ export class BalletShowComponent implements OnInit {
 
   }
   private subs?: Subscription;
+  private subsBalletShowItems?: Subscription;
+  private subsParodyItems?: Subscription;
   lang: LangItem = dictionary;
   tableName: string = "BalletPage"; // для запросов в БД, указываем с какой таблицой работаем]
-  // hrefPageName: string = "ballet-page"// название страницы из url
+  balletShowItems?: Item[];
+  parodyItems?: Item[];
+  hrefPageName: string = "ballet-page"// название страницы из url
 
   // popularItemsArr = [
   //   new Item({
@@ -99,15 +105,37 @@ export class BalletShowComponent implements OnInit {
   constructor(public i18n: I18nService,
               private apiService: ApiService,
               private mainPageService: MainPageService,
-              private router: Router) {
+              private balletShowItemsService: BalletShowItemsService,
+              private parodyItemsService: ParodyItemsService,
+              private router: Router,
+              private route: ActivatedRoute,) {
   }
 
   ngOnInit(): void {
+    // устанавливаем имя страницы
+    this.route.params.subscribe(params => {
+      let href = this.router.url;
+      this.hrefPageName = href.split('/').slice(-1).join();
+      this.tableName = this.hrefPageName == 'ballet-show' ? 'BalletPage' : "ParodyPage";
+    })
+
     this.subs = this.mainPageService.mainText$.subscribe(text => this.mainText = text);
+    this.balletShowItems = this.balletShowItemsService.currentBalletItems;
+    this.subsBalletShowItems = this.balletShowItemsService?.balletItems$.subscribe((data: Item[]) => {
+      this.balletShowItems = data;
+    });
+
+    this.parodyItems = this.parodyItemsService.currentParodyItems;
+    this.subsParodyItems = this.parodyItemsService?.parodyItems$.subscribe((data: Item[]) => {
+      this.parodyItems = data;
+    });
+
   }
   ngOnDestroy(): void {
     // отмена подписки на главный text
     this.subs?.unsubscribe();
+    this.subsBalletShowItems?.unsubscribe();
+    this.subsParodyItems?.unsubscribe();
   }
 
 }
