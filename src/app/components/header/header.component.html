@@ -5,7 +5,8 @@
     </a>
     <div class="menu" *ngIf="!isOpenMenu">
       <div class="nav">
-        <a routerLink="costume-rental" routerLinkActive="active">{{lang['costumeRental'][i18n.lang]}}</a>
+<!--        todo Прокат костюмов-->
+        <a *ngIf="false" routerLink="costume-rental" routerLinkActive="active">{{lang['costumeRental'][i18n.lang]}}</a>
         <a routerLink="gallery" routerLinkActive="active">{{lang['gallery'][i18n.lang]}}</a>
         <a routerLink="rider" routerLinkActive="active">{{lang['rider'][i18n.lang]}}</a>
         <a routerLink="contacts" routerLinkActive="active">{{lang['contacts'][i18n.lang]}}</a>

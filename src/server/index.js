@@ -313,11 +313,14 @@ app.post('/api/addContacts', function (req, res) {
   })
 });
 
-app.post('/api/changeContacts', function (req, res) {
+app.post('/api/changeContacts', function (req, res, next) {
   console.log('req', req.body)
-  changeContacts(req.body.data, (data)=> {
-    // res.send('true');
-    res.send(data);
+  changeContacts(req.body.data, (err, success)=> {
+    if (err) {
+      next(err);
+    } else {
+      res.send(success)
+    }
   })
 });
 

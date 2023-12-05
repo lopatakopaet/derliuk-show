@@ -3,6 +3,14 @@
     "ua": "ДЕТАЛІ",
     "en": "DETAILS"
   },
+  "inProgram": {
+    "ua": "У програмі",
+    "en": "In program"
+  },
+  "duration": {
+    "ua": "Тривалість",
+    "en": "Duration"
+  },
   "mostPopularItems": {
     "ua": "НАЙПОПУЛЯРНІШІ НОМЕРИ",
     "en": "THE MOST POPULAR NUMBERS"
@@ -14,6 +22,14 @@
   "gallery": {
     "ua": "Галерея",
     "en": "Gallery"
+  },
+  "reviews": {
+    "ua": "ВІДГУКИ",
+    "en": "REVIEWS"
+  },
+  "leaveFeedback": {
+    "ua": "ЗАЛИШИТИ ВІДГУК",
+    "en": "LEAVE FEEDBACK"
   },
   "contacts": {
     "ua": "Контакти",
@@ -30,5 +46,13 @@
   "order": {
     "ua": "ЗАМОВИТИ",
     "en": "ORDER"
+  },
+  "telephones": {
+    "ua": "Телефони",
+    "en": "Telephones"
+  },
+  "save": {
+    "ua": "Зберегти",
+    "en": "Save"
   }
 }

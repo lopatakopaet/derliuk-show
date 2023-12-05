@@ -1,14 +1,5 @@
 <div class="page-wrap" #contactsForm>
-<!--  <div class="description" contenteditable="true">-->
-<!--    Переконаний, що життя має бути наповнене яскравими фарбами. Особливо під час важивих подій, сімейних свят. Наша-->
-<!--    команда перетворить Ваш захід у справжню феєрію, яку ви запам’ятаєте на все життя! У нашому репертуарі понад <a href="/ballet-show"-->
-<!--    >30 танцювальних номерів</a> та <a href="/parody-theater" >20 пародій</a>. Працюємо для Вас з повною віддачею!-->
-<!--  </div>-->
-  <div class="description admin-description" contenteditable="true" [innerHTML]="contacts?.description || contactsDescriptionDefault">
-    Переконаний, що життя має бути наповнене яскравими фарбами. Особливо під час важивих подій, сімейних свят. Наша
-    команда перетворить Ваш захід у справжню феєрію, яку ви запам’ятаєте на все життя! У нашому репертуарі понад <a href="/ballet-show"
-  >30 танцювальних номерів</a> та <a href="/parody-theater" >20 пародій</a>. Працюємо для Вас з повною віддачею!
-  </div>
+  <div class="description admin-description" contenteditable="true" [innerHTML]="contacts?.description || contactsDescriptionDefault"></div>
 
   <div class="contacts">
     <div class="contacts-block">
@@ -16,25 +7,11 @@
         Телефони:
       </div>
       <div class="contacts-wrap">
-        <div class="contacts-input__wrap">
-          <input class="contacts-input phone-input" value="+ 38 (099) 239-58-36">
+        <div class="contacts-input__wrap" *ngFor="let phone of contacts.phones; index as i">
+          <input class="contacts-input phone-input" value="{{contacts.phones[i]}}">
           <div class="input-icon__wrap">
-            <img class="input-icon" src="assets/img/white-pencil.svg" alt="">
-            <img class="input-icon" src="assets/img/white-tresh.svg" alt="">
-          </div>
-        </div>
-        <div class="contacts-input__wrap">
-          <input class="contacts-input phone-input" value="+ 38 (099) 222-22-22">
-          <div class="input-icon__wrap">
-            <img class="input-icon" src="assets/img/white-pencil.svg" alt="">
-            <img class="input-icon" src="assets/img/white-tresh.svg" alt="">
-          </div>
-        </div>
-        <div class="contacts-input__wrap">
-          <input class="contacts-input phone-input" value="+ 38 (099) 111-11-11">
-          <div class="input-icon__wrap">
-            <img class="input-icon" src="assets/img/white-pencil.svg" alt="">
-            <img class="input-icon" src="assets/img/white-tresh.svg" alt="">
+<!--            <img class="input-icon" src="assets/img/white-pencil.svg" alt="">-->
+<!--            <img class="input-icon" src="assets/img/white-tresh.svg" alt="">-->
           </div>
         </div>
       </div>
@@ -45,10 +22,12 @@
       </div>
       <div class="contacts-wrap">
         <div class="contacts-input__wrap">
-          <input class="contacts-input  email-input" placeholder="Вкажіть електронну пошту">
+          <input class="contacts-input  email-input"
+                 value="{{contacts.email}}"
+                 placeholder="Вкажіть електронну пошту">
           <div class="input-icon__wrap">
-            <img class="input-icon" src="assets/img/white-pencil.svg" alt="">
-            <img class="input-icon" src="assets/img/white-tresh.svg" alt="">
+<!--            <img class="input-icon" src="assets/img/white-pencil.svg" alt="">-->
+<!--            <img class="input-icon" src="assets/img/white-tresh.svg" alt="">-->
           </div>
         </div>
       </div>

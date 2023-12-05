@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Comment} from "../../../interfaces/Comment";
 import {switchMap} from "rxjs";
 import {Gallery} from "../../../interfaces/Gallery";
+import {Item} from "../../../interfaces/Item";
+import {I18nService} from "../../services/i18n.service";
+import {ApiService} from "../../services/api.service";
+import {LangItem} from "../../../interfaces/LangInterface";
+import * as dictionary from "../../i18n/i18n.json";
 
 @Component({
   selector: 'app-item-details',
@@ -10,7 +15,10 @@ import {Gallery} from "../../../interfaces/Gallery";
   styleUrls: ['./item-details.component.scss']
 })
 export class ItemDetailsComponent implements OnInit {
-  id: number | undefined;
+  item?: Item;
+  tableItemsName: string = 'balletShowItems';
+  lang: LangItem = dictionary;
+  id?: number | string;
   comments: Comment[] = [
     {
       photo: '../../../assets/img/delete/ava1.jpg',
@@ -93,15 +101,48 @@ export class ItemDetailsComponent implements OnInit {
       idPosition: 6
     }
   ]
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute,
+              public i18n: I18nService,
+              private apiService: ApiService,
+              private router: Router) { }
 
   ngOnInit(): void {
-    this.route.paramMap.pipe(
-      switchMap(params => params.getAll('id'))
-    )
-      .subscribe(data=> this.id = +data);
 
-    console.log('this.id', this.id)
+    this.route.params.subscribe(params => {
+      let hrefArr = this.router.url.split('/');
+      this.id = this.route.snapshot.paramMap.get('id') || 0;
+      if (hrefArr.includes('ballet-page')) {
+        this.tableItemsName = 'balletShowItems';
+      } else if (hrefArr.includes('parody-page')) {
+        this.tableItemsName = 'parodyItems';
+      }
+      this.apiService.getBalletShowItem(this.tableItemsName, this.id).subscribe({
+        next: (v) => {
+          this.item = v[0];
+          console.log(this.item)
+        },
+        error: (e) => {},
+        complete: () => {}
+      })
+    })
+
+    // this.route.paramMap.pipe(
+    //   switchMap(params => params.getAll('id'))
+    // )
+    //   .subscribe(data=> this.id = +data);
+    // if (this.tableName == 'balletShowItems') {
+    //   this.balletShowItemsService.changeBalletShowItems(v);
+    // } else if (this.tableName == 'parodyItems') {
+    //   this.parodyItemsService.changeParodyItems(v);
+    // }
+    // this.apiService.getBalletShowItem(this.id).subscribe({
+    //   next: (v) => {
+    //
+    //     this.item = v;
+    //   },
+    //   error: (e) => {},
+    //   complete: () => {}
+    // })
   }
 
 

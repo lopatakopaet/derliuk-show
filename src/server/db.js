@@ -208,9 +208,7 @@ function addContacts(data, cb) {
 function changeContacts({data, id}, cb) {
   db.execute('UPDATE `contactsPage` SET data = ? WHERE `id` = ?',
     [data, id || null],
-    (err, results, fields) => {
-      cb(err, results);
-    });
+    cb);
 }
 
 // Страница КОНТАКТЫ КОНЕЦ

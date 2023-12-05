@@ -23,7 +23,8 @@
     <div class="main-popular">
       <router-outlet></router-outlet>
     </div>
-    <div class="main-popular__another">
+<!--    todo другие номера-->
+    <div class="main-popular__another" *ngIf="false">
       <div class="title">НЕ ЗНАЙШЛИ ТАНЕЦЬ, ЯКИЙ БИ ХОТІЛИ ЗАМОВИТИ НА СВЯТО?</div>
       <div class="subtitle">У нашому репертуарі є номери:</div>
       <div class="another-items">
@@ -38,20 +39,21 @@
         <div class="item">Хеловін</div>
       </div>
     </div>
-    <div class="main-popular__comments">
+<!--    todo-->
+    <div class="main-popular__comments" *ngIf="false">
       <div class="main-title">
-        ВІДГУКИ
+        {{lang['reviews'][i18n.lang]}}
       </div>
       <div class="main-title__line-decor"></div>
       <app-slider-comment
         [comments]="comments"
       ></app-slider-comment>
     </div>
-
-    <div class="leave-feedback-button__wrap">
+<!--todo-->
+    <div class="leave-feedback-button__wrap" *ngIf="false">
       <app-button class="leave-feedback-button"
                   (click)="leaveFeedbackModal.show()"
-      >ЗАЛИШИТИ ВІДГУК
+      >{{lang['leaveFeedback'][i18n.lang]}}
       </app-button>
     </div>
 
