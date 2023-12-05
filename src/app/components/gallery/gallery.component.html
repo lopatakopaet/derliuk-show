@@ -2,36 +2,17 @@
 <div class="gallery main-container">
   <div class="block-title golden-text">Галерея</div>
   <div class="gallery-img">
-    <div class="img__wrap">
-      <img src="../../../assets/img/delete/gallery1.png" alt="">
+    <div class="img__wrap" *ngFor="let photo of photos">
+      <img src="{{photo.photo}}" alt="">
       <div class="img__hover">
         <app-button (click)="orderShowModal.show()">ЗАМОВИТИ НОМЕР</app-button>
       </div>
     </div>
-    <div class="img__wrap">
-      <img src="../../../assets/img/delete/gallery1.png" alt="">
-      <div class="img__hover">
-        <app-button (click)="orderShowModal.show()">ЗАМОВИТИ НОМЕР</app-button>
-      </div>
-    </div>
-    <div class="img__wrap">
-      <img src="../../../assets/img/delete/gallery1.png" alt="">
-      <div class="img__hover">
-        <app-button (click)="orderShowModal.show()">ЗАМОВИТИ НОМЕР</app-button>
-      </div>
-    </div>
-    <div class="img__wrap">
-      <img src="../../../assets/img/delete/gallery1.png" alt="">
-      <div class="img__hover">
-        <app-button (click)="orderShowModal.show()">ЗАМОВИТИ НОМЕР</app-button>
-      </div>
-    </div>
-    <div class="img__wrap">
-      <img src="../../../assets/img/delete/gallery1.png" alt="">
-      <div class="img__hover">
-        <app-button (click)="orderShowModal.show()">ЗАМОВИТИ НОМЕР</app-button>
-      </div>
-    </div>
+
+
+
+
+
 
   </div>
 </div>

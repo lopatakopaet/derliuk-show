@@ -9,9 +9,9 @@ import {I18nService} from "../../services/i18n.service";
 })
 export class PopularItemComponent implements OnInit {
 
-  @Input() item?: Item; // todo iterface
+  @Input() item?: Item;
 
-  constructor(public i18n: I18nService,) { }
+  constructor(public i18n: I18nService) { }
 
   ngOnInit(): void {
   }
