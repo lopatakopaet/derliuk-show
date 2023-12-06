@@ -1,5 +1,5 @@
 <div class="page-wrap" #contactsForm>
-  <div class="description admin-description" contenteditable="true" [innerHTML]="contacts?.description || contactsDescriptionDefault"></div>
+  <div class="description admin-description" contenteditable="true" [innerHTML]="contacts['description_' + i18n.lang] || contactsDescriptionDefault"></div>
 
   <div class="contacts">
     <div class="contacts-block">

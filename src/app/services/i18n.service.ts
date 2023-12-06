@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class I18nService {
 
-  lang: string = "ua";
+  lang: string = localStorage.getItem('lang') || "ua";
   localstorLang: string | null = localStorage.getItem('lang');
   constructor() {}
 
@@ -14,6 +14,7 @@ export class I18nService {
   changeLang(langName: string): void {
     this.lang = langName;
     localStorage.setItem('lang', this.lang);
+    this.localstorLang = langName;
   }
 
   setDefaultLang(): void {

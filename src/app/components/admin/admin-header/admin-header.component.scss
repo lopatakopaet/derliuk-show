@@ -23,3 +23,47 @@
   align-items: center;
   gap: 15px;
 }
+
+.lang {
+  display: flex;
+  gap: 26px;
+
+  &__item {
+    color: #FFFFFF;
+    text-align: center;
+    font-family: Arial;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px; /* 155.556% */
+    cursor: pointer;
+
+    &:hover {
+      color: #717bdb;
+    }
+
+    &.active {
+      color: #2E40E8;
+      position: relative;
+
+      &:before {
+        content: '';
+        position: absolute;
+        display: block;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 16px;
+        height: 3px;
+        border-radius: 10px 10px 0 0;
+        background: #2E40E8;
+      }
+    }
+
+    &__wrap {
+      display: flex;
+      gap: 12px;
+    }
+  }
+}

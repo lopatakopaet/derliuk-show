@@ -54,5 +54,25 @@
   "save": {
     "ua": "Зберегти",
     "en": "Save"
+  },
+  "write": {
+    "ua": "НАПИСАТИ",
+    "en": "WRITE"
+  },
+  "weOnSocial": {
+    "ua": "Ми у соціальних мережах",
+    "en": "We are on social networks"
+  },
+  "orderNumber": {
+    "ua": "ЗАМОВИТИ НОМЕР",
+    "en": "ORDER NUMBER"
+  },
+  "showBalletVip": {
+    "ua": "ШОУ-БАЛЕТ V.I.P",
+    "en": "BALLET-SHOW V.I.P"
+  },
+  "parodyTheater": {
+    "ua": "ТЕАТР ПАРОДІЙ",
+    "en": "PARODY THEATER"
   }
 }

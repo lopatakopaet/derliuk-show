@@ -1,20 +1,14 @@
 
 <div class="gallery main-container">
-  <div class="block-title golden-text">Галерея</div>
+  <div class="block-title golden-text">{{lang['gallery'][i18n.lang]}}</div>
   <div class="gallery-img">
     <div class="img__wrap" *ngFor="let photo of photos">
       <img src="{{photo.photo}}" alt="">
       <div class="img__hover">
-        <app-button (click)="orderShowModal.show()">ЗАМОВИТИ НОМЕР</app-button>
+        <app-button (click)="orderShowModal.show()">{{lang['orderNumber'][i18n.lang]}}</app-button>
       </div>
     </div>
-
-
-
-
-
-
-  </div>
+</div>
 </div>
 <dialog #orderShowModal class="modal-dialog">
   <app-order-show-modal

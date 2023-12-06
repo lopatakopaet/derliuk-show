@@ -164,7 +164,7 @@ export class MainPageComponent  implements OnInit {
         this.mainPageService.mainText$.subscribe(text => console.log('ballet', text));
       })
     })
-
+  console.log('this.i18n.lang', this.i18n.lang)
     this.getItems('balletShowItems')
     this.getItems('parodyItems')
   }

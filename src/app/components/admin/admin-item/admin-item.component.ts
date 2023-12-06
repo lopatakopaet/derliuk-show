@@ -161,6 +161,7 @@ export class AdminItemComponent implements OnInit {
   }
 
   changeBalletShowItem(data: Item): void {
+    console.log(this.data);
     let isChangeItem = confirm('Зберігти нові данні?');
     if (isChangeItem) {
       this.apiService.changeBalletShowItem(data).subscribe({
@@ -186,7 +187,8 @@ export class AdminItemComponent implements OnInit {
 
   getBalletShowItem(tableName: string, id: string | number): any {
     this.apiService.getBalletShowItem(tableName, id).subscribe(data => {
-      this.item = data[0]
+      this.item = data[0];
+      this.data = data[0];
     })
   }
 

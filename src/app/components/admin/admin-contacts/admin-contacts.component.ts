@@ -12,17 +12,19 @@ import * as dictionary from "../../../i18n/i18n.json";
 export class AdminContactsComponent implements OnInit {
   @ViewChild('contactsForm') contactsForm: ElementRef<HTMLDivElement> | undefined;
   contacts: {
-    description: string;
-    phones: ['', '', ''];
+    description_ua: string;
+    description_en: string;
+    phones: ["", "", ""];
     email: string;
     [key: string]: any
   } = {
-    description: '',
-    phones: ['', '', ''],
+    description_ua: '',
+    description_en: '',
+    phones: ["", "", ""],
     email: ''
   };
   lang: LangItem = dictionary;
-  contactsId: number = 1; // для базы данных, все данные хранятся в json в первой строке таблицы
+  contactsId?: number; // для базы данных, все данные хранятся в json в первой строке таблицы
   contactsDescriptionDefault : string = "Переконаний, що життя має бути наповнене яскравими фарбами. Особливо під час важивих подій, сімейних свят. Наша\n" +
     "    команда перетворить Ваш захід у справжню феєрію, яку ви запам’ятаєте на все життя! У нашому репертуарі понад <a href=\"/ballet-show\"\n" +
     "  >30 танцювальних номерів</a> та <a href=\"/parody-theater\" >20 пародій</a>. Працюємо для Вас з повною віддачею!"
@@ -37,6 +39,7 @@ export class AdminContactsComponent implements OnInit {
   getContacts(): void {
     this.apiService.getContacts().subscribe(data => {
       this.contacts = JSON.parse(data[0].data);
+      this.contactsId = JSON.parse(data[0].id);
     })
   }
 
@@ -44,41 +47,68 @@ export class AdminContactsComponent implements OnInit {
     let isToChangeContact = confirm('Змінити данні?');
     if (isToChangeContact) {
       let contactsData = "";
-      let data = {
-        description: "",
-        phones: [],
-        email: []
+      let data: {
+        description_ua: string;
+        description_en: string;
+        phones: ["", "", ""];
+        email: string;
+        [key: string]: any
+      } = {
+        description_ua: '',
+        description_en: '',
+        phones: ["", "", ""],
+        email: ''
+      };
+      // this.contacts
+      if (this.contacts) {
+        data = this.contacts;
       }
       let description = this.contactsForm?.nativeElement.querySelector('.description')?.innerHTML;
       let phonesElem = this.contactsForm?.nativeElement.querySelectorAll('.phone-input');
-      let emailsElem = this.contactsForm?.nativeElement.querySelectorAll('.email-input');
+      let emailsElem = this.contactsForm?.nativeElement.querySelector('.email-input');
 
       if (description) {
-        data.description = description;
+        data['description_' + this.i18n.lang] = description || "";
       }
 
       if (phonesElem) {
+        // data.phones = [];
         phonesElem.forEach((val, i) => {
           // @ts-ignore
-          data.phones.push(val.value);
+          // data.phones.push(val.value);
+          data.phones[i] = val.value;
         })
       }
 
       if (emailsElem) {
-        emailsElem.forEach((val, i) => {
-          // @ts-ignore
-          data.email.push(val.value);
-        })
+        console.log(emailsElem);
+        // @ts-ignore
+        data.email = emailsElem.value;
+        // emailsElem.forEach((val, i) => {
+        //   // @ts-ignore
+        //   data.email.push(val.value);
+        // })
       }
       contactsData = JSON.stringify(data);
-      this.apiService.changeContacts({data: contactsData, id: this.contactsId}).subscribe({
-        next: (v) => {
-          this.getContacts();
-          alert('Данні оновлені')
-        },
-        error: (e) => {alert('Не вдалося оновити данні')},
-        complete: () => {}
-      })
+      if (this.contactsId) {
+        this.apiService.changeContacts({data: contactsData, id: this.contactsId}).subscribe({
+          next: (v) => {
+            this.getContacts();
+            alert('Данні оновлені')
+          },
+          error: (e) => {alert('Не вдалося оновити данні')},
+          complete: () => {}
+        })
+      } else {
+        this.apiService.addContacts(contactsData).subscribe({
+          next: (v) => {
+            this.getContacts();
+            alert('Данні оновлені')
+          },
+          error: (e) => {alert('Не вдалося оновити данні')},
+          complete: () => {}
+        })
+      }
     }
   }
 }
