@@ -14,6 +14,9 @@ import {AdminItemDetailsComponent} from "./components/admin/admin-item-details/a
 import {AdminRiderComponent} from "./components/admin/admin-rider/admin-rider.component";
 import {AdminGalleryComponent} from "./components/admin/admin-gallery/admin-gallery.component";
 import {AdminContactsComponent} from "./components/admin/admin-contacts/admin-contacts.component";
+import {LoginComponent} from "./components/admin/login/login.component";
+import {AuthGuardService} from "./services/auth-guard.service";
+
 
 const routes: Routes = [
   {
@@ -74,6 +77,7 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminMainComponent,
+    canActivate: [AuthGuardService],
     children: [
       {
         path: 'ballet-page',
@@ -112,6 +116,8 @@ const routes: Routes = [
       },
     ]
   },
+  {path: 'login',
+    component: LoginComponent,},
   { path: '**', component: MainComponent },
   // {
   //   path: 'main',

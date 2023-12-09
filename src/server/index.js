@@ -26,6 +26,7 @@ const multer = require("multer");
 const app = express();
 const http = require("http");
 const fs = require("fs");
+const cors = require('cors')
 
 // // работает
 // const upload = multer({dest:"uploads"});
@@ -94,11 +95,11 @@ const fs = require("fs");
 //   });
 // });
 
-
+app.use(cors())
 // Specifies the file upload location
 const diskStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname,"../assets/uploads"));
+    cb(null, path.join(__dirname,"../public_html/assets/uploads"));
   },
   filename: (req, file, cb) => {
     cb(
@@ -208,6 +209,100 @@ const start = () =>  {
 }
 start();
 
+// const auth = function (req, res, next) {
+//   console.log('req', req)
+//   // var user = basicAuth(req);
+//   let user = {
+//     name: 'amy',
+//     pass: 'passwd123',
+//   };
+//
+//   if (!user || !user.name || !user.pass) {
+//     res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
+//     res.sendStatus(401);
+//   }
+//   if (user.name === 'amy' && user.pass === 'passwd123') {
+//     next();
+//   } else {
+//     res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
+//     res.sendStatus(401);
+//   }
+// }
+
+function authentication(req, res, next) {
+  const authheader = req.headers.authorization;
+  console.log('authheader', authheader);
+
+  if (!authheader) {
+    let err = new Error('You are not authenticated!');
+    res.setHeader('WWW-Authenticate', 'Basic');
+    err.status = 401;
+    return next(err)
+  }
+  // const auth = new Buffer.from(authheader.split(' ')[1],
+  //   'base64').toString().split(':');
+  const auth = new Buffer.from(authheader.split(' ')[1],
+    'base64').toString().split(' ')[1].split(':');
+
+  console.log('auth', auth);
+  const user = auth[0];
+  const pass = auth[1];
+
+  if (user == 'admin' && pass == 'pass') {
+
+    // If Authorized user
+    // next();
+    res.status(200).json({
+      msg: "Login ok",
+    });
+  } else {
+    let err = new Error('You are not authenticated!');
+    // res.setHeader('WWW-Authenticate', 'Basic');
+    err.status = 401;
+    // return next(err);
+    // return next(err);
+        res.status(401).json({
+          msg: "Login error",
+    });
+  }
+}
+
+function adminLogin(req, res, next) {
+  const data = req.body.data;
+
+  if (!data) {
+    let err = new Error('You are not authenticated!');
+    res.setHeader('WWW-Authenticate', 'Basic');
+    err.status = 401;
+    return next(err)
+  }
+
+  const user = data.user;
+  const pass = data.pass;
+
+  if (user == 'admin' && pass == 'pass') {
+  let hash = btoa(`Basic ${user}:${pass}`)
+    // If Authorized user
+    res.status(200).json({
+      msg: "Login ok",
+      hash: hash
+    });
+  } else {
+    let err = new Error('You are not authenticated!');
+    err.status = 401;
+    res.status(401).json({
+      msg: "Login error",
+    });
+  }
+}
+
+app.post('/api/adminLogin', function (req, res, next) {
+  console.log('adf',req.body.data);
+  console.log('adf',res.body);
+  adminLogin(req, res, next);
+});
+
+
 // ГЛАВНАЯ БАЛЕТ
 app.get('/api/getMainPage', function (req, res, next) {
   getMainPage(req.query.tableName, (err, success) => {
@@ -218,7 +313,8 @@ app.get('/api/getMainPage', function (req, res, next) {
     }
   });
 })
-app.post('/api/changeMainPage', function (req, res, next) {
+
+app.post('/api/changeMainPage',  function (req, res, next) {
   console.log('adf',req.body.data);
   changeMainPage(req.body.data, (err, success) => {
     if (err) {
@@ -230,7 +326,7 @@ app.post('/api/changeMainPage', function (req, res, next) {
   })
 });
 
-// ГЛАВНАЯ БАЛЕТ КОНЕЙ
+// ГЛАВНАЯ БАЛЕТ КОНЕЦ
 
 // Номера баллета
 

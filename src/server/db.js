@@ -1,12 +1,7 @@
 const mysql = require("mysql2");
+const config = require('./connection.json')
 
-let db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "derliukShow"
-});
-
+let db = mysql.createConnection(config);
 
 // Connect to MySQL server
 db.connect((err) => {
@@ -30,12 +25,7 @@ function changeMainPage({tableName, data}, cb) {
     cb);
 }
 
-// function changeMainPage({tableName, data}, cb) {
-//   db.execute('UPDATE ' + `${tableName}` + ' SET mainPhoto = ?, mainText_ua = ?, mainText_en = ?, seoText_ua, seoText_en WHERE id = ?',
-//     [data.mainPhoto, data.mainText_ua, data.mainText_en, data.seoText_ua, data.seoText_en, data.id || null],
-//     cb);
-// }
-// ГЛАВНАЯ БАЛЕТ КОНЕЦ
+// ГЛАВНАЯ БАЛЕТ/ПАРОДИИ КОНЕЦ
 
 // Номера балета
 

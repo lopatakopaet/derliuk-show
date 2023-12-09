@@ -32,9 +32,13 @@ import { AdminRiderComponent } from './components/admin/admin-rider/admin-rider.
 import { AdminGalleryComponent } from './components/admin/admin-gallery/admin-gallery.component';
 import { AdminContactsComponent } from './components/admin/admin-contacts/admin-contacts.component';
 import {ApiService} from "./services/api.service";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { AdminItemComponent } from './components/admin/admin-item/admin-item.component';
 import {CdkDrag, CdkDropList, CdkDropListGroup, DragDropModule} from "@angular/cdk/drag-drop";
+import { LoginComponent } from './components/admin/login/login.component';
+import {FormsModule} from "@angular/forms";
+import {AuthGuardService} from "./services/auth-guard.service";
+import {AuthInterceptor} from "./interceptors/auth-interceptor.service";
 // import { ModalOutletComponent } from './components/modal-outlet/modal-outlet.component';
 
 @NgModule({
@@ -67,6 +71,7 @@ import {CdkDrag, CdkDropList, CdkDropListGroup, DragDropModule} from "@angular/c
     AdminGalleryComponent,
     AdminContactsComponent,
     AdminItemComponent,
+    LoginComponent,
     // ModalOutletComponent,
     // PortalDirective,
   ],
@@ -76,10 +81,17 @@ import {CdkDrag, CdkDropList, CdkDropListGroup, DragDropModule} from "@angular/c
     // SwiperModule,
     AngularSvgIconModule.forRoot(),
     HttpClientModule,
-    DragDropModule
+    DragDropModule,
+    FormsModule
   ],
   providers: [
-    ApiService
+    ApiService,
+    AuthGuardService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]

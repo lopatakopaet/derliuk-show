@@ -27,29 +27,20 @@
 
   &-wrap {
     max-width: 625px;
-    width: 100%;
     padding: 2px;
     background-image: url("/assets/img/gold-text.png");
     border-radius: 8px;
   }
-}
+  .modal-title {
+    text-align: initial;
+  }
 
-.close-modal {
-  position: absolute;
-  right: 15px;
-  top: 15px;
-  cursor: pointer;
-}
-
-.modal-subtitle {
-  margin-top: 6px;
-  color: rgba(255, 255, 255, 0.90);
-  text-align: center;
-  font-family: Arial;
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 16px;
+  app-button {
+    margin: 44px auto 0;
+  }
+  .input-wrap {
+    max-width: initial;
+  }
 }
 
 .input-title {
@@ -78,66 +69,15 @@
   width: 100%;
 }
 
-.comment {
-  display: flex;
-  flex-direction: column;
-
-  textarea {
-    resize: none;
-    height: 100%;
-    padding: 10px;
-  }
-
-  .input-wrap {
-    flex-grow: 1;
-  }
-}
-
-.privacy-policy {
-  margin-top: 30px;
-  color: rgba(255, 255, 255, 0.90);
-  font-family: Arial;
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 16px;
-
-  a {
-    color: rgba(255, 255, 255, 0.90);
-    text-decoration: underline;
-  }
-}
-
-.footer {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 43px;
-  color: rgba(255, 255, 255, 0.70);
-  font-family: Arial;
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 16px;
-}
-
 @media only screen and (max-width: 650px) {
   .modal-overlay {
-    display: block;
-    padding: 20px 40px;
-    overflow: auto;
+    padding: 0 40px;
   }
   .inputs-wrap {
     flex-direction: column;
   }
   .input-wrap {
     max-width: initial;
-  }
-  .comment {
-    height: 156px;
-  }
-  .footer {
-    gap: 22px;
-    flex-wrap: wrap;
   }
 }
 
@@ -156,14 +96,9 @@
     line-height: 35px;
     opacity: 1;
   }
-  .privacy-policy {
-    margin-top: 10px;
-    color: #FFF;
-    font-size: 11px;
-    line-height: 15px;
-  }
+
   app-button {
-    margin-top: 37px;
+    margin: 37px auto 0;
   }
   .footer {
     margin-top: 19px;
@@ -184,7 +119,7 @@
     padding: 18px 16px 36px;
   }
   .modal-overlay {
-    padding: 15px 15px;
+    padding: 0 15px;
   }
   .close-modal svg {
     height: 10px;

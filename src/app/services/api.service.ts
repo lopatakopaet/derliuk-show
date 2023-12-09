@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../environments/environment";
 import {Item} from "../../interfaces/Item";
@@ -12,6 +12,17 @@ import {BalletPage} from "../../interfaces/BalletPage";
 export class ApiService {
 
   constructor(private http: HttpClient) { }
+
+  public adminLogin(data: {user: string; pass: string}): Observable<any> {
+      // let headers = new HttpHeaders({
+      //   'Content-Type': 'application/json',
+      //   'Authorization': btoa(`Basic ${data.user}:${data.pass}`)
+      // });
+    return this.http.post<any>(`${environment.apiUrl}/adminLogin`, {
+      data
+    })
+  }
+
 
   // СТРАНИЦА БАЛЕТ/ПАРОДИИ
 
@@ -93,6 +104,23 @@ export class ApiService {
     })
   }
 
+  // public changeItemPosition(tableName: string, item: Item, newPosition: number): Observable<any> { // todo: добавить интерфейс
+  //   let headers = new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //     'Authorization': btoa(`Basic 'admin':'password'`)});
+  //   return this.http.post<any>(`${environment.apiUrl}/changeItemPosition`, {
+  //       data: {
+  //         tableName,
+  //         item,
+  //         newPosition
+  //       }
+  //     } ,
+  //     {
+  //       headers: headers
+  //     }
+  //   )
+  // }
+
   // СТРАНИЦА КОНТАКТЫ
   public getContacts(): Observable<any> { // todo: добавить интерфейс
     return this.http.get<any>(`${environment.apiUrl}/getContacts`, {
@@ -172,7 +200,7 @@ export class ApiService {
   public saveFile(formHtml: HTMLFormElement): Promise<any> { // todo: добавить интерфейс
     /** @type {HTMLFormElement} */
     const form: HTMLFormElement | null = formHtml;
-    const url = new URL(form?.action);
+    const url = new URL(environment.apiUrl + '/upload');
     const formData = new FormData(form);
     // @ts-ignore
     const searchParams = new URLSearchParams(formData);
