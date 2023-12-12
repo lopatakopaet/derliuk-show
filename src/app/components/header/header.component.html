@@ -34,7 +34,7 @@
   </div>
   <div class="footer-line"></div>
   <div class="mobile-menu" *ngIf="isOpenMenu">
-      <a routerLink="costume-rental" routerLinkActive="active">{{lang['costumeRental'][i18n.lang]}}</a>
+<!--      <a routerLink="costume-rental" routerLinkActive="active">{{lang['costumeRental'][i18n.lang]}}</a>-->
       <a routerLink="gallery" routerLinkActive="active">{{lang['gallery'][i18n.lang]}}</a>
       <a routerLink="rider" routerLinkActive="active">{{lang['rider'][i18n.lang]}}</a>
       <a routerLink="contacts" routerLinkActive="active">{{lang['contacts'][i18n.lang]}}</a>
@@ -46,5 +46,9 @@
 <dialog #orderShowModal class="modal-dialog">
   <app-order-show-modal
     (close)="orderShowModal.close()"
+    (openSuccessModal)="successModal.show()"
   ></app-order-show-modal>
 </dialog>
+<app-success-modal #successModal
+                   (close)="successModal.close()"
+></app-success-modal>

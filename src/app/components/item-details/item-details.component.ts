@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Comment} from "../../../interfaces/Comment";
 import {switchMap} from "rxjs";
@@ -111,15 +111,14 @@ export class ItemDetailsComponent implements OnInit {
     this.route.params.subscribe(params => {
       let hrefArr = this.router.url.split('/');
       this.id = this.route.snapshot.paramMap.get('id') || 0;
-      if (hrefArr.includes('ballet-page')) {
+      if (hrefArr.includes('ballet-show')) {
         this.tableItemsName = 'balletShowItems';
-      } else if (hrefArr.includes('parody-page')) {
+      } else if (hrefArr.includes('parody-theater')) {
         this.tableItemsName = 'parodyItems';
       }
       this.apiService.getBalletShowItem(this.tableItemsName, this.id).subscribe({
         next: (v) => {
           this.item = v[0];
-          console.log(this.item)
         },
         error: (e) => {},
         complete: () => {}
@@ -144,6 +143,5 @@ export class ItemDetailsComponent implements OnInit {
     //   complete: () => {}
     // })
   }
-
 
 }

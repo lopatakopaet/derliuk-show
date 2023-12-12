@@ -1,4 +1,5 @@
 const {
+  orderShow,
   getMainPage,
   changeMainPage,
   getMostPopularItems,
@@ -99,7 +100,10 @@ app.use(cors())
 // Specifies the file upload location
 const diskStorage = multer.diskStorage({
   destination: (req, file, cb) => {
+    // для прода
     cb(null, path.join(__dirname,"../public_html/assets/uploads"));
+    // для локалки
+    // cb(null, path.join(__dirname,"../assets/uploads"));
   },
   filename: (req, file, cb) => {
     cb(
@@ -151,7 +155,10 @@ const validateFileTypes = (file) => {
 app.use(express.json()) // for parsing application/json
 
 app.post("/api/deleteFile",function (req, res, next) {
-  let filePath = path.join(__dirname, `../${req.body.data.filePath}`);
+  // для локалки
+  // let filePath = path.join(__dirname, `../${req.body.data.filePath}`);
+  // для прода
+  let filePath = path.join(__dirname, `../public_html${req.body.data.filePath}`);
  let status;
  let message;
   fs.unlink(filePath, (err, success) => {
@@ -297,11 +304,18 @@ function adminLogin(req, res, next) {
 }
 
 app.post('/api/adminLogin', function (req, res, next) {
-  console.log('adf',req.body.data);
-  console.log('adf',res.body);
   adminLogin(req, res, next);
 });
 
+app.post('/api/orderShow', function (req, res, next) {
+  orderShow(req.body.data, (err, success) => {
+    if (err) {
+      next(err);
+    } else {
+      res.send(success)
+    }
+  });
+});
 
 // ГЛАВНАЯ БАЛЕТ
 app.get('/api/getMainPage', function (req, res, next) {

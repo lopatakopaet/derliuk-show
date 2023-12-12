@@ -192,6 +192,11 @@ app-button {
         }
 
         &:before {
+          width: 28px;
+          height: 64px;
+          top: 0;
+          left: 0;
+          background-image: url("/assets/img/popular-item-decor-mobile.png");
         }
       }
 

@@ -94,50 +94,59 @@ export class AdminItemComponent implements OnInit {
     this.data["duration_" + this.i18n.lang] = duration || "";
     this.data["seoText_" + this.i18n.lang] = seoText || "";
     this.data.tableName = this.tableItemsName;
-    if (this.tableItemsName == 'balletShowItems' && this.balletShowItemsService.currentBalletItems) {
-      this.data.idPosition = this.balletShowItemsService.currentBalletItems?.length + 1 || 1;
-    } else if (this.tableItemsName == 'parodyItems' && this.parodyItemsService.currentParodyItems) {
-      this.data.idPosition = this.parodyItemsService.currentParodyItems?.length + 1 || 1
+    if (this.tableItemsName == 'balletShowItems' && !this.data.idPosition) {
+      if (this.balletShowItemsService.currentBalletItems?.length) {
+        this.data.idPosition = this.balletShowItemsService.currentBalletItems?.length + 1;
+      } else {
+        this.data.idPosition = 1;
+      }
+    } else if (this.tableItemsName == 'parodyItems'  && !this.data.idPosition) {
+      if (this.parodyItemsService.currentParodyItems?.length) {
+        this.data.idPosition = this.parodyItemsService.currentParodyItems?.length + 1;
+      } else {
+        this.data.idPosition = 1;
+      }
     }
 
+    let changeItem = confirm('Внести зміни?');
+    if (changeItem) {
+      // если загрузили новое фото
+      if (this.MainPhotoForm && this.imageSrc && !this.itemId) {
+        this.apiService.saveFile(this.MainPhotoForm.nativeElement)
+          .then(answer => {
+            if (answer.message === "File uploaded successfully") {
+              this.data.photo = answer.data.url;
+              this.addBalletShowItem(this.data);
+            } else {
+              alert("Помилка при заватаженні файла")
+              console.error('answer', answer);
+            }
+          })
 
-    // если загрузили новое фото
-    if (this.MainPhotoForm && this.imageSrc && !this.itemId) {
-      this.apiService.saveFile(this.MainPhotoForm.nativeElement)
-        .then(answer => {
-          if (answer.message === "File uploaded successfully") {
-            this.data.photo = answer.data.url;
-            this.addBalletShowItem(this.data);
-          } else {
-            alert("Помилка при заватаженні файла")
-            console.error('answer', answer);
-          }
-        })
-    } else if (this.itemId && !this.imageSrc) {
-      this.data.photo = this.item.photo;
-      this.data.id = this.item.id;
-      this.changeBalletShowItem(this.data);
+      } else if (this.itemId && !this.imageSrc) {
+        this.data.photo = this.item.photo;
+        this.data.id = this.item.id;
+        this.changeBalletShowItem(this.data);
+      }
+
+      else if (this.MainPhotoForm && this.itemId && this.imageSrc) {
+        this.data.id = this.item.id;
+        this.apiService.saveFile(this.MainPhotoForm.nativeElement)
+          .then(answer => {
+            if (answer.message === "File uploaded successfully") {
+              this.data.photo = answer.data.url;
+              this.changeBalletShowItem(this.data);
+            } else {
+              alert("Помилка при заватаженні файла")
+              console.error('answer', answer);
+            }
+          })
+      }
     }
 
-    else if (this.MainPhotoForm && this.itemId && this.imageSrc) {
-      this.data.id = this.item.id;
-      this.apiService.saveFile(this.MainPhotoForm.nativeElement)
-        .then(answer => {
-          if (answer.message === "File uploaded successfully") {
-            this.data.photo = answer.data.url;
-            this.changeBalletShowItem(this.data);
-          } else {
-            alert("Помилка при заватаженні файла")
-            console.error('answer', answer);
-          }
-        })
-    }
   }
 
   addBalletShowItem(data: Item): void {
-    let isAddItem = confirm('Додати номер?');
-
-    if (isAddItem) {
       this.apiService.addBalletShowItem(data).subscribe({
         next: (v) => {
           // обновить список номеров
@@ -145,8 +154,10 @@ export class AdminItemComponent implements OnInit {
             next: (v) => {
               if (this.tableItemsName == 'balletShowItems') {
                 this.balletShowItemsService.changeBalletShowItems(v);
+                this.router.navigate([`admin/ballet-page`]);
               } else if (this.tableItemsName == 'parodyItems') {
                 this.parodyItemsService.changeParodyItems(v);
+                this.router.navigate([`admin/parody-page`]);
               }
               },
             error: (e) => {},
@@ -157,13 +168,11 @@ export class AdminItemComponent implements OnInit {
         error: (e) => {alert('Не вдалося додати номер =(')},
         complete: () => {}
       })
-    }
   }
 
   changeBalletShowItem(data: Item): void {
-    console.log(this.data);
-    let isChangeItem = confirm('Зберігти нові данні?');
-    if (isChangeItem) {
+    // let isChangeItem = confirm('Зберігти нові данні?');
+    // if (isChangeItem) {
       this.apiService.changeBalletShowItem(data).subscribe({
         next: (v) => {
           this.apiService.getMostPopularItems(this.tableItemsName).subscribe({
@@ -174,15 +183,18 @@ export class AdminItemComponent implements OnInit {
                 this.parodyItemsService.changeParodyItems(v);
               }
             },
-            error: (e) => {alert('Не вдалося додати номер =(')},
+            error: (e) => {alert('Не вдалося змінити номер =(')},
             complete: () => {}
           })
           alert("Данні оновлено");
         },
-        error: (e) => {alert('Не вдалося змінити данні =(')},
+        error: (e) => {
+          alert('Не вдалося змінити данні =(');
+          console.error(e)
+        },
         complete: () => {}
       })
-    }
+    // }
   }
 
   getBalletShowItem(tableName: string, id: string | number): any {
@@ -215,18 +227,27 @@ export class AdminItemComponent implements OnInit {
       }
       this.apiService.deleteFile(fileForRemove).subscribe({
         next: (v) => {
+          if (item.id)
+            this.apiService.deleteAndChangePositionItem(this.tableItemsName, item.id).subscribe({
+              next: (v) => {alert('Номер видалено')},
+              error: (e) => {alert('Не вдалося видалити номер =(')},
+              complete: () => {
+                this.getMostPopularItems();
+              }
+            })
         },
         error: (e) => {
+          if (item.id)
+            this.apiService.deleteAndChangePositionItem(this.tableItemsName, item.id).subscribe({
+              next: (v) => {alert('Номер видалено')},
+              error: (e) => {alert('Не вдалося видалити номер =(')},
+              complete: () => {
+                this.getMostPopularItems();
+              }
+            })
         },
         complete: () => {
-          if (item.id)
-          this.apiService.deleteAndChangePositionItem(this.tableItemsName, item.id).subscribe({
-            next: (v) => {alert('Номер видалено')},
-            error: (e) => {alert('Не вдалося видалити номер =(')},
-            complete: () => {
-              this.getMostPopularItems();
-            }
-          })
+
         }
       })
     }

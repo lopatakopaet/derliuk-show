@@ -9,13 +9,13 @@
       <div class="description" [innerHTML]="item && item['description_' + i18n.lang]">
       </div>
       <div class="program">
-        <div class="golden-text golden-text-low">
+        <div class="golden-text golden-text-low no-wrap">
           {{lang['inProgram'][i18n.lang]}}:
         </div>
         <span [innerHTML]="item && item['inProgram_' + i18n.lang]"></span>
       </div>
       <div class="duration">
-        <div class="golden-text golden-text-low">
+        <div class="golden-text golden-text-low no-wrap">
           {{lang['duration'][i18n.lang]}}:
         </div>
         <span [innerHTML]="item && item['duration_' + i18n.lang]"></span>
@@ -23,7 +23,10 @@
     </div>
   </div>
 
-  <app-button class="order-button">{{lang['order'][i18n.lang]}}</app-button>
+  <app-button (click)="orderShowModal.show()">
+    {{lang['order'][i18n.lang]}}
+  </app-button>
+
   <!--  todo gallery-->
   <div class="item-details__gallery" hidden>
     <div class="main-title">
@@ -34,6 +37,7 @@
       [gallery]="gallery"
     ></app-slider-gallery>
   </div>
+
   <!--  todo reviews-->
   <div class="main-popular__comments" *ngIf="false">
     <div class="main-title">
@@ -54,6 +58,17 @@
   <div class="main-page__description" [innerHTML]="item && item['seoText_' + i18n.lang]"></div>
 
 </div>
+
+<dialog #orderShowModal class="modal-dialog">
+  <app-order-show-modal
+    (close)="orderShowModal.close()"
+    (openSuccessModal)="successModal.show()"
+  ></app-order-show-modal>
+</dialog>
+
+<app-success-modal #successModal
+  (close)="successModal.close()"
+></app-success-modal>
 
 <dialog #leaveFeedbackModal class="modal-dialog">
   <app-leave-feedback-modal

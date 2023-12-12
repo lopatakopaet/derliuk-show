@@ -200,7 +200,13 @@ export class ApiService {
   public saveFile(formHtml: HTMLFormElement): Promise<any> { // todo: добавить интерфейс
     /** @type {HTMLFormElement} */
     const form: HTMLFormElement | null = formHtml;
-    const url = new URL(environment.apiUrl + '/upload');
+    const urlold = new URL(form?.action);
+    console.log('urlold', urlold)
+    console.log('form?.action', form?.action);
+    console.log('${environment.apiUrl}/upload',`${environment.apiUrl}/upload`);
+    // const url = new URL(`${environment.apiUrl}/upload`);
+    const url = new URL(`${environment.apiUrl}/upload`);
+
     const formData = new FormData(form);
     // @ts-ignore
     const searchParams = new URLSearchParams(formData);
@@ -230,6 +236,16 @@ export class ApiService {
   }
   public deleteFile(data: {filePath: string}): Observable<any> { // todo: добавить интерфейс
     return this.http.post<any>(`${environment.apiUrl}/deleteFile`, {
+      data
+    })
+  }
+
+  /**
+   * Заказать шоу-программу
+   * @param data
+   */
+  public orderShow(data: {name: string; phone: string; comment: string}): Observable<any> { // todo: добавить интерфейс
+    return this.http.post<any>(`${environment.apiUrl}/orderShow`, {
       data
     })
   }

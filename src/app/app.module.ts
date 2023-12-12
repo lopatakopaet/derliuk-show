@@ -39,6 +39,7 @@ import { LoginComponent } from './components/admin/login/login.component';
 import {FormsModule} from "@angular/forms";
 import {AuthGuardService} from "./services/auth-guard.service";
 import {AuthInterceptor} from "./interceptors/auth-interceptor.service";
+import { SuccessModalComponent } from './components/success-modal/success-modal.component';
 // import { ModalOutletComponent } from './components/modal-outlet/modal-outlet.component';
 
 @NgModule({
@@ -72,6 +73,7 @@ import {AuthInterceptor} from "./interceptors/auth-interceptor.service";
     AdminContactsComponent,
     AdminItemComponent,
     LoginComponent,
+    SuccessModalComponent,
     // ModalOutletComponent,
     // PortalDirective,
   ],

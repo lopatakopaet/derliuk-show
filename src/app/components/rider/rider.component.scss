@@ -59,7 +59,9 @@ app-button-request-call {
   justify-content: right;
   margin-top: 12px;
 }
-
+.button-desktop {
+  margin: auto;
+}
 .block-title__mobile {
   display: none;
 }
@@ -159,6 +161,7 @@ app-button-request-call {
   }
   .button-desktop {
     display: none;
+
   }
   app-button-request-call {
     margin-top: 0;

@@ -1,16 +1,35 @@
 const mysql = require("mysql2");
 const config = require('./connection.json')
 
-let db = mysql.createConnection(config);
+//let db = mysql.createConnection(config);
+
+const db = mysql.createPool({
+  ...config,
+  waitForConnections: true,
+  connectionLimit: 10,
+  maxIdle: 10, // max idle connections, the default value is the same as `connectionLimit`
+  idleTimeout: 60000, // idle connections timeout, in milliseconds, the default value 60000
+  queueLimit: 0,
+  enableKeepAlive: true,
+  keepAliveInitialDelay: 0
+});
 
 // Connect to MySQL server
-db.connect((err) => {
-  if (err) {
-    console.log("Database Connection Failed !!!", err);
-  } else {
-    console.log("connected to Database");
-  }
-});
+// db.connect((err) => {
+//   if (err) {
+//     console.log("Database Connection Failed !!!", err);
+//   } else {
+//     console.log("connected to Database");
+//   }
+// });
+
+// Модальное окно заказа шоу-баллета
+function orderShow(data, cb) {
+  console.log(data);
+  db.execute('INSERT INTO `orderShow` (name, comment, phone)  VALUES(?,?, ?)',
+    [data.name, data.comment, data.phone],
+    cb);
+}
 
 // ГЛАВНАЯ БАЛЕТ/ПАРОДИИ
 function getMainPage(tableName, cb) {
@@ -280,6 +299,7 @@ function sortItems(items) {
 }
 
 module.exports = {
+  orderShow,
   getMainPage,
   changeMainPage,
   getMostPopularItems,

@@ -19,6 +19,7 @@ import * as dictionary from "../../i18n/i18n.json";
 import {Item} from "../../../interfaces/Item";
 import {BalletShowItemsService} from "../../services/getBalletShowItems";
 import {ParodyItemsService} from "../../services/getParodyItems";
+import {ContactsService} from "../../services/contacts.service";
 // import { register } from 'swiper/element/bundle';
 // import { Swiper} from "swiper";
 // import { Navigation} from "swiper/modules"
@@ -120,11 +121,6 @@ export class MainPageComponent  implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
-    // this.router.events.subscribe((evt) => {
-    //   if (evt instanceof NavigationEnd) {
-    //     this.router.navigated = false;
-    //   }
-    // });
 
     // this.route.params.subscribe(params => {
     //   if (this.fullMode) {
@@ -137,15 +133,6 @@ export class MainPageComponent  implements OnInit {
     //   }
     // })
 
-
-    // @ts-ignore
-    // router.events.filter(event => event instanceof NavigationEnd)
-    //   // @ts-ignore
-    //   .subscribe(event =>
-    //   {
-    //     this.currentRoute = event.url;
-    //     console.log(event);
-    //   });
   }
 
   ngOnInit(): void {
@@ -161,10 +148,9 @@ export class MainPageComponent  implements OnInit {
           mainText_en: this.pageData.mainText_en,
         }
         this.mainPageService.changeMainText$(mainText);
-        this.mainPageService.mainText$.subscribe(text => console.log('ballet', text));
+        // this.mainPageService.mainText$.subscribe(text => console.log('ballet', text));
       })
     })
-  console.log('this.i18n.lang', this.i18n.lang)
     this.getItems('balletShowItems')
     this.getItems('parodyItems')
   }

@@ -16,7 +16,7 @@
           заповніть форму, щоб ми могли з Вами зв’язатись
         </div>
       </div>
-      <form action="">
+      <form  #orderShowForm="ngForm" (ngSubmit)="$event.preventDefault(); onFormSubmit(orderShowForm)">
         <div class="inputs-wrap">
           <div class="user-info">
             <div class="name">
@@ -24,7 +24,7 @@
                 Ваше ім’я
               </div>
               <div class="input-wrap">
-                <input class="text-input" placeholder="Введіть ім’я">
+                <input class="text-input" placeholder="Введіть ім’я" name='name' ngModel required>
               </div>
             </div>
             <div class="phone">
@@ -32,7 +32,7 @@
                 Ваш телефон
               </div>
               <div class="input-wrap">
-                <input class="text-input" placeholder="Введіть телефон">
+                <input class="text-input" placeholder="Введіть телефон" name='phone' ngModel required>
               </div>
             </div>
           </div>
@@ -41,13 +41,16 @@
               Коментар
             </div>
             <div class="input-wrap">
-              <textarea placeholder="Введіть коментар"></textarea>
+              <textarea placeholder="Введіть коментар" name='comment' ngModel required></textarea>
             </div>
           </div>
         </div>
         <div class="privacy-policy">
-          <input type="checkbox">
-          Погоджуюсь з <a href="">політикою конфіденційності</a>
+          <input type="checkbox" name='check' ngModel required>
+          Погоджуюсь з <a href="" target="_blank">політикою конфіденційності</a>
+          <div class="required-field" *ngIf="checkErr">
+            Обов'язкове поле
+          </div>
         </div>
         <app-button class="modal-button">
           ВІДПРАВИТИ
@@ -57,12 +60,15 @@
         <div class="phone-title">
           Або телефонуйте:
         </div>
-        <div>+ 38 (099 )239-58-36,</div>
-        <div>+38 (093) 698-97-72,</div>
-        <div>+ 38 (096) 685-22-90</div>
+        <div *ngFor="let phone of contacts.phones">
+          {{phone}}
+        </div>
       </div>
 
     </div>
 
   </div>
+</div>
+<div class="preloader">
+  <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 </div>

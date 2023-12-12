@@ -1,0 +1,117 @@
+.modal-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 111;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(5px);
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  max-width: 348px;
+  width: 100%;
+  padding: 22px 39px 31px 37px;
+  border-radius: 8px;
+  background: #000213;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  z-index: 222;
+
+  &-wrap {
+    max-width: 348px;
+    width: 100%;
+    padding: 2px;
+    background-image: url("/assets/img/gold-text.png");
+    border-radius: 8px;
+  }
+}
+
+.close-modal {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  cursor: pointer;
+}
+
+.modal-subtitle {
+  margin-top: 15px;
+  color: #FFF;
+  text-align: center;
+  font-family: Arial;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px; /* 169.231% */
+}
+
+.modal-button {
+  margin-top: 25px;
+}
+.timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
+  color: rgba(255, 255, 255, 0.50);
+  text-align: center;
+  font-family: Arial;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 153.846% */
+  span {
+    margin-left: 5px;
+  }
+}
+
+
+
+
+
+@media only screen and (max-width: 650px) {
+  .modal-overlay {
+    display: block;
+    padding: 20px 40px;
+    overflow: auto;
+  }
+}
+
+@media only screen and (max-width: 570px) {
+  .modal-subtitle {
+    color: #FFF;
+    text-align: center;
+    font-size: 11px;
+    line-height: 15px;
+  }
+
+  app-button {
+    margin-top: 37px;
+  }
+
+  .phone-title {
+    color: #FFF;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 44px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .modal {
+    padding: 18px 16px 36px;
+  }
+  .modal-overlay {
+    padding: 15px 15px;
+  }
+  .close-modal svg {
+    height: 10px;
+    width: 10px;
+  }
+}

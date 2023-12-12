@@ -120,8 +120,9 @@ app-button {
     display: none;
   }
   .button-mobile {
-    display: block;
-    margin-top: 70px;
+    display: flex;
+    justify-content: center;
+    margin: 70px auto 0;
   }
   .contacts {
     flex-direction: column;
@@ -222,11 +223,11 @@ app-button {
     }
 
     .email-wrap {
-      margin-top: 12px;
+      margin-top: 20px;
     }
 
     .social-wrap {
-      margin-top: 30px;
+      margin-top: 25px;
     }
 
     .phones-email__wrap {

@@ -39,6 +39,13 @@
   }
 }
 
+.item-details-img__wrap {
+  z-index: 11;
+  img {
+    width: 606px;
+  }
+}
+
 .item-details__gallery {
   margin-top: 70px;
 }
@@ -66,6 +73,10 @@
 .program, .duration {
   display: flex;
   column-gap: 25px;
+}
+
+.no-wrap {
+  text-wrap: nowrap;
 }
 
 app-button {
@@ -191,5 +202,9 @@ app-slider-comment {
 }
 
 @media only screen and (max-width: 420px) {
-
+  .item-details__description {
+    .block-title {
+      font-size: 24px;
+    }
+  }
 }
