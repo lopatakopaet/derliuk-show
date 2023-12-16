@@ -489,19 +489,24 @@ app.get('/api/getRiderData', function (req, res) {
   })
 });
 
-app.post('/api/addRiderData', function (req, res) {
+app.post('/api/addRiderData', function (req, res, next) {
   console.log('req', req.body)
-  addRiderData(req.body.data, (data)=> {
-    // res.send('true');
-    res.send(data);
+  addRiderData(req.body.data, (err, success)=> {
+    if (err) {
+      next(err);
+    } else {
+      res.send(success)
+    }
   })
 });
 
-app.post('/api/changeRiderData', function (req, res) {
-  console.log('req', req.body)
-  changeRiderData(req.body.data, (data)=> {
-    // res.send('true');
-    res.send(data);
+app.post('/api/changeRiderData', function (req, res, next) {
+  changeRiderData(req.body.data, (err, success)=> {
+    if (err) {
+      next(err);
+    } else {
+      res.send(success)
+    }
   })
 });
 // Страница Райдер КОНЕЦ

@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from "../../services/api.service";
 import {I18nService} from "../../services/i18n.service";
+import {LangItem} from "../../../interfaces/LangInterface";
+import * as dictionary from "../../i18n/i18n.json";
 
 @Component({
   selector: 'app-rider',
@@ -9,10 +11,7 @@ import {I18nService} from "../../services/i18n.service";
 })
 export class RiderComponent implements OnInit {
   showModal: boolean;
-  currentFile?: string;
-  currentRiderList: [] = [];
-  riderList_ua: [] = [];
-  riderList_en: [] = [];
+  lang: LangItem = dictionary;
   riderData: {
     data_ua: {
       riderList: [];
@@ -21,7 +20,8 @@ export class RiderComponent implements OnInit {
     data_en: {
       riderList: [];
       file: string;
-    }
+    };
+    [key: string]: any;
   } = {
     data_ua: {
       riderList: [],
@@ -39,16 +39,14 @@ export class RiderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getRiderData()
+  }
+
+  getRiderData(): void {
     this.apiService.getRiderData().subscribe(data => {
       if (data && data.length) {
-        this.riderData = JSON.parse(data[0].data);
-        let riderId = JSON.parse(data[0].id);
-        if (riderId) {
-          // @ts-ignore
-          this.currentRiderList = this.riderData['data_' + this.i18n.lang].riderList
-          // @ts-ignore
-          this.currentFile = this.riderData['data_' + this.i18n.lang].file
-        }
+        this.riderData = JSON.parse(data[0].data)
+        // this.riderId = JSON.parse(data[0].id);
       }
     })
   }

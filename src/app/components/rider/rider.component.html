@@ -11,69 +11,34 @@
       <div class="block-title golden-text block-title__desktop">Райдер</div>
       <div class="rider__list">
         <ul>
-<!--          <li *ngFor="let item of riderData && riderData['data_' + i18n.lang]['riderList']">-->
-<!--            <span [innerHTML]="item">-->
+          <li *ngFor="let list of riderData['data_'+ i18n.lang]['riderList']">
+            <span [innerHTML]="list">
 
-<!--            </span>-->
-<!--          </li>-->
-          <li>
-            <span>
-              Організатор/ сторона-замовник забезпечує повноцінне харчування для колективу, а також гарячий чай, кава,
-            мінеральна вода без газу (1,5 л. / на кожного артиста). Перебування артистів на локації більше 6 годин:
-            надання організатором / замовником 2-х разового харчування (обід / вечеря).
-            </span>
-          </li>
-          <li>
-            <span>
-              Звук: носій USB - флеш; професійна апаратура, супровід звукорежисера / DJ. При замовленні шоу-програми
-            театру пародій, необхідна наявність мікрофонної стійки і радіомікрофона - 2шт.
-            </span>
-          </li>
-          <li>
-            <span>Концертний майданчик не менше 10 кв.м.; вільного простору до стелі від 2,5 метрів.</span>
-          </li>
-          <li>
-            <span>
-            Виключені виступи на піску та мокрому від дощу майданчику.
-          </span>
-          </li>
-          <li>
-            <span>
-              У разі затримки обумовленого таймінгом виходу / сценарію (понад 30 хвилин)
-            з вини організатора / замовника, керівник колективу залишає за собою право скоротити шоу-програму на свій
-            розсуд без зменшення гонорару. У разі скасування заходу організатором / замовником пізніше, ніж за три дні
-            до призначеної дати - передоплата не повертається.
-
-            </span>
-          </li>
-          <li>
-            <span>
-              На виїзд: комфортабельне розміщення всіх артистів в одному готелі
-            (номери обов'язково повинні бути обладнані санвузлами та душовими кабінами).
-            </span>
-          </li>
-          <li>
-            <span>
-              Для бронювання замовлення - передоплата 50% від вартості шоу.
-            Залишок гонорару - по приїзду артистів на локацію.
             </span>
           </li>
         </ul>
       </div>
     </div>
-<!--    <app-button (click)="showModal = !showModal">-->
-   <div class="buttons-wrap">
-     <app-button class="button-desktop">
-       <img class="download-icon" src="../../../assets/img/download-icon.svg" alt="">
-       СКАЧАТИ
-     </app-button>
+   <div class="buttons-wrap" *ngIf="riderData['data_'+ i18n.lang]['file']">
+     <div>
+       <a href="{{riderData['data_'+ i18n.lang]['file']}}" download>
+         <app-button class="button-desktop">
+           <img class="download-icon" src="../../../assets/img/download-icon.svg" alt="">
+           {{lang['download'][i18n.lang]}}
+         </app-button>
+       </a>
+     </div>
      <app-button-request-call class="button-desktop"></app-button-request-call>
    </div>
-    <div class="download-mobile">
-      <div class="download-btn">
-        <img src="assets/img/download-mobile.png" alt="">
-        <span>СКАЧАТИ</span>
-      </div>
+
+    <div class="download-mobile" *ngIf="riderData['data_'+ i18n.lang]['file']">
+      <a href="{{riderData['data_'+ i18n.lang]['file']}}" download>
+        <div class="download-btn">
+          <img src="assets/img/download-mobile.png" alt="">
+          {{lang['download'][i18n.lang]}}
+        </div>
+      </a>
+
       <app-button-request-call></app-button-request-call>
     </div>
   </div>

@@ -49,6 +49,21 @@
   }
 }
 
+.buttons-wrap {
+  a {
+    display: block;
+    width: fit-content;
+    margin: auto;
+    color: #FFF;
+    font-family: Arial;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 35px; /* 159.091% */
+    text-decoration: none;
+  }
+}
+
 app-button {
   display: flex;
   justify-content: center;
@@ -74,6 +89,15 @@ app-button-request-call {
   font-style: normal;
   font-weight: 700;
   line-height: 35px;
+  a {
+    color: #8094FF;
+    font-family: Arial;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 35px;
+    text-decoration: none;
+  }
 }
 
 @media only screen and (max-width: 1100px) {

@@ -39,10 +39,10 @@ export class BalletShowComponent implements OnInit {
   private subsBalletShowItems?: Subscription;
   private subsParodyItems?: Subscription;
   lang: LangItem = dictionary;
-  tableName: string = "BalletPage"; // для запросов в БД, указываем с какой таблицой работаем]
+  tableName: string = "BalletPage"; // для запросов в БД, указываем с какой таблицeй работаем]
   balletShowItems?: Item[];
   parodyItems?: Item[];
-  hrefPageName: string = "ballet-page"// название страницы из url
+  hrefPageName: string = "ballet-show"// название страницы из url
 
   // popularItemsArr = [
   //   new Item({
@@ -132,7 +132,7 @@ export class BalletShowComponent implements OnInit {
 
   }
   ngOnDestroy(): void {
-    // отмена подписки на главный text
+    // отмена подписки
     this.subs?.unsubscribe();
     this.subsBalletShowItems?.unsubscribe();
     this.subsParodyItems?.unsubscribe();

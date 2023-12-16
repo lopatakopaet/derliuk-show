@@ -13,5 +13,9 @@
 <dialog #orderShowModal class="modal-dialog">
   <app-order-show-modal
     (close)="orderShowModal.close()"
+    (openSuccessModal)="successModal.show()"
   ></app-order-show-modal>
 </dialog>
+<app-success-modal #successModal
+                   (close)="successModal.close()"
+></app-success-modal>

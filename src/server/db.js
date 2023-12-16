@@ -276,20 +276,16 @@ function getRiderData(cb) {
     });
 }
 
-function addRiderData(data, cb) {
+function addRiderData({data}, cb) {
   db.execute('INSERT INTO `RiderData` (data)  VALUES(?)',
     [data],
-    (err, results, fields) => {
-      cb(results);
-    });
+    cb);
 }
 
 function changeRiderData({data, id}, cb) {
   db.execute('UPDATE `RiderData` SET data = ? WHERE `id` = ?',
-    [data, id || 1], // всегда записываем дату в первый id
-    (err, results, fields) => {
-      cb(err, results);
-    });
+    [data, id],
+    cb);
 }
 
 // Страница Райдер КОНЕЦ

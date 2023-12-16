@@ -193,6 +193,10 @@ app-slider-comment {
   }
 }
 @media only screen and (max-width: 570px) {
+  .main-page__banner__img {
+      height: 239px;
+      object-fit: cover;
+  }
 
   .main-page__tabs {
     margin-top: 28px;

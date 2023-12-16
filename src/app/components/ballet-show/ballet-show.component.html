@@ -2,7 +2,6 @@
 <!--<app-slider-gallery></app-slider-gallery>-->
 <div class="program-description__wrap">
   <div class="program-description" [innerHTML]="mainText['mainText_' + i18n.lang]"></div>
-
 </div>
 
 <app-button (click)="orderShowModal.show()" class="order-show-modal long-button">
@@ -31,5 +30,9 @@
 <dialog #orderShowModal class="modal-dialog">
   <app-order-show-modal
     (close)="orderShowModal.close()"
+    (openSuccessModal)="successModal.show()"
   ></app-order-show-modal>
 </dialog>
+<app-success-modal #successModal
+                   (close)="successModal.close()"
+></app-success-modal>

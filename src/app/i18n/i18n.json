@@ -13,11 +13,11 @@
   },
   "mostPopularItems": {
     "ua": "НАЙПОПУЛЯРНІШІ НОМЕРИ",
-    "en": "THE MOST POPULAR NUMBERS"
+    "en": "OUR MOST POPULAR PERFORMANCES"
   },
-  "title": {
-    "ua": "asd",
-    "en": "fffda"
+  "aboutUs": {
+    "ua": "Про нас",
+    "en": "About Us"
   },
   "gallery": {
     "ua": "Галерея",
@@ -49,7 +49,11 @@
   },
   "telephones": {
     "ua": "Телефони",
-    "en": "Telephones"
+    "en": "Phones"
+  },
+  "manager": {
+    "ua": "керівник",
+    "en": "manager"
   },
   "save": {
     "ua": "Зберегти",
@@ -57,11 +61,15 @@
   },
   "write": {
     "ua": "НАПИСАТИ",
-    "en": "WRITE"
+    "en": "Contact me"
   },
   "weOnSocial": {
     "ua": "Ми у соціальних мережах",
-    "en": "We are on social networks"
+    "en": "Join Us on Social Media"
+  },
+  "OlegDerliuk": {
+    "ua": "Олег Дерлюк",
+    "en": "Oleg Derliuk"
   },
   "orderNumber": {
     "ua": "ЗАМОВИТИ НОМЕР",
@@ -74,5 +82,9 @@
   "parodyTheater": {
     "ua": "ТЕАТР ПАРОДІЙ",
     "en": "PARODY THEATER"
+  },
+  "download": {
+    "ua": "СКАЧАТИ",
+    "en": "DOWNLOAD"
   }
 }
