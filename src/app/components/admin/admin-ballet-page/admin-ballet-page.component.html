@@ -3,16 +3,12 @@
     Головне фото
   </div>
   <div class="main-photo">
-<!--    <img class="main-photo__img" src="../../../assets/img/main-banner.png" alt="">-->
     <img class="main-photo__img" src="{{pageData.mainPhoto || '../../../assets/img/main-banner.png'}}" alt="">
-    <!--    <img class="main-photo__img" src="/assets/uploads/filedata-1698943168119.jpg" alt="">-->
     <div class="img__hover">
-      <!--      (submit)="handleSubmit($event, MainPhotoForm)"-->
       <form #MainPhotoForm action="api/upload" method="post" enctype="multipart/form-data" hidden
             (submit)="$event.preventDefault()"
             (change)="changeMainPhoto()">
         <label>Файл</label><br>
-        <!--        (change)="mainPhotoSubmit.click()"-->
         <input #mainPhotoInput type="file" name="filedata"/><br><br>
         <input #mainPhotoSubmit type="submit" value="Send"/>
       </form>
@@ -158,7 +154,11 @@
     </svg>
     Додати новий
   </app-button>
+
 </div>
+  <app-slider-comment *ngIf="comments?.length"
+    [comments]="comments"
+  ></app-slider-comment>
 
 <div class="seo__header">
   <div class="main-title__admin">

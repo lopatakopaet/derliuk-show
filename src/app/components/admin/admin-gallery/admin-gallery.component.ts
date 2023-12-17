@@ -19,7 +19,8 @@ export class AdminGalleryComponent implements OnInit {
       idPosition: 0
     }
   ];
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService,
+              private elRef:ElementRef,) { }
 
   ngOnInit(): void {
     this.getGalleryItems();
@@ -30,7 +31,6 @@ export class AdminGalleryComponent implements OnInit {
     // moveItemInArray(event.container.data, event.previousIndex,event.currentIndex)
 
     // moveItemInArray(this.photos, event.previousIndex,event.currentIndex)
-    console.log('event', event)
   }
 
 
@@ -74,32 +74,47 @@ export class AdminGalleryComponent implements OnInit {
 
   savePhoto(): void {
     if (this.MainPhotoForm) {
-      this.apiService.saveFile(this.MainPhotoForm.nativeElement)
-        .then(answer => {
-          if (answer.message === "File uploaded successfully") {
-            console.log("answer.data.url", answer.data.url);
-            if (this.photoForChange) {
-              this.changePhotoItem(this.photoForChange, answer.data.url);
+      let isToChangePhoto = confirm('Підтвердіть додавання/зміну фото');
+      if (isToChangePhoto) {
+        let loader = this.elRef.nativeElement.querySelector('.preloader');
+        loader.style.display = "flex"; //show loader
+        this.apiService.saveFile(this.MainPhotoForm.nativeElement)
+          .then(answer => {
+            if (answer.message === "File uploaded successfully") {
+              if (this.photoForChange) {
+                loader.style.display = "none"; //hide loader
+                this.changePhotoItem(this.photoForChange, answer.data.url);
+              } else {
+                this.saveNewPhotoItem(answer.data.url);
+                loader.style.display = "none"; //hide loader
+              }
             } else {
-              this.saveNewPhotoItem(answer.data.url);
+              alert("Помилка при заватаженні файла")
+              console.error('answer', answer);
+              loader.style.display = "none"; //hide loader
             }
-          } else {
-            alert("Помилка при заватаженні файла")
-            console.error('answer', answer);
-          }
-        })
+          })
+      }
     }
   }
 
   deletePhoto(photo: Gallery): void {
-    let data = {
-      filePath: photo.photo
-    }
-    this.apiService.deleteFile(data).subscribe(res=> {
-      this.apiService.deleteGalleryItem(photo.id).subscribe(res=> {
-        this.getGalleryItems();
+    let isToDeletePhoto = confirm('Підтвердіть видалення фото');
+    if (isToDeletePhoto) {
+      let data = {
+        filePath: photo.photo
+      }
+      this.apiService.deleteFile(data).subscribe(res=> {
+        this.apiService.deleteGalleryItem(photo.id).subscribe({
+          next: (v) => {
+            this.getGalleryItems();
+            alert('Фото видалено')
+          },
+          error: (e) => alert('Не вдалося видалити фото =('),
+          complete: () => {}
+        })
       })
-    })
+    }
   }
 
   setPhotoForChange(photo: Gallery): void {
@@ -127,16 +142,26 @@ export class AdminGalleryComponent implements OnInit {
       }
     }
     data.photo = photoUrl;
-    this.apiService.addGalleryItem(data).subscribe( req => {
-      this.getGalleryItems();
+    this.apiService.addGalleryItem(data).subscribe( {
+      next: (v) => {
+        this.getGalleryItems()
+        alert('Фото додано')
+      },
+      error: (e) => alert('Не вдалося додати фото =('),
+      complete: () => {}
     })
   }
 
   changePhotoItem(photo: Gallery, photoUrl: string):void {
     let data:Gallery = photo;
     data.photo = photoUrl;
-    this.apiService.changeGalleryItem(data).subscribe( res => {
-      this.getGalleryItems();
+    this.apiService.changeGalleryItem(data).subscribe( {
+      next: (v) => {
+        this.getGalleryItems()
+        alert('Фото змінено')
+      },
+      error: (e) => alert('Не вдалося змінити фото =('),
+      complete: () => {}
     })
   }
 

@@ -40,16 +40,17 @@
       </div>
     </div>
 <!--    todo-->
-    <div class="main-popular__comments" *ngIf="false">
+    <div class="main-popular__comments">
       <div class="main-title">
         {{lang['reviews'][i18n.lang]}}
       </div>
       <div class="main-title__line-decor"></div>
       <app-slider-comment
-        [comments]="comments"
+        [comments]="comments2"
       ></app-slider-comment>
     </div>
 <!--todo-->
+
     <div class="leave-feedback-button__wrap" *ngIf="false">
       <app-button class="leave-feedback-button"
                   (click)="leaveFeedbackModal.show()"

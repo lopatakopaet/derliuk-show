@@ -11,6 +11,7 @@ import {
 import { register } from 'swiper/element/bundle';
 import { Swiper} from "swiper";
 import { Navigation} from "swiper/modules"
+import {Comment} from "../../../interfaces/Comment";
 
 @Component({
   selector: 'app-slider-comment',
@@ -20,7 +21,7 @@ import { Navigation} from "swiper/modules"
 export class SliderCommentComponent implements AfterViewInit, OnInit {
   @ViewChild('swiper') swiperRef: ElementRef<HTMLElement & { swiper?: Swiper } & { initialize: () => void }> | undefined;
   swiper?: Swiper;
-  @Input() comments: any;
+  @Input() comments?: Comment[];
 
   swiperEl = document.querySelector('swiper-container');
   constructor() {

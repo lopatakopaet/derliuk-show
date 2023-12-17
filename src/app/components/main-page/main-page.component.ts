@@ -20,6 +20,7 @@ import {Item} from "../../../interfaces/Item";
 import {BalletShowItemsService} from "../../services/getBalletShowItems";
 import {ParodyItemsService} from "../../services/getParodyItems";
 import {ContactsService} from "../../services/contacts.service";
+import {CommentsService} from "../../services/comments.service";
 // import { register } from 'swiper/element/bundle';
 // import { Swiper} from "swiper";
 // import { Navigation} from "swiper/modules"
@@ -103,6 +104,7 @@ export class MainPageComponent  implements OnInit {
         'Настрій і атмосфера свята вдались!',
     },
   ]
+  comments2?: Comment[];
   currentRoute?: string;
   // swiperEl = document.querySelector('swiper-container');
   constructor(private router: Router,
@@ -112,10 +114,10 @@ export class MainPageComponent  implements OnInit {
               public i18n: I18nService,
               private balletShowItemsService: BalletShowItemsService,
               private parodyItemsService: ParodyItemsService,
+              private commentsService: CommentsService
               ) {
     // this.swiperEl = document.querySelector('swiper-container')
     // register();
-    console.log(router.url);
 
 
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
@@ -151,8 +153,9 @@ export class MainPageComponent  implements OnInit {
         // this.mainPageService.mainText$.subscribe(text => console.log('ballet', text));
       })
     })
-    this.getItems('balletShowItems')
-    this.getItems('parodyItems')
+    this.getItems('balletShowItems');
+    this.getItems('parodyItems');
+    this.getComments();
   }
 
   getItems(tableName: string) :void {
@@ -167,6 +170,11 @@ export class MainPageComponent  implements OnInit {
       error: (e) => {},
       complete: () => {}
     })
+  }
+
+  getComments(): void {
+    this.commentsService.changeComments$(this.comments);
+    this.commentsService.comments$.subscribe(v => this.comments2 = v);
   }
 
   // ngAfterViewInit(): void {

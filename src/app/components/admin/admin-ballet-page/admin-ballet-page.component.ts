@@ -7,6 +7,8 @@ import {I18nService} from "../../../services/i18n.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Gallery} from "../../../../interfaces/Gallery";
 import {ParodyItemsService} from "../../../services/getParodyItems";
+import {Comment} from "../../../../interfaces/Comment";
+import {CommentsService} from "../../../services/comments.service";
 
 @Component({
   selector: 'app-admin-ballet-page',
@@ -23,6 +25,7 @@ export class AdminBalletPageComponent implements OnInit {
   hrefPageName: string = "ballet-page"// название страницы из url
   balletShowItems?: Item[];
   parodyItems?: Item[];
+  comments?: Comment[];
   pageData: BalletPage = {
     id: 1,
     mainPhoto: '',
@@ -51,12 +54,19 @@ export class AdminBalletPageComponent implements OnInit {
               public i18n: I18nService,
               private router: Router,
               private route: ActivatedRoute,
+              private commentsService: CommentsService
              ) {
     let href = this.router.url;
     // получаем название страницы из url и установка таблицы, в которую будет запись данных для главной страницы (фото, сеотекст, главный текст)
     this.hrefPageName = href.split('/').slice(-1).join();
     this.tableName = this.hrefPageName == 'ballet-page' ? 'BalletPage' : "ParodyPage";
     this.pageNewData.tableName = this.tableName;
+
+
+    this.commentsService.comments$.subscribe(comments => {
+      this.comments = comments;
+      console.log('comments', comments)
+    });
   }
 
   ngOnInit(): void {
@@ -82,8 +92,8 @@ export class AdminBalletPageComponent implements OnInit {
     this.apiService.getMainPage(this.tableName).subscribe(data=>{
       this.pageData = data[0];
       this.pageNewData.data = data[0];
-
     })
+
   }
 
   /**
