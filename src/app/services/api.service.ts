@@ -5,6 +5,7 @@ import {environment} from "../../environments/environment";
 import {Item} from "../../interfaces/Item";
 import {Gallery} from "../../interfaces/Gallery";
 import {BalletPage} from "../../interfaces/BalletPage";
+import {Comment} from "../../interfaces/Comment";
 
 @Injectable({
   providedIn: 'root'
@@ -191,6 +192,32 @@ export class ApiService {
   }
   // СТРАНИЦА РАЙДЕР КОНЕЦ
 
+  // КОММЕНТАРИИ ОБЩИЕ
+  public getComments(tableName: string): Observable<any> { // todo: добавить интерфейс
+    return this.http.get<any>(`${environment.apiUrl}/getComments`, {
+      params: {
+        tableName
+      }
+    })
+  }
+
+  public addComment(data: Comment): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/addComment`, {
+      data
+    })
+  }
+
+  public changeComment(data: Comment): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/changeComment`, {
+      data
+    })
+  }
+
+  public deleteComment(data: {tableName: string,id: string | number}): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/deleteComment`, {
+      data
+    })
+  }
   /**
    * Отправить файл на сервер
    * @param $event

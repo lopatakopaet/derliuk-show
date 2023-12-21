@@ -20,6 +20,10 @@ const {
   getRiderData,
   addRiderData,
   changeRiderData,
+  getComments,
+  addComment,
+  changeComment,
+  deleteComment,
 } = require('./db');
 let path = require('path');
 const express = require('express');
@@ -101,9 +105,9 @@ app.use(cors())
 const diskStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     // для прода
-    cb(null, path.join(__dirname,"../public_html/assets/uploads"));
+    // cb(null, path.join(__dirname,"../public_html/assets/uploads"));
     // для локалки
-    // cb(null, path.join(__dirname,"../assets/uploads"));
+    cb(null, path.join(__dirname,"../assets/uploads"));
   },
   filename: (req, file, cb) => {
     cb(
@@ -156,9 +160,9 @@ app.use(express.json()) // for parsing application/json
 
 app.post("/api/deleteFile",function (req, res, next) {
   // для локалки
-  // let filePath = path.join(__dirname, `../${req.body.data.filePath}`);
+  let filePath = path.join(__dirname, `../${req.body.data.filePath}`);
   // для прода
-  let filePath = path.join(__dirname, `../public_html${req.body.data.filePath}`);
+  // let filePath = path.join(__dirname, `../public_html${req.body.data.filePath}`);
  let status;
  let message;
   fs.unlink(filePath, (err, success) => {
@@ -423,15 +427,12 @@ app.get('/api/getContacts', function (req, res) {
 });
 
 app.post('/api/addContacts', function (req, res) {
-  console.log('req', req.body)
   addContacts(req.body.data, (data)=> {
-    // res.send('true');
     res.send(data);
   })
 });
 
 app.post('/api/changeContacts', function (req, res, next) {
-  console.log('req', req.body)
   changeContacts(req.body.data, (err, success)=> {
     if (err) {
       next(err);
@@ -490,7 +491,6 @@ app.get('/api/getRiderData', function (req, res) {
 });
 
 app.post('/api/addRiderData', function (req, res, next) {
-  console.log('req', req.body)
   addRiderData(req.body.data, (err, success)=> {
     if (err) {
       next(err);
@@ -511,6 +511,46 @@ app.post('/api/changeRiderData', function (req, res, next) {
 });
 // Страница Райдер КОНЕЦ
 
+// Общие комментарии
+app.get('/api/getComments', function (req, res, next) {
+  getComments(req.query,(err, success)=> {
+    if (err) {
+      next(err);
+    } else {
+      res.send(success)
+    }
+  })
+});
+
+app.post('/api/addComment', function (req, res, next) {
+  addComment(req.body.data, (err, success)=> {
+    if (err) {
+      next(err);
+    } else {
+      res.send(success)
+    }
+  })
+});
+
+app.post('/api/changeComment', function (req, res, next) {
+  changeComment(req.body.data, (err, success)=> {
+    if (err) {
+      next(err);
+    } else {
+      res.send(success)
+    }
+  })
+});
+
+app.post('/api/deleteComment', function (req, res, next) {
+  deleteComment(req.body.data, (err, success)=> {
+    if (err) {
+      next(err);
+    } else {
+      res.send(success)
+    }
+  })
+});
 
 // app.get("/youroute", (req, res, next) => {
 //   "use strict";

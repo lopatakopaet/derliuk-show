@@ -290,6 +290,33 @@ function changeRiderData({data, id}, cb) {
 
 // Страница Райдер КОНЕЦ
 
+// Комментарии общие Начало
+function getComments({tableName}, cb) {
+  db.execute(`SELECT * FROM ${tableName}`,
+    null,
+    cb);
+}
+
+function addComment({tableName, photo, name, date, rating, comment}, cb) {
+  db.execute(`INSERT INTO ${tableName} (photo, name, date, rating, comment)  VALUES(?,?,?,?,?)`,
+    [photo, name, date, rating, comment],
+    cb);
+}
+
+function changeComment({tableName, photo, name, date, rating, comment, id}, cb) {
+  db.execute(`UPDATE ${tableName} SET photo = ?, name = ?, date = ?, rating = ?, comment = ?  WHERE id = ?`,
+    [photo, name, date, rating, comment, id],
+    cb);
+}
+
+function deleteComment({tableName, id}, cb) {
+  db.execute(`DELETE FROM ${tableName} WHERE id = ?`,
+    [id],
+    cb);
+}
+// Комментарии общие Конец
+
+
 function sortItems(items) {
   return items.sort((n1, n2) => n1.idPosition - n2.idPosition)
 }
@@ -316,4 +343,8 @@ module.exports = {
   getRiderData,
   addRiderData,
   changeRiderData,
+  getComments,
+  addComment,
+  changeComment,
+  deleteComment,
 };

@@ -1,6 +1,5 @@
 <div class="main-page">
   <div class="main-page__banner">
-<!--    <img class="main-page__banner__img" src="../../../assets/img/main-banner.png" alt="">-->
     <img class="main-page__banner__img" src="{{pageData.mainPhoto}}" alt="">
   </div>
   <div class="font-size-0">
@@ -39,14 +38,14 @@
         <div class="item">Хеловін</div>
       </div>
     </div>
-<!--    todo-->
-    <div class="main-popular__comments">
+
+    <div class="main-popular__comments" *ngIf="comments?.length">
       <div class="main-title">
         {{lang['reviews'][i18n.lang]}}
       </div>
       <div class="main-title__line-decor"></div>
       <app-slider-comment
-        [comments]="comments2"
+        [comments]="comments"
       ></app-slider-comment>
     </div>
 <!--todo-->

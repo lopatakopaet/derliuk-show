@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ApiService} from "../../../services/api.service";
 import {Item} from "../../../../interfaces/Item";
 import {BalletShowItemsService} from "../../../services/getBalletShowItems";
@@ -9,17 +9,19 @@ import {Gallery} from "../../../../interfaces/Gallery";
 import {ParodyItemsService} from "../../../services/getParodyItems";
 import {Comment} from "../../../../interfaces/Comment";
 import {CommentsService} from "../../../services/comments.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-admin-ballet-page',
   templateUrl: './admin-ballet-page.component.html',
   styleUrls: ['./admin-ballet-page.component.scss']
 })
-export class AdminBalletPageComponent implements OnInit {
+export class AdminBalletPageComponent implements OnInit, OnDestroy {
   @ViewChild('MainPageForm') mainPageForm: ElementRef<HTMLDivElement> | undefined;
   @ViewChild("MainPhotoForm") MainPhotoForm?: ElementRef;
   @ViewChild("mainPhotoInput") mainPhotoInput?: ElementRef;
 
+  private subs?: Subscription;
   tableName: string = "BalletPage"; // для запросов в БД, указываем с какой таблицой работаем]
   tableItemsName: string = "balletShowItems"; // для запросов в БД, указываем с какой таблицой работаем]
   hrefPageName: string = "ballet-page"// название страницы из url
@@ -61,15 +63,13 @@ export class AdminBalletPageComponent implements OnInit {
     this.hrefPageName = href.split('/').slice(-1).join();
     this.tableName = this.hrefPageName == 'ballet-page' ? 'BalletPage' : "ParodyPage";
     this.pageNewData.tableName = this.tableName;
-
-
-    this.commentsService.comments$.subscribe(comments => {
-      this.comments = comments;
-      console.log('comments', comments)
-    });
   }
 
   ngOnInit(): void {
+    this.comments = this.commentsService.comments;
+    this.subs = this.commentsService.comments$.subscribe(comments => {
+      this.comments = comments;
+    });
 
     this.route.params.subscribe(params => {
       let href = this.router.url;
@@ -96,11 +96,15 @@ export class AdminBalletPageComponent implements OnInit {
 
   }
 
+  ngOnDestroy(): void {
+    // отмена подписки
+    this.subs?.unsubscribe();
+  }
+
   /**
    * Смена данных на странице (фото, главный текс и сео текст)
    */
   changeMainPage(oldPhoto?: string): void {
-    console.log(this.pageNewData);
     this.apiService.changeMainPage(this.pageNewData).subscribe({
       next: (v) => {
         if (oldPhoto) {
@@ -132,44 +136,6 @@ export class AdminBalletPageComponent implements OnInit {
            }
          })
      }
-
-
-
-
-    //  /** @type {HTMLFormElement} */
-    //  const form: HTMLFormElement | null = formHtml;
-    //  const url = new URL(form?.action);
-    //  const formData = new FormData(form);
-    //  // @ts-ignore
-    //   const searchParams = new URLSearchParams(formData);
-    //
-    //  /** @type {Parameters<fetch>[1]} */
-    //  const fetchOptions = {
-    //    method: form.method, body: undefined
-    //
-    //  };
-    //
-    //  if (form.method.toLowerCase() === 'post') {
-    //    if (form.enctype === 'multipart/form-data') {
-    //      // @ts-ignore
-    //      fetchOptions.body = formData;
-    //    } else {
-    //      // @ts-ignore
-    //      fetchOptions.body = searchParams;
-    //    }
-    //  } else {
-    //    // @ts-ignore
-    //    url.search = searchParams;
-    //  }
-    //  console.log('formData', formData);
-    //  console.log("fetchOptions", fetchOptions);
-    //
-    //
-    // fetch(url, fetchOptions)
-    //   .then(response => response.json())
-    //   .then(data => console.log('data', data));
-
-     // $event.preventDefault();
   }
 
   changeMainText(): void {

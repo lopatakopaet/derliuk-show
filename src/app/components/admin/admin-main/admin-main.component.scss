@@ -5,13 +5,15 @@
 
 .admin-main {
   display: flex;
+  justify-content: center;
   background: #1D203E;
-  max-width: 1440px;
+  //max-width: 1440px;
   width: 100%;
 }
 
 .admin-main__container {
   padding: 31px 41px 67px 36px;
+  max-width: 1440px;
   width: 100%;
   min-height: 100vh;
 }
