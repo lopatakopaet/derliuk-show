@@ -15,8 +15,11 @@
         {{comment?.date}}
       </div>
       <div class="rating">
-        <img src="../../../assets/img/ic_baseline-star.svg" alt="" class="star"
-             *ngFor="let star of [].constructor(comment?.rating)">
+        <ng-container *ngFor="let star of [].constructor(comment?.rating); let i = index">
+          <img src="../../../assets/img/ic_baseline-star.svg" alt="" class="star" *ngIf="i < 5"
+               >
+        </ng-container>
+
       </div>
     </div>
   </div>

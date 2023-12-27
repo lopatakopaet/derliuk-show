@@ -5,6 +5,7 @@ import {ActivatedRoute, Data, Params, Router} from "@angular/router";
 import {I18nService} from "../../../services/i18n.service";
 import {BalletShowItemsService} from "../../../services/getBalletShowItems";
 import {ParodyItemsService} from "../../../services/getParodyItems";
+import {GallerySlider} from "../../../../interfaces/gallerySlider";
 
 @Component({
   selector: 'app-admin-item',
@@ -51,6 +52,8 @@ export class AdminItemComponent implements OnInit {
   };
   currentRoute?: string;
   tableItemsName: string = "balletShowItems"; // для запросов в БД, указываем с какой таблицой работаем]
+  gallery?: GallerySlider[];
+  galleryIndicator?: string | number;
 
   constructor(private apiService: ApiService,
               private route: ActivatedRoute,
@@ -71,13 +74,14 @@ export class AdminItemComponent implements OnInit {
         if (this.fullMode) {
           // если id == 0, значит номер новый, не из бд
           this.itemId = this.route.snapshot.paramMap.get('id') || "0";
+          this.galleryIndicator = this.itemId;
           if (this.itemId === "0") {
             this.itemId = null;
           } else {
             this.getBalletShowItem(this.tableItemsName, this.itemId)
           }
         }
-    })
+    });
   }
 
   saveItem(): void {

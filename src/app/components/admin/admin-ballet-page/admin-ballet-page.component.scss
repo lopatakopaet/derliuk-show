@@ -78,10 +78,14 @@
   margin: 37px auto 55px;
 }
 
-.items__header,  .comment__header, .seo__header{
+.items__header,  .comment__header, .seo__header, .additional-items{
   margin-top: 30px;
   display:  flex;
   justify-content: space-between;
+}
+
+.additional-items {
+  margin-top: 68px;
 }
 
 .item {
@@ -170,7 +174,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 28px;
+  margin: 28px auto 0;
+}
+
+.hide-items {
+  transform: rotate(180deg);
 }
 
 .admin-slider-wrap {
@@ -181,6 +189,11 @@
 
 app-admin-slider-comments {
   display: block;
+  position: relative;
+}
+
+.admin-slider-comments-wrap {
+  margin-top: 30px;
   position: relative;
 }
 

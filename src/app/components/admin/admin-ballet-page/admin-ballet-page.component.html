@@ -30,6 +30,35 @@
     </div>
   </div>
 
+  <div class="main-text">
+    <div class="main-text__header">
+      <div class="main-title__admin">
+        Карусель з відео
+      </div>
+      <app-button class="admin-medium-btn" (click)="sliderGallery.addNewSlide()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+          <g clip-path="url(#clip0_1456_1211)">
+            <path
+              d="M8.31249 15.8334C8.31249 16.1483 8.4376 16.4503 8.6603 16.673C8.883 16.8957 9.18505 17.0209 9.49999 17.0209C9.81493 17.0209 10.117 16.8957 10.3397 16.673C10.5624 16.4503 10.6875 16.1483 10.6875 15.8334V10.6875H15.8333C16.1483 10.6875 16.4503 10.5624 16.673 10.3397C16.8957 10.117 17.0208 9.81497 17.0208 9.50002C17.0208 9.18508 16.8957 8.88303 16.673 8.66033C16.4503 8.43763 16.1483 8.31252 15.8333 8.31252H10.6875V3.16669C10.6875 2.85174 10.5624 2.5497 10.3397 2.327C10.117 2.1043 9.81493 1.97919 9.49999 1.97919C9.18505 1.97919 8.883 2.1043 8.6603 2.327C8.4376 2.5497 8.31249 2.85174 8.31249 3.16669V8.31252H3.16666C2.85171 8.31252 2.54967 8.43763 2.32697 8.66033C2.10427 8.88303 1.97916 9.18508 1.97916 9.50002C1.97916 9.81497 2.10427 10.117 2.32697 10.3397C2.54967 10.5624 2.85171 10.6875 3.16666 10.6875H8.31249V15.8334Z"
+              fill="white"/>
+          </g>
+          <defs>
+            <clipPath id="clip0_1456_1211">
+              <rect width="19" height="19" fill="white"/>
+            </clipPath>
+          </defs>
+        </svg>
+        Додати новий
+      </app-button>
+    </div>
+    <div class="admin-slider-comments-wrap">
+      <app-admin-slider-gallery
+        #sliderGallery
+        [galleryIndicator]="galleryIndicator"
+      ></app-admin-slider-gallery>
+    </div>
+
+  </div>
 
 <div class="main-text">
   <div class="main-text__header">
@@ -52,7 +81,6 @@
 <!--      Змінити-->
 <!--    </app-button>-->
   </div>
-<!--  <p class="main-text__content content-editable" contenteditable="true" [innerHTML]="item['description_' + i18n.lang] || 'Короткий опис для головної сторінки та сторінки номера'">-->
   <p class="main-text__content content-editable" contenteditable="true" [innerHTML]="pageData['mainText_' + i18n.lang] || 'Додати головний текст'">
     «Show_ballet V.I.P.» – це любов до своєї справи. Найкращі танцювальні номери, яскраві образи та приголомшливі
     костюми, завжди нова шоу-програма, темперамент та 100% віддача. У наших шоу-номерах ідеальне поєднання хореографії,
@@ -91,22 +119,46 @@
   </div>
   <div class="items__body">
     <div *ngIf="tableName == 'BalletPage'">
-      <app-admin-item
-        *ngFor="let balletShowItem of balletShowItems"
-        [item]="balletShowItem"
-      >
-      </app-admin-item>
+      <ng-container *ngFor="let balletShowItem of balletShowItems; let i = index">
+        <app-admin-item *ngIf="i < currentItemsShowLimit"
+          [item]="balletShowItem"
+        >
+        </app-admin-item>
+      </ng-container>
     </div>
+
     <div *ngIf="tableName == 'ParodyPage'">
-      <app-admin-item
-        *ngFor="let parodyItem of parodyItems"
-        [item]="parodyItem"
-      >
-      </app-admin-item>
+      <ng-container *ngFor="let parodyItem of parodyItems; let i = index">
+        <app-admin-item *ngIf="i < currentItemsShowLimit"
+                        [item]="parodyItem"
+        >
+        </app-admin-item>
+      </ng-container>
     </div>
-    <app-button class="show-all admin-medium-btn">
+    <app-button *ngIf="tableName == 'BalletPage' && !isShowAllActive" class="show-all admin-medium-btn" (click)="showAll(balletShowItems)">
       Показати всі
       <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
+        <path d="M5.75 6.8999L11.5 12.6499L17.25 6.8999L19.55 8.0499L11.5 16.0999L3.45 8.0499L5.75 6.8999Z"
+              fill="white"/>
+      </svg>
+    </app-button>
+    <app-button *ngIf="tableName == 'BalletPage' && isShowAllActive" class="show-all admin-medium-btn" (click)="hideItems()">
+      Сховати
+      <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none" [ngClass]="isShowAllActive? 'hide-items' : ''">
+        <path d="M5.75 6.8999L11.5 12.6499L17.25 6.8999L19.55 8.0499L11.5 16.0999L3.45 8.0499L5.75 6.8999Z"
+              fill="white"/>
+      </svg>
+    </app-button>
+    <app-button *ngIf="tableName == 'ParodyPage' && !isShowAllActive" class="show-all admin-medium-btn" (click)="showAll(parodyItems)">
+      Показати всі
+      <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
+        <path d="M5.75 6.8999L11.5 12.6499L17.25 6.8999L19.55 8.0499L11.5 16.0999L3.45 8.0499L5.75 6.8999Z"
+              fill="white"/>
+      </svg>
+    </app-button>
+    <app-button *ngIf="tableName == 'ParodyPage' && isShowAllActive" class="show-all admin-medium-btn" (click)="hideItems()">
+      Сховати
+      <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none" [ngClass]="isShowAllActive? 'hide-items' : ''">
         <path d="M5.75 6.8999L11.5 12.6499L17.25 6.8999L19.55 8.0499L11.5 16.0999L3.45 8.0499L5.75 6.8999Z"
               fill="white"/>
       </svg>
@@ -114,7 +166,7 @@
   </div>
 </div>
 
-<div class="comment__header">
+<div class="additional-items">
   <div class="main-title__admin">
     Додатковий список номерів
   </div>
@@ -159,7 +211,6 @@
   <div class="admin-slider-wrap" >
     <app-admin-slider-comments #sliderComments
                                [comments]="comments"
-
     ></app-admin-slider-comments>
   </div>
 

@@ -24,6 +24,10 @@ const {
   addComment,
   changeComment,
   deleteComment,
+  getSliderGalleryItems,
+  addSliderGalleryItem,
+  changeSliderGalleryItem,
+  deleteSliderGalleryItem,
 } = require('./db');
 let path = require('path');
 const express = require('express');
@@ -552,6 +556,50 @@ app.post('/api/deleteComment', function (req, res, next) {
   })
 });
 
+// Общие комментарии конец
+
+// Слайдер галлереии
+app.get('/api/getSliderGalleryItems', function (req, res, next) {
+  getSliderGalleryItems(req.query,(err, success)=> {
+    if (err) {
+      next(err);
+    } else {
+      res.send(success)
+    }
+  })
+});
+
+app.post('/api/addSliderGalleryItem', function (req, res, next) {
+  addSliderGalleryItem(req.body.data, (err, success)=> {
+    if (err) {
+      next(err);
+    } else {
+      res.send(success)
+    }
+  })
+});
+
+app.post('/api/changeSliderGalleryItem', function (req, res, next) {
+  changeSliderGalleryItem(req.body.data, (err, success)=> {
+    if (err) {
+      next(err);
+    } else {
+      res.send(success)
+    }
+  })
+});
+
+app.post('/api/deleteSliderGalleryItem', function (req, res, next) {
+  deleteSliderGalleryItem(req.body.data, (err, success)=> {
+    if (err) {
+      next(err);
+    } else {
+      res.send(success)
+    }
+  })
+});
+
+// Слайдер галлереии конец
 // app.get("/youroute", (req, res, next) => {
 //   "use strict";
 //   const getProduct = "SELECT * FROM yourtable";

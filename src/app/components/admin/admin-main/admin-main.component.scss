@@ -1,14 +1,21 @@
 :host {
-  display: flex;
+  //display: flex;
+  display: grid;
   justify-content: center;
+  @media only screen and (max-width: 1700px) {
+  justify-content: initial;
+  }
 }
 
 .admin-main {
-  display: flex;
+  //display: flex;
   justify-content: center;
   background: #1D203E;
   //max-width: 1440px;
   width: 100%;
+
+  display: grid;
+  grid-template-columns: 260px 1fr;
 }
 
 .admin-main__container {
@@ -63,5 +70,15 @@
         padding: 0;
       }
     }
+  }
+}
+@media only screen and (max-width: 1700px) {
+  .admin-main__container {
+    max-width: 1300px;
+  }
+}
+@media only screen and (max-width: 1550px) {
+  .admin-main__container {
+    max-width: 1200px;
   }
 }

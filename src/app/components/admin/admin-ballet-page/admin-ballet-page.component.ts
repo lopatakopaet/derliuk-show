@@ -10,6 +10,7 @@ import {ParodyItemsService} from "../../../services/getParodyItems";
 import {Comment} from "../../../../interfaces/Comment";
 import {CommentsService} from "../../../services/comments.service";
 import {Subscription} from "rxjs";
+import {GallerySlider} from "../../../../interfaces/gallerySlider";
 
 @Component({
   selector: 'app-admin-ballet-page',
@@ -44,12 +45,13 @@ export class AdminBalletPageComponent implements OnInit, OnDestroy {
     data: this.pageData
   }
 
-  data: any = {
-    title: 'Antre3',
-    descriptionUa: 'Казково-легкий, чарівний номер стане красивим відкриттям програми чи івенту. Пориньте разом з нами у феєрію свята.',
-    // descriptionEng: "",
-  }
-
+  galleryIndicatorBallet: string = "88888888";
+  galleryIndicatorParody: string = "999999999";
+  galleryIndicator?: string; // для Балета это "88888888" , для Пародий это "999999999"
+  gallery?: GallerySlider[];
+  itemsShowLimit: number = 5;
+  currentItemsShowLimit: number = 5;
+  isShowAllActive: boolean = false; // отображается ли весь список номеров
   constructor(private apiService: ApiService,
               private balletShowItemsService: BalletShowItemsService,
               private parodyItemsService: ParodyItemsService,
@@ -76,12 +78,14 @@ export class AdminBalletPageComponent implements OnInit, OnDestroy {
       this.hrefPageName = href.split('/').slice(-1).join();
       if (this.hrefPageName == 'ballet-page') {
         this.tableItemsName = 'balletShowItems';
+        this.galleryIndicator = this.galleryIndicatorBallet;
         this.balletShowItems = this.balletShowItemsService.currentBalletItems;
         this.balletShowItemsService?.balletItems$.subscribe((data: Item[]) => {
           this.balletShowItems = data;
         });
       } else if (this.hrefPageName == 'parody-page') {
         this.tableItemsName = 'parodyItems';
+        this.galleryIndicator = this.galleryIndicatorParody;
         this.parodyItems = this.parodyItemsService.currentParodyItems;
         this.parodyItemsService?.parodyItems$.subscribe((data: Item[]) => {
           this.parodyItems = data;
@@ -93,7 +97,6 @@ export class AdminBalletPageComponent implements OnInit, OnDestroy {
       this.pageData = data[0];
       this.pageNewData.data = data[0];
     })
-
   }
 
   ngOnDestroy(): void {
@@ -163,5 +166,14 @@ export class AdminBalletPageComponent implements OnInit, OnDestroy {
     })
   }
 
-
+  showAll(items: Item[] | undefined): void {
+    if (items) {
+      this.currentItemsShowLimit = items.length;
+      this.isShowAllActive = true;
+    }
+  }
+  hideItems(): void {
+    this.currentItemsShowLimit = this.itemsShowLimit;
+    this.isShowAllActive = false;
+  }
 }

@@ -1,17 +1,18 @@
-<div class="swiper-comment-wrap" >
+<div class="swiper-comment-wrap">
   <swiper-container
     init="false"
-    centeredSlides="true"
     speed="500"
-    space-between="300"
+    space-between="30"
+    centeredSlides="true"
     #swiper>
 
     <swiper-slide style="color: white" *ngFor="let slide of gallery">
       <li class="video-slide">
-        <a *ngIf="slide?.youtubeLink" href="{{slide?.youtubeLink}}" class="glightbox photo">
-          <img src="{{slide?.photo}}" alt="" class="photo">
-        </a>
-          <img *ngIf="!slide?.youtubeLink" src="{{slide?.photo}}" alt="" class="glightbox photo">
+        <app-admin-slider-gallery-item
+         [slide]="slide"
+         [indicator]="galleryIndicator"
+         (updateSliderItems)="updateSliderItems()">
+        </app-admin-slider-gallery-item>
       </li>
     </swiper-slide>
   </swiper-container>

@@ -316,6 +316,32 @@ function deleteComment({tableName, id}, cb) {
 }
 // Комментарии общие Конец
 
+// Слайдер галереи Начало
+function getSliderGalleryItems({indicator}, cb) {
+  db.execute(`SELECT * FROM sliderGallery WHERE indicator = ${indicator}`,
+    null,
+    cb);
+}
+
+function addSliderGalleryItem({indicator, photo, youtubeLink, idPosition, }, cb) {
+  db.execute(`INSERT INTO sliderGallery (indicator, photo, youtubeLink, idPosition)  VALUES(?,?,?,?)`,
+    [indicator, photo, youtubeLink, idPosition ],
+    cb);
+}
+
+function changeSliderGalleryItem({indicator, photo, youtubeLink, idPosition, id}, cb) {
+  db.execute(`UPDATE sliderGallery SET indicator = ?, photo = ?, youtubeLink = ?, idPosition = ?  WHERE id = ?`,
+    [indicator, photo, youtubeLink, idPosition, id],
+    cb);
+}
+
+function deleteSliderGalleryItem({id}, cb) {
+  db.execute(`DELETE FROM sliderGallery WHERE id = ?`,
+    [id],
+    cb);
+}
+// Слайдер галереи Конец
+
 
 function sortItems(items) {
   return items.sort((n1, n2) => n1.idPosition - n2.idPosition)
@@ -347,4 +373,8 @@ module.exports = {
   addComment,
   changeComment,
   deleteComment,
+  getSliderGalleryItems,
+  addSliderGalleryItem,
+  changeSliderGalleryItem,
+  deleteSliderGalleryItem,
 };

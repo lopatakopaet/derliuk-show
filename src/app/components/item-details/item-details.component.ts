@@ -2,13 +2,13 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Comment} from "../../../interfaces/Comment";
 import {Subscription, switchMap} from "rxjs";
-import {Gallery} from "../../../interfaces/Gallery";
 import {Item} from "../../../interfaces/Item";
 import {I18nService} from "../../services/i18n.service";
 import {ApiService} from "../../services/api.service";
 import {LangItem} from "../../../interfaces/LangInterface";
 import * as dictionary from "../../i18n/i18n.json";
 import {CommentsService} from "../../services/comments.service";
+import {GallerySlider} from "../../../interfaces/gallerySlider";
 
 @Component({
   selector: 'app-item-details',
@@ -22,38 +22,9 @@ export class ItemDetailsComponent implements OnInit {
   lang: LangItem = dictionary;
   id?: number | string;
   comments?: Comment[];
-  gallery: Gallery[] = [
-    {
-      photo: '../../../assets/img/delete/slide1.png',
-      id: 1,
-      idPosition: 1
-    },
-    {
-      photo: '../../../assets/img/delete/slide2.png',
-      id: 2,
-      idPosition: 2
-    },
-    {
-      photo: '../../../assets/img/delete/slide1.png',
-      id: 3,
-      idPosition: 3
-    },
-    {
-      photo: '../../../assets/img/delete/slide2.png',
-      id: 4,
-      idPosition: 4
-    },
-    {
-      photo: '../../../assets/img/delete/slide1.png',
-      id: 5,
-      idPosition: 5
-    },
-    {
-      photo: '../../../assets/img/delete/slide2.png',
-      id: 6,
-      idPosition: 6
-    }
-  ]
+  gallery?: GallerySlider[];
+  galleryIndicator?: string | number;
+
   constructor(private route: ActivatedRoute,
               public i18n: I18nService,
               private apiService: ApiService,
@@ -61,10 +32,12 @@ export class ItemDetailsComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-
+    // определяем на какой странице и получаем/задаем нужные данные
     this.route.params.subscribe(params => {
       let hrefArr = this.router.url.split('/');
       this.id = this.route.snapshot.paramMap.get('id') || 0;
+      this.galleryIndicator = this.id;
+      this.getSliderGalleryItems(this.galleryIndicator);
       if (hrefArr.includes('ballet-show')) {
         this.tableItemsName = 'balletShowItems';
       } else if (hrefArr.includes('parody-theater')) {
@@ -107,4 +80,19 @@ export class ItemDetailsComponent implements OnInit {
     this.subs?.unsubscribe();
   }
 
+  /**
+   * Получить элементы для видео/фото слайдера
+   * @param galleryIndicator
+   */
+  getSliderGalleryItems(galleryIndicator: string | number): void {
+    if (galleryIndicator) {
+      this.apiService.getSliderGalleryItems(galleryIndicator).subscribe({
+        next: (v) => {
+          this.gallery = v;
+        },
+        error: (e) => {},
+        complete: () => {}
+      })
+    }
+  }
 }

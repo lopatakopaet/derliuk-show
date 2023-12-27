@@ -6,6 +6,7 @@ import {Item} from "../../interfaces/Item";
 import {Gallery} from "../../interfaces/Gallery";
 import {BalletPage} from "../../interfaces/BalletPage";
 import {Comment} from "../../interfaces/Comment";
+import {GallerySlider} from "../../interfaces/gallerySlider";
 
 @Injectable({
   providedIn: 'root'
@@ -218,6 +219,34 @@ export class ApiService {
       data
     })
   }
+
+  // КОММЕНТАРИИ ОБЩИЕ КОНЕЦ
+  public getSliderGalleryItems(indicator: string | number): Observable<any> { // todo: добавить интерфейс
+    return this.http.get<any>(`${environment.apiUrl}/getSliderGalleryItems`, {
+      params: {
+        indicator
+      }
+    })
+  }
+
+  public addSliderGalleryItem(data: GallerySlider): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/addSliderGalleryItem`, {
+      data
+    })
+  }
+
+  public changeSliderGalleryItem(data: GallerySlider): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/changeSliderGalleryItem`, {
+      data
+    })
+  }
+
+  public deleteSliderGalleryItem(data: {id: string | number}): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/deleteSliderGalleryItem`, {
+      data
+    })
+  }
+
   /**
    * Отправить файл на сервер
    * @param $event

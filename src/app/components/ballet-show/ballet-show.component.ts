@@ -11,6 +11,8 @@ import {BalletPage} from "../../../interfaces/BalletPage";
 import {Subscription} from "rxjs";
 import {BalletShowItemsService} from "../../services/getBalletShowItems";
 import {ParodyItemsService} from "../../services/getParodyItems";
+import {Gallery} from "../../../interfaces/Gallery";
+import {GallerySlider} from "../../../interfaces/gallerySlider";
 
 @Component({
   selector: 'app-ballet-show',
@@ -42,7 +44,11 @@ export class BalletShowComponent implements OnInit {
   tableName: string = "BalletPage"; // для запросов в БД, указываем с какой таблицeй работаем]
   balletShowItems?: Item[];
   parodyItems?: Item[];
+  galleryIndicatorBallet: string = "88888888";
+  galleryIndicatorParody: string = "999999999";
+  galleryIndicator?: string; // для Балета это "88888888" , для Пародий это "999999999"
   hrefPageName: string = "ballet-show"// название страницы из url
+  gallery?: GallerySlider[];
 
   constructor(public i18n: I18nService,
               private apiService: ApiService,
@@ -59,6 +65,13 @@ export class BalletShowComponent implements OnInit {
       let href = this.router.url;
       this.hrefPageName = href.split('/').slice(-1).join();
       this.tableName = this.hrefPageName == 'ballet-show' ? 'BalletPage' : "ParodyPage";
+      if (this.hrefPageName == "ballet-show") {
+        this.tableName = "BalletPage";
+        this.galleryIndicator = this.galleryIndicatorBallet;
+      } else {
+        this.tableName = "ParodyPage";
+        this.galleryIndicator = this.galleryIndicatorParody;
+      }
     })
 
     this.subs = this.mainPageService.mainText$.subscribe(text => this.mainText = text);
@@ -71,13 +84,27 @@ export class BalletShowComponent implements OnInit {
     this.subsParodyItems = this.parodyItemsService?.parodyItems$.subscribe((data: Item[]) => {
       this.parodyItems = data;
     });
-
+    if (this.galleryIndicator) {
+      this.getSliderGalleryItems(this.galleryIndicator);
+    }
   }
   ngOnDestroy(): void {
     // отмена подписки
     this.subs?.unsubscribe();
     this.subsBalletShowItems?.unsubscribe();
     this.subsParodyItems?.unsubscribe();
+  }
+
+  getSliderGalleryItems(galleryIndicator: string | number): void {
+    if (galleryIndicator) {
+      this.apiService.getSliderGalleryItems(galleryIndicator).subscribe({
+        next: (v) => {
+          this.gallery = v;
+        },
+        error: (e) => {},
+        complete: () => {}
+      })
+    }
   }
 
 }

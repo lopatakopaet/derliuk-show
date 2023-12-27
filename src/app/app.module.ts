@@ -42,6 +42,8 @@ import {AuthInterceptor} from "./interceptors/auth-interceptor.service";
 import { SuccessModalComponent } from './components/success-modal/success-modal.component';
 import { AdminSliderCommentsComponent } from './components/admin/admin-slider-comments/admin-slider-comments.component';
 import {AdminCommentsComponent} from "./components/admin/admin-comments/admin-comments.component";
+import { AdminSliderGalleryComponent } from './components/admin/admin-slider-gallery/admin-slider-gallery.component';
+import { AdminSliderGalleryItemComponent } from './components/admin/admin-slider-gallery-item/admin-slider-gallery-item.component';
 // import { ModalOutletComponent } from './components/modal-outlet/modal-outlet.component';
 
 @NgModule({
@@ -78,6 +80,8 @@ import {AdminCommentsComponent} from "./components/admin/admin-comments/admin-co
     SuccessModalComponent,
     AdminSliderCommentsComponent,
     AdminCommentsComponent,
+    AdminSliderGalleryComponent,
+    AdminSliderGalleryItemComponent,
     // ModalOutletComponent,
     // PortalDirective,
   ],
