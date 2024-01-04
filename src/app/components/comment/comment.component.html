@@ -25,7 +25,7 @@
   </div>
   <div class="comment__wrap">
     <div class="comment" #commentElem
-         [ngClass]="{'full': showALll}">{{comment?.comment}}
+         [ngClass]="{'full': showALll}" [innerHTML]="comment?.comment">
     </div>
     <div *ngIf="(elemOffsetHeight > 269 && innerWidth > 570)
               || (elemOffsetHeight > 136 && innerWidth <= 570)"

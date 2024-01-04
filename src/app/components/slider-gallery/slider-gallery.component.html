@@ -7,8 +7,9 @@
     #swiper>
 
     <swiper-slide style="color: white" *ngFor="let slide of gallery">
-      <li class="video-slide">
-        <a *ngIf="slide?.youtubeLink" href="{{slide?.youtubeLink}}" class="glightbox photo">
+      <li class="video-slide" >
+
+        <a *ngIf="slide?.youtubeLink" href="{{slide?.youtubeLink}}" class="glightbox photo" [ngClass]="slide.youtubeLink ? 'slide-with-video' : ''">
           <img src="{{slide?.photo}}" alt="" class="photo">
         </a>
           <img *ngIf="!slide?.youtubeLink" src="{{slide?.photo}}" alt="" class="glightbox photo">

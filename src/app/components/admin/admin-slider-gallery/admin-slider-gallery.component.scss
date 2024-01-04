@@ -6,6 +6,9 @@
     top: 100px;
     cursor: pointer;
     z-index: 111;
+    &:hover {
+      background: #35374b;
+    }
   }
 
   .prev-button {
