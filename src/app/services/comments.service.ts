@@ -11,7 +11,6 @@ export class CommentsService {
   public comments$ = new Subject<Comment[]>();
   public comments?: Comment[];
   public changeComments$(data: Comment[]) {
-    console.log(this.comments$);
     this.comments$.next(data);
     this.comments = data;
   }

@@ -29,6 +29,8 @@ const {
   changeSliderGalleryItem,
   deleteSliderGalleryItem,
 } = require('./db');
+
+const {sendMessageTelegram} = require('./telegramBot');
 let path = require('path');
 const express = require('express');
 const multer = require("multer");
@@ -320,6 +322,15 @@ app.post('/api/orderShow', function (req, res, next) {
     if (err) {
       next(err);
     } else {
+      let data =  req.body.data;
+      let msg = `
+📣 *Замовлення номера!*
+
+👨 *Ім'я:*  _${data.name}_
+☎ *Телефон:*  _${data.phone}_
+💬 *Коментар:*  _${data.comment}_
+      `
+      sendMessageTelegram(msg)
       res.send(success)
     }
   });

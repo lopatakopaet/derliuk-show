@@ -1,5 +1,4 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {DialogRef} from "@angular/cdk/dialog";
+import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 
 @Component({
@@ -7,19 +6,16 @@ import {Router} from "@angular/router";
   templateUrl: './success-modal.component.html',
   styleUrls: ['./success-modal.component.scss']
 })
-export class SuccessModalComponent implements OnInit, AfterViewInit {
-  // @Output() close = new EventEmitter();
+export class SuccessModalComponent implements OnInit {
   @Output() startTimerModal = new EventEmitter();
-  timeLeft: number = 10;
+  timeDuration: number = 10
+  timeLeft: number = this.timeDuration;
   interval: any;
   @ViewChild("dialog") dialog?: ElementRef;
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-  }
-  ngAfterViewInit() {
-    // this.startTimer()
   }
 
   show() {
@@ -36,7 +32,6 @@ export class SuccessModalComponent implements OnInit, AfterViewInit {
     this.interval = setInterval(() => {
       if(this.timeLeft > 0) {
         this.timeLeft--;
-        console.log('this.timeLeft', this.timeLeft)
       } else {
         this.close();
         this.pauseTimer();
@@ -47,6 +42,7 @@ export class SuccessModalComponent implements OnInit, AfterViewInit {
 
   pauseTimer() {
     clearInterval(this.interval);
+    this.timeLeft = this.timeDuration;
   }
 
 }

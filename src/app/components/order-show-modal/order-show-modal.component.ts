@@ -25,7 +25,7 @@ export class OrderShowModalComponent implements OnInit {
   @Output() close = new EventEmitter();
   @Output() openSuccessModal = new EventEmitter();
   // @ViewChild('overlay') overlay: ElementRef<HTMLDivElement>;
-  private subs?: Subscription;
+  private subs?: Subscription; // подписка на контакты
   checkErr: boolean = false;
   constructor(private contactService: ContactsService,
               private apiService: ApiService,

@@ -26,7 +26,7 @@ const db = mysql.createPool({
 // Модальное окно заказа шоу-баллета
 function orderShow(data, cb) {
   console.log(data);
-  db.execute('INSERT INTO `orderShow` (name, comment, phone)  VALUES(?,?, ?)',
+  db.execute('INSERT INTO `orderShow` (name, comment, phone)  VALUES(?,?,?)',
     [data.name, data.comment, data.phone],
     cb);
 }

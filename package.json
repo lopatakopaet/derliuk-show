@@ -26,6 +26,7 @@
     "glightbox": "^3.2.0",
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.6.2",
+    "node-telegram-bot-api": "^0.64.0",
     "reset-css": "^5.0.1",
     "rxjs": "~7.5.0",
     "swiper": "^10.2.0",

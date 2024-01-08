@@ -1,5 +1,5 @@
 <div class="rider__wrap">
-  <div class="block-title golden-text block-title__mobile">Райдер
+  <div class="block-title golden-text block-title__mobile">{{lang['rider'][i18n.lang]}}
   </div>
   <div class="rider main-container">
 <!--    <div class="rider-img__wrap" *ngIf="showModal">-->
@@ -8,7 +8,7 @@
       <img src="../../../assets/img/rider-img.png" alt="">
     </div>
     <div class="rider__description">
-      <div class="block-title golden-text block-title__desktop">Райдер</div>
+      <div class="block-title golden-text block-title__desktop">{{lang['rider'][i18n.lang]}}</div>
       <div class="rider__list">
         <ul>
           <li *ngFor="let list of riderData['data_'+ i18n.lang]['riderList']">
