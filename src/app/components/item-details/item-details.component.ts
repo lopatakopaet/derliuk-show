@@ -24,6 +24,9 @@ export class ItemDetailsComponent implements OnInit {
   comments?: Comment[];
   gallery?: GallerySlider[];
   galleryIndicator?: string | number;
+  mainTypeItem: number = 1; // идентификатор главного(популярного) номера
+  additionalTypeItem: number = 2; // идентификатор дополнительного номера
+  itemType?: number | string = this.mainTypeItem; // по умолчанию стоят популярные номера
 
   constructor(private route: ActivatedRoute,
               public i18n: I18nService,
@@ -38,10 +41,19 @@ export class ItemDetailsComponent implements OnInit {
       this.id = this.route.snapshot.paramMap.get('id') || 0;
       this.galleryIndicator = this.id;
       this.getSliderGalleryItems(this.galleryIndicator);
+      this.itemType = this.route.snapshot.queryParamMap.get('type') || this.mainTypeItem;
       if (hrefArr.includes('ballet-show')) {
-        this.tableItemsName = 'balletShowItems';
+        if (this.itemType == this.mainTypeItem) {
+          this.tableItemsName = 'balletShowItems';
+        } else {
+          this.tableItemsName = 'balletShowItemsAdditional';
+        }
       } else if (hrefArr.includes('parody-theater')) {
-        this.tableItemsName = 'parodyItems';
+        if (this.itemType == this.mainTypeItem) {
+          this.tableItemsName = 'parodyItems';
+        } else {
+          this.tableItemsName = 'parodyItemsAdditional';
+        }
       }
       this.apiService.getBalletShowItem(this.tableItemsName, this.id).subscribe({
         next: (v) => {

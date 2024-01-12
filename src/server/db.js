@@ -340,6 +340,12 @@ function deleteSliderGalleryItem({id}, cb) {
     [id],
     cb);
 }
+
+function deleteAllSlidersGalleryItem({indicator}, cb) {
+  db.execute(`DELETE FROM sliderGallery WHERE indicator = ?`,
+    [indicator],
+    cb);
+}
 // Слайдер галереи Конец
 
 
@@ -377,4 +383,5 @@ module.exports = {
   addSliderGalleryItem,
   changeSliderGalleryItem,
   deleteSliderGalleryItem,
+  deleteAllSlidersGalleryItem,
 };

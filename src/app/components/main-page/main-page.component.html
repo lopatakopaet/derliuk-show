@@ -23,21 +23,19 @@
       <router-outlet></router-outlet>
     </div>
 <!--    todo другие номера-->
-    <div class="main-popular__another" *ngIf="false">
-      <div class="title">НЕ ЗНАЙШЛИ ТАНЕЦЬ, ЯКИЙ БИ ХОТІЛИ ЗАМОВИТИ НА СВЯТО?</div>
-      <div class="subtitle">У нашому репертуарі є номери:</div>
-      <div class="another-items">
-        <div class="item">Хеловін</div>
-        <div class="item">Віденський вальс</div>
-        <div class="item">Дженіфер Лопес</div>
-        <div class="item">Михайло Поплавський</div>
-        <div class="item">Кан-кан</div>
-        <div class="item">Куба паті</div>
-        <div class="item">Хеловін</div>
-        <div class="item">Хеловін</div>
-        <div class="item">Хеловін</div>
-      </div>
-    </div>
+<!--    <div class="main-popular__another">-->
+<!--      <div class="title">НЕ ЗНАЙШЛИ ТАНЕЦЬ, ЯКИЙ БИ ХОТІЛИ ЗАМОВИТИ НА СВЯТО?</div>-->
+<!--      <div class="subtitle">У нашому репертуарі зірки української та зарубіжньої естради:</div>-->
+<!--      <div class="another-items">-->
+<!--        <div class="item" *ngFor="let item of balletShowItemsAdditional">-->
+<!--          <a href="" [routerLink]="['item-details', item?.id]" [queryParams]="{type: 2}">-->
+<!--            {{item['title_' + i18n.lang]}}-->
+<!--          </a>-->
+<!--        </div>-->
+
+
+<!--      </div>-->
+<!--    </div>-->
 
     <div class="main-popular__comments" *ngIf="comments?.length">
       <div class="main-title">

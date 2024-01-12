@@ -7,6 +7,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ParodyItemsService} from "../../../services/getParodyItems";
 import {CommentsService} from "../../../services/comments.service";
 import {Comment} from "../../../../interfaces/Comment";
+import {BalletShowItemsServiceAdditional} from "../../../services/getBalletShowItemsAdditional";
+import {ParodyItemsServiceAdditional} from "../../../services/getParodyItemsAdditional";
 
 @Component({
   selector: 'app-admin-main',
@@ -20,8 +22,11 @@ export class AdminMainComponent implements OnInit {
   commentsTableName = 'comments';
   // hrefPageName: string = "ballet-page"// название страницы из url
   comments?: Comment[];
-  constructor(private balletShowItemsService: BalletShowItemsService,
+  constructor(
+              private balletShowItemsServiceAdditional: BalletShowItemsServiceAdditional,
+              private balletShowItemsService: BalletShowItemsService,
               private parodyItemsService: ParodyItemsService,
+              private parodyItemsServiceAdditional: ParodyItemsServiceAdditional,
               private apiService: ApiService,
               public i18n: I18nService,
               private router: Router,
@@ -37,8 +42,14 @@ export class AdminMainComponent implements OnInit {
     this.apiService.getMostPopularItems('balletShowItems').subscribe(data => {
       this.balletShowItemsService.changeBalletShowItems(data);
     })
+    this.apiService.getMostPopularItems('balletShowItemsAdditional').subscribe(data => {
+      this.balletShowItemsServiceAdditional.changeBalletShowItemsAdditional(data);
+    })
     this.apiService.getMostPopularItems('parodyItems').subscribe(data => {
       this.parodyItemsService.changeParodyItems(data);
+    })
+    this.apiService.getMostPopularItems('parodyItemsAdditional').subscribe(data => {
+      this.parodyItemsServiceAdditional.changeParodyItemsAdditional(data);
     })
 
     this.setDefaultLang();

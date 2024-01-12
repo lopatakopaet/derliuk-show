@@ -133,4 +133,12 @@ export class AdminSliderGalleryComponent implements AfterViewInit, OnInit {
     }
   }
 
+  removeAllSlides(): void {
+    if (this.gallery?.length) {
+      this.gallery.forEach(item => {
+
+      })
+    }
+  }
+
 }

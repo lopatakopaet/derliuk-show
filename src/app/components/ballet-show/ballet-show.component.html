@@ -23,11 +23,35 @@
   ></app-popular-item>
 </div>
 
+<div class="main-popular__another" *ngIf="tableName == 'BalletPage'">
+  <div class="title">{{lang['balletShowItemsAdditionalTitle'][i18n.lang]}}</div>
+  <div class="subtitle">{{lang['balletShowItemsAdditionalSubTitle'][i18n.lang]}}</div>
+  <div class="another-items">
+    <div class="item" *ngFor="let item of balletShowItemsAdditional">
+      <a href="" [routerLink]="['item-details', item?.id]" [queryParams]="{type: 2}">
+        {{item['title_' + i18n.lang]}}
+      </a>
+    </div>
+  </div>
+</div>
+
 <div *ngIf="tableName == 'ParodyPage'" class="main-popular__item__wrap">
   <app-popular-item
     *ngFor="let popularItem of parodyItems"
     [item]="popularItem"
   ></app-popular-item>
+</div>
+
+<div class="main-popular__another" *ngIf="tableName == 'ParodyPage'">
+  <div class="title">{{lang['parodyItemsAdditionalTitle'][i18n.lang]}}</div>
+  <div class="subtitle">{{lang['parodyItemsAdditionalSubTitle'][i18n.lang]}}</div>
+  <div class="another-items">
+    <div class="item" *ngFor="let item of parodyItemsAdditional">
+      <a href="" [routerLink]="['item-details', item?.id]" [queryParams]="{type: 2}">
+        {{item['title_' + i18n.lang]}}
+      </a>
+    </div>
+  </div>
 </div>
 
 <dialog #orderShowModal class="modal-dialog">

@@ -28,6 +28,7 @@ const {
   addSliderGalleryItem,
   changeSliderGalleryItem,
   deleteSliderGalleryItem,
+  deleteAllSlidersGalleryItem,
 } = require('./db');
 
 const {sendMessageTelegram} = require('./telegramBot');
@@ -111,9 +112,9 @@ app.use(cors())
 const diskStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     // для прода
-    cb(null, path.join(__dirname,"../public_html/assets/uploads"));
+    // cb(null, path.join(__dirname,"../public_html/assets/uploads"));
     // для локалки
-    // cb(null, path.join(__dirname,"../assets/uploads"));
+    cb(null, path.join(__dirname,"../assets/uploads"));
   },
   filename: (req, file, cb) => {
     cb(
@@ -166,9 +167,9 @@ app.use(express.json()) // for parsing application/json
 
 app.post("/api/deleteFile",function (req, res, next) {
   // для локалки
-  // let filePath = path.join(__dirname, `../${req.body.data.filePath}`);
+  let filePath = path.join(__dirname, `../${req.body.data.filePath}`);
   // для прода
-  let filePath = path.join(__dirname, `../public_html${req.body.data.filePath}`);
+  // let filePath = path.join(__dirname, `../public_html${req.body.data.filePath}`);
  let status;
  let message;
   fs.unlink(filePath, (err, success) => {
@@ -183,9 +184,6 @@ app.post("/api/deleteFile",function (req, res, next) {
       res.send(success)
     }
   });
-  // return res.status(status).json({
-  //   message: message,
-  // });
 })
 
 app.post("/api/upload", upload.single("filedata"), (req, res) => {
@@ -602,6 +600,15 @@ app.post('/api/changeSliderGalleryItem', function (req, res, next) {
 
 app.post('/api/deleteSliderGalleryItem', function (req, res, next) {
   deleteSliderGalleryItem(req.body.data, (err, success)=> {
+    if (err) {
+      next(err);
+    } else {
+      res.send(success)
+    }
+  })
+});
+app.post('/api/deleteAllSlidersGalleryItem', function (req, res, next) {
+  deleteAllSlidersGalleryItem(req.body.data, (err, success)=> {
     if (err) {
       next(err);
     } else {

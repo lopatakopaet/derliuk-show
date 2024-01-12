@@ -21,6 +21,8 @@ import {BalletShowItemsService} from "../../services/getBalletShowItems";
 import {ParodyItemsService} from "../../services/getParodyItems";
 import {ContactsService} from "../../services/contacts.service";
 import {CommentsService} from "../../services/comments.service";
+import {BalletShowItemsServiceAdditional} from "../../services/getBalletShowItemsAdditional";
+import {ParodyItemsServiceAdditional} from "../../services/getParodyItemsAdditional";
 // import { register } from 'swiper/element/bundle';
 // import { Swiper} from "swiper";
 // import { Navigation} from "swiper/modules"
@@ -45,9 +47,7 @@ export class MainPageComponent  implements OnInit {
     seoText_ua: '',
     seoText_en: '',
   };
-
   private subs?: Subscription;
-
   comments?: Comment[];
   currentRoute?: string;
   // swiperEl = document.querySelector('swiper-container');
@@ -57,7 +57,9 @@ export class MainPageComponent  implements OnInit {
               private route: ActivatedRoute,
               public i18n: I18nService,
               private balletShowItemsService: BalletShowItemsService,
+              private balletShowItemsServiceAdditional: BalletShowItemsServiceAdditional,
               private parodyItemsService: ParodyItemsService,
+              private parodyItemsServiceAdditional: ParodyItemsServiceAdditional,
               private commentsService: CommentsService
               ) {
     // this.swiperEl = document.querySelector('swiper-container')
@@ -86,7 +88,16 @@ export class MainPageComponent  implements OnInit {
     this.route.params.subscribe(params => {
       let href = this.router.url;
       this.hrefPageName = href.split('/').slice(-1).join();
-      this.tableName = this.hrefPageName == 'ballet-show' ? 'BalletPage' : "ParodyPage";
+      // this.tableName = this.hrefPageName == 'ballet-show' ? 'BalletPage' : "ParodyPage";
+      if (this.hrefPageName == 'ballet-show') {
+        this.tableName = 'BalletPage'
+        this.getItems('balletShowItems');
+        this.getItemsAdditional('balletShowItemsAdditional');
+      } else {
+        this.tableName = 'ParodyPage'
+        this.getItems('parodyItems');
+        this.getItemsAdditional('parodyItemsAdditional');
+      }
       this.apiService.getMainPage(this.tableName).subscribe(data=>{
         this.pageData = data[0];
         let mainText = {
@@ -94,11 +105,8 @@ export class MainPageComponent  implements OnInit {
           mainText_en: this.pageData.mainText_en,
         }
         this.mainPageService.changeMainText$(mainText);
-        // this.mainPageService.mainText$.subscribe(text => console.log('ballet', text));
       })
     })
-    this.getItems('balletShowItems');
-    this.getItems('parodyItems');
     this.getComments();
 
   }
@@ -122,55 +130,24 @@ export class MainPageComponent  implements OnInit {
     })
   }
 
+  getItemsAdditional(tableName: string) :void {
+    this.apiService.getMostPopularItems(tableName).subscribe({
+      next: (v) => {
+        if (tableName == 'balletShowItemsAdditional') {
+          this.balletShowItemsServiceAdditional.changeBalletShowItemsAdditional(v);
+        } else if (tableName == 'parodyItemsAdditional') {
+          this.parodyItemsServiceAdditional.changeParodyItemsAdditional(v);
+        }
+      },
+      error: (e) => {},
+      complete: () => {}
+    })
+  }
+
   getComments(): void {
     this.comments = this.commentsService.comments;
     this.subs = this.commentsService.comments$.subscribe(comments => {
       this.comments = comments;
     });
   }
-
-  // ngAfterViewInit(): void {
-  //   // @ts-ignore: error message
-  //   const swiperEl = Object.assign(this.swiperRef.nativeElement, {
-  //     modules: [Navigation],
-  //     breakpoints: {
-  //       // when window width is >= 320px
-  //       320: {
-  //         slidesPerView: 1.1,
-  //         spaceBetween: 20
-  //       },
-  //       768: {
-  //         slidesPerView: 1.5,
-  //         spaceBetween: 20
-  //       },
-  //       // when window width is >= 480px
-  //       1000: {
-  //         slidesPerView: 2,
-  //         spaceBetween: 30
-  //       },
-  //       // when window width is >= 640px
-  //       1024: {
-  //         slidesPerView: 2.5,
-  //         spaceBetween: 40
-  //       },
-  //       1300: {
-  //         slidesPerView: 3,
-  //         spaceBetween: 40
-  //       }
-  //     }
-  //   });
-  //   swiperEl.initialize();
-  //
-  //   // @ts-ignore
-  //   this.swiper = this.swiperRef.nativeElement.swiper;
-  // }
-  //
-  // next(): void {
-  //   // @ts-ignore: error message
-  //   this.swiper.slideNext();
-  // }
-  // prev(): void {
-  //   // @ts-ignore: error message
-  //   this.swiper.slidePrev();
-  // }
 }

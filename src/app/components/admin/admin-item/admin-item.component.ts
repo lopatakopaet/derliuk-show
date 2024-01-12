@@ -6,6 +6,8 @@ import {I18nService} from "../../../services/i18n.service";
 import {BalletShowItemsService} from "../../../services/getBalletShowItems";
 import {ParodyItemsService} from "../../../services/getParodyItems";
 import {GallerySlider} from "../../../../interfaces/gallerySlider";
+import {BalletShowItemsServiceAdditional} from "../../../services/getBalletShowItemsAdditional";
+import {ParodyItemsServiceAdditional} from "../../../services/getParodyItemsAdditional";
 
 @Component({
   selector: 'app-admin-item',
@@ -54,24 +56,39 @@ export class AdminItemComponent implements OnInit {
   tableItemsName: string = "balletShowItems"; // для запросов в БД, указываем с какой таблицой работаем]
   gallery?: GallerySlider[];
   galleryIndicator?: string | number;
+  mainTypeItem: number = 1; // идентификатор главного(популярного) номера
+  additionalTypeItem: number = 2; // идентификатор дополнительного номера
+  itemType?: number | string = this.mainTypeItem; // по умолчанию стоят популярные номера
 
   constructor(private apiService: ApiService,
               private route: ActivatedRoute,
               public i18n: I18nService,
               private router: Router,
               private balletShowItemsService: BalletShowItemsService,
-              private parodyItemsService: ParodyItemsService,) {
+              private balletShowItemsServiceAdditional: BalletShowItemsServiceAdditional,
+              private parodyItemsService: ParodyItemsService,
+              private parodyItemsServiceAdditional: ParodyItemsServiceAdditional,
+              ) {
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
+      this.itemType = this.route.snapshot.queryParamMap.get('type') || this.mainTypeItem;
       let hrefArr = this.router.url.split('/');
       if (hrefArr.includes('ballet-page')) {
-        this.tableItemsName = 'balletShowItems';
+        if (this.itemType == this.mainTypeItem) {
+          this.tableItemsName = 'balletShowItems';
+        } else {
+          this.tableItemsName = 'balletShowItemsAdditional';
+        }
       } else if (hrefArr.includes('parody-page')) {
-        this.tableItemsName = 'parodyItems';
+        if (this.itemType == this.mainTypeItem) {
+          this.tableItemsName = 'parodyItems';
+        } else {
+          this.tableItemsName = 'parodyItemsAdditional';
+        }
       }
-        if (this.fullMode) {
+      if (this.fullMode) {
           // если id == 0, значит номер новый, не из бд
           this.itemId = this.route.snapshot.paramMap.get('id') || "0";
           this.galleryIndicator = this.itemId;
@@ -98,15 +115,28 @@ export class AdminItemComponent implements OnInit {
     this.data["duration_" + this.i18n.lang] = duration || "";
     this.data["seoText_" + this.i18n.lang] = seoText || "";
     this.data.tableName = this.tableItemsName;
+    // позиционирование для номеров балета
     if (this.tableItemsName == 'balletShowItems' && !this.data.idPosition) {
       if (this.balletShowItemsService.currentBalletItems?.length) {
         this.data.idPosition = this.balletShowItemsService.currentBalletItems?.length + 1;
       } else {
         this.data.idPosition = 1;
       }
+    } else if (this.tableItemsName == 'balletShowItemsAdditional' && !this.data.idPosition) {
+      if (this.balletShowItemsServiceAdditional.currentBalletItemsAdditional?.length) {
+        this.data.idPosition = this.balletShowItemsServiceAdditional.currentBalletItemsAdditional?.length + 1;
+      } else {
+        this.data.idPosition = 1;
+      }
     } else if (this.tableItemsName == 'parodyItems'  && !this.data.idPosition) {
       if (this.parodyItemsService.currentParodyItems?.length) {
         this.data.idPosition = this.parodyItemsService.currentParodyItems?.length + 1;
+      } else {
+        this.data.idPosition = 1;
+      }
+    } else if (this.tableItemsName == 'parodyItemsAdditional'  && !this.data.idPosition) {
+      if (this.parodyItemsServiceAdditional.currentParodyItemsAdditional?.length) {
+        this.data.idPosition = this.parodyItemsServiceAdditional.currentParodyItemsAdditional?.length + 1;
       } else {
         this.data.idPosition = 1;
       }
@@ -159,11 +189,20 @@ export class AdminItemComponent implements OnInit {
               if (this.tableItemsName == 'balletShowItems') {
                 this.balletShowItemsService.changeBalletShowItems(v);
                 this.router.navigate([`admin/ballet-page`]);
-              } else if (this.tableItemsName == 'parodyItems') {
+              }
+              else if (this.tableItemsName == 'balletShowItemsAdditional') {
+                this.balletShowItemsServiceAdditional.changeBalletShowItemsAdditional(v);
+                this.router.navigate([`admin/ballet-page`]);
+              }
+              else if (this.tableItemsName == 'parodyItems') {
                 this.parodyItemsService.changeParodyItems(v);
                 this.router.navigate([`admin/parody-page`]);
               }
-              },
+              else if (this.tableItemsName == 'parodyItemsAdditional') {
+                this.parodyItemsServiceAdditional.changeParodyItemsAdditional(v);
+                this.router.navigate([`admin/parody-page`]);
+              }
+            },
             error: (e) => {},
             complete: () => {}
           })
@@ -183,8 +222,15 @@ export class AdminItemComponent implements OnInit {
             next: (v) => {
               if (this.tableItemsName == 'balletShowItems') {
                 this.balletShowItemsService.changeBalletShowItems(v);
-              } else if (this.tableItemsName == 'parodyItems') {
+              }
+              else if (this.tableItemsName == 'balletShowItemsAdditional') {
+                this.balletShowItemsServiceAdditional.changeBalletShowItemsAdditional(v);
+              }
+              else if (this.tableItemsName == 'parodyItems') {
                 this.parodyItemsService.changeParodyItems(v);
+              }
+              else if (this.tableItemsName == 'parodyItemsAdditional') {
+                this.parodyItemsServiceAdditional.changeParodyItemsAdditional(v);
               }
             },
             error: (e) => {alert('Не вдалося змінити номер =(')},
@@ -214,8 +260,15 @@ export class AdminItemComponent implements OnInit {
       next: (v) => {
         if (this.tableItemsName == 'balletShowItems') {
           this.balletShowItemsService.changeBalletShowItems(v);
-        } else if (this.tableItemsName == 'parodyItems') {
+        }
+        else if (this.tableItemsName == 'balletShowItemsAdditional') {
+          this.balletShowItemsServiceAdditional.changeBalletShowItemsAdditional(v);
+        }
+        else if (this.tableItemsName == 'parodyItems') {
           this.parodyItemsService.changeParodyItems(v);
+        }
+        else if (this.tableItemsName == 'parodyItemsAdditional') {
+          this.parodyItemsServiceAdditional.changeParodyItemsAdditional(v);
         }
       },
       error: (e) => {},

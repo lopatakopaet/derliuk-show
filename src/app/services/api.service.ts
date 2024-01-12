@@ -246,6 +246,11 @@ export class ApiService {
       data
     })
   }
+  public deleteAllSlidersGalleryItem(data: {indicator: string | number}): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/deleteAllSlidersGalleryItem`, {
+      data
+    })
+  }
 
   /**
    * Отправить файл на сервер

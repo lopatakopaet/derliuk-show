@@ -11,6 +11,8 @@ import {Comment} from "../../../../interfaces/Comment";
 import {CommentsService} from "../../../services/comments.service";
 import {Subscription} from "rxjs";
 import {GallerySlider} from "../../../../interfaces/gallerySlider";
+import {BalletShowItemsServiceAdditional} from "../../../services/getBalletShowItemsAdditional";
+import {ParodyItemsServiceAdditional} from "../../../services/getParodyItemsAdditional";
 
 @Component({
   selector: 'app-admin-ballet-page',
@@ -25,9 +27,13 @@ export class AdminBalletPageComponent implements OnInit, OnDestroy {
   private subs?: Subscription;
   tableName: string = "BalletPage"; // для запросов в БД, указываем с какой таблицой работаем]
   tableItemsName: string = "balletShowItems"; // для запросов в БД, указываем с какой таблицой работаем]
+  tableNameBalletAdditional: string = 'balletShowItemsAdditional';
+  tableNameParodyAdditional: string = 'parodyItemsAdditional';
   hrefPageName: string = "ballet-page"// название страницы из url
   balletShowItems?: Item[];
+  balletShowItemsAdditional?: Item[];
   parodyItems?: Item[];
+  parodyItemsAdditional?: Item[];
   comments?: Comment[];
   pageData: BalletPage = {
     id: 1,
@@ -54,7 +60,9 @@ export class AdminBalletPageComponent implements OnInit, OnDestroy {
   isShowAllActive: boolean = false; // отображается ли весь список номеров
   constructor(private apiService: ApiService,
               private balletShowItemsService: BalletShowItemsService,
+              private balletShowItemsServiceAdditional: BalletShowItemsServiceAdditional,
               private parodyItemsService: ParodyItemsService,
+              private parodyItemsServiceAdditional: ParodyItemsServiceAdditional,
               public i18n: I18nService,
               private router: Router,
               private route: ActivatedRoute,
@@ -83,12 +91,20 @@ export class AdminBalletPageComponent implements OnInit, OnDestroy {
         this.balletShowItemsService?.balletItems$.subscribe((data: Item[]) => {
           this.balletShowItems = data;
         });
+        this.balletShowItemsAdditional = this.balletShowItemsServiceAdditional.currentBalletItemsAdditional;
+        this.balletShowItemsServiceAdditional?.balletItemsAdditional$.subscribe((data: Item[]) => {
+          this.balletShowItemsAdditional = data;
+        });
       } else if (this.hrefPageName == 'parody-page') {
         this.tableItemsName = 'parodyItems';
         this.galleryIndicator = this.galleryIndicatorParody;
         this.parodyItems = this.parodyItemsService.currentParodyItems;
         this.parodyItemsService?.parodyItems$.subscribe((data: Item[]) => {
           this.parodyItems = data;
+        });
+        this.parodyItemsAdditional = this.parodyItemsServiceAdditional.currentParodyItemsAdditional;
+        this.parodyItemsServiceAdditional?.parodyItemsAdditional$.subscribe((data: Item[]) => {
+          this.parodyItemsAdditional = data;
         });
       }
     })
@@ -175,5 +191,61 @@ export class AdminBalletPageComponent implements OnInit, OnDestroy {
   hideItems(): void {
     this.currentItemsShowLimit = this.itemsShowLimit;
     this.isShowAllActive = false;
+  }
+
+  // получить и обновить номера на странице
+  getMostPopularItems(tableName: string): void {
+    this.apiService.getMostPopularItems(tableName).subscribe({
+      next: (v) => {
+        if (tableName == 'balletShowItems') {
+          this.balletShowItemsService.changeBalletShowItems(v);
+        }
+        else if (tableName == 'balletShowItemsAdditional') {
+          this.balletShowItemsServiceAdditional.changeBalletShowItemsAdditional(v);
+        }
+        else if (tableName == 'parodyItems') {
+          this.parodyItemsService.changeParodyItems(v);
+        }
+        else if (tableName == 'parodyItemsAdditional') {
+          this.parodyItemsServiceAdditional.changeParodyItemsAdditional(v);
+        }
+      },
+      error: (e) => {},
+      complete: () => {}
+    })
+  }
+
+  removeItem(tableName: string, item: Item): void {
+    let isRemoveItem = confirm('Видалити номер?');
+    if (isRemoveItem && item.id) {
+      let fileForRemove = {
+        filePath: item.photo
+      }
+      this.apiService.deleteFile(fileForRemove).subscribe({
+        next: (v) => {
+          if (item.id)
+            this.apiService.deleteAndChangePositionItem(tableName, item.id).subscribe({
+              next: (v) => {alert('Номер видалено')},
+              error: (e) => {alert('Не вдалося видалити номер =(')},
+              complete: () => {
+                this.getMostPopularItems(tableName);
+              }
+            })
+        },
+        error: (e) => {
+          if (item.id)
+            this.apiService.deleteAndChangePositionItem(tableName, item.id).subscribe({
+              next: (v) => {alert('Номер видалено')},
+              error: (e) => {alert('Не вдалося видалити номер =(')},
+              complete: () => {
+                this.getMostPopularItems(tableName);
+              }
+            })
+        },
+        complete: () => {
+
+        }
+      })
+    }
   }
 }

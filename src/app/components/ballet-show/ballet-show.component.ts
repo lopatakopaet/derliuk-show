@@ -13,6 +13,8 @@ import {BalletShowItemsService} from "../../services/getBalletShowItems";
 import {ParodyItemsService} from "../../services/getParodyItems";
 import {Gallery} from "../../../interfaces/Gallery";
 import {GallerySlider} from "../../../interfaces/gallerySlider";
+import {BalletShowItemsServiceAdditional} from "../../services/getBalletShowItemsAdditional";
+import {ParodyItemsServiceAdditional} from "../../services/getParodyItemsAdditional";
 
 @Component({
   selector: 'app-ballet-show',
@@ -39,11 +41,15 @@ export class BalletShowComponent implements OnInit {
   }
   private subs?: Subscription;
   private subsBalletShowItems?: Subscription;
+  private subsBalletShowItemsAdditional?: Subscription;
   private subsParodyItems?: Subscription;
+  private subsParodyItemsAdditional?: Subscription;
   lang: LangItem = dictionary;
   tableName: string = "BalletPage"; // для запросов в БД, указываем с какой таблицeй работаем]
   balletShowItems?: Item[];
+  balletShowItemsAdditional?: Item[];
   parodyItems?: Item[];
+  parodyItemsAdditional?: Item[];
   galleryIndicatorBallet: string = "88888888";
   galleryIndicatorParody: string = "999999999";
   galleryIndicator?: string; // для Балета это "88888888" , для Пародий это "999999999"
@@ -53,8 +59,10 @@ export class BalletShowComponent implements OnInit {
   constructor(public i18n: I18nService,
               private apiService: ApiService,
               private mainPageService: MainPageService,
+              private balletShowItemsServiceAdditional: BalletShowItemsServiceAdditional,
               private balletShowItemsService: BalletShowItemsService,
               private parodyItemsService: ParodyItemsService,
+              private parodyItemsServiceAdditional: ParodyItemsServiceAdditional,
               private router: Router,
               private route: ActivatedRoute,) {
   }
@@ -80,10 +88,21 @@ export class BalletShowComponent implements OnInit {
       this.balletShowItems = data;
     });
 
+    this.balletShowItemsAdditional = this.balletShowItemsServiceAdditional.currentBalletItemsAdditional;
+    this.subsBalletShowItemsAdditional = this.balletShowItemsServiceAdditional?.balletItemsAdditional$.subscribe((data: Item[]) => {
+      this.balletShowItemsAdditional = data;
+    });
+
     this.parodyItems = this.parodyItemsService.currentParodyItems;
     this.subsParodyItems = this.parodyItemsService?.parodyItems$.subscribe((data: Item[]) => {
       this.parodyItems = data;
     });
+
+    this.parodyItemsAdditional = this.parodyItemsServiceAdditional.currentParodyItemsAdditional;
+    this.subsParodyItemsAdditional = this.parodyItemsServiceAdditional?.parodyItemsAdditional$.subscribe((data: Item[]) => {
+      this.parodyItemsAdditional = data;
+    });
+
     if (this.galleryIndicator) {
       this.getSliderGalleryItems(this.galleryIndicator);
     }
@@ -92,7 +111,9 @@ export class BalletShowComponent implements OnInit {
     // отмена подписки
     this.subs?.unsubscribe();
     this.subsBalletShowItems?.unsubscribe();
+    this.subsBalletShowItemsAdditional?.unsubscribe();
     this.subsParodyItems?.unsubscribe();
+    this.subsParodyItemsAdditional?.unsubscribe();
   }
 
   getSliderGalleryItems(galleryIndicator: string | number): void {

@@ -86,5 +86,21 @@
   "download": {
     "ua": "СКАЧАТИ",
     "en": "DOWNLOAD"
+  },
+  "balletShowItemsAdditionalTitle": {
+    "ua": "НЕ ЗНАЙШЛИ ТАНЕЦЬ, ЯКИЙ БИ ХОТІЛИ ЗАМОВИТИ НА СВЯТО?",
+    "en": "DIDN'T FIND THE DANCE YOU WANT TO BOOK FOR YOUR EVENT?"
+  },
+  "balletShowItemsAdditionalSubTitle": {
+    "ua": "У нашому репертуарі є номери:",
+    "en": "In our repertoire, we also offer the following performances:"
+  },
+  "parodyItemsAdditionalTitle": {
+    "ua": "НЕ ЗНАЙШЛИ ЗІРКУ, ЯКУ Б ХОТІЛИ ЗАМОВИТИ НА СВЯТО?",
+    "en": "DIDN'T FIND THE DANCE YOU WANT TO BOOK FOR YOUR EVENT?"
+  },
+  "parodyItemsAdditionalSubTitle": {
+    "ua": "У нашому репертуарі зірки української та зарубіжньої естради:",
+    "en": "In our repertoire, we also offer the following performances:"
   }
 }
