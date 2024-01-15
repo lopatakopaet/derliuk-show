@@ -200,13 +200,13 @@ export class AdminBalletPageComponent implements OnInit, OnDestroy {
         if (tableName == 'balletShowItems') {
           this.balletShowItemsService.changeBalletShowItems(v);
         }
-        else if (tableName == 'balletShowItemsAdditional') {
+        else if (tableName == this.tableNameBalletAdditional) {
           this.balletShowItemsServiceAdditional.changeBalletShowItemsAdditional(v);
         }
         else if (tableName == 'parodyItems') {
           this.parodyItemsService.changeParodyItems(v);
         }
-        else if (tableName == 'parodyItemsAdditional') {
+        else if (tableName == this.tableNameParodyAdditional) {
           this.parodyItemsServiceAdditional.changeParodyItemsAdditional(v);
         }
       },

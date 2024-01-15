@@ -72,7 +72,7 @@ export class BalletShowComponent implements OnInit {
     this.route.params.subscribe(params => {
       let href = this.router.url;
       this.hrefPageName = href.split('/').slice(-1).join();
-      this.tableName = this.hrefPageName == 'ballet-show' ? 'BalletPage' : "ParodyPage";
+      // this.tableName = this.hrefPageName == 'ballet-show' ? 'BalletPage' : "ParodyPage";
       if (this.hrefPageName == "ballet-show") {
         this.tableName = "BalletPage";
         this.galleryIndicator = this.galleryIndicatorBallet;
@@ -103,8 +103,8 @@ export class BalletShowComponent implements OnInit {
       this.parodyItemsAdditional = data;
     });
 
-    if (this.galleryIndicator) {
-      this.getSliderGalleryItems(this.galleryIndicator);
+    if (this.galleryIndicator && this.tableName) {
+      this.getSliderGalleryItems(this.galleryIndicator, this.tableName);
     }
   }
   ngOnDestroy(): void {
@@ -116,9 +116,9 @@ export class BalletShowComponent implements OnInit {
     this.subsParodyItemsAdditional?.unsubscribe();
   }
 
-  getSliderGalleryItems(galleryIndicator: string | number): void {
+  getSliderGalleryItems(galleryIndicator: string | number, tableName: string): void {
     if (galleryIndicator) {
-      this.apiService.getSliderGalleryItems(galleryIndicator).subscribe({
+      this.apiService.getSliderGalleryItems(galleryIndicator, tableName).subscribe({
         next: (v) => {
           this.gallery = v;
         },

@@ -15,6 +15,7 @@ export class AdminSliderGalleryItemComponent implements OnInit {
     id: 0,
     indicator: '',
     idPosition: 0,
+    tableName: ''
   };
   @Input() indicator?: number | string;
   @ViewChild('SlideForm') SlideForm: ElementRef<HTMLDivElement> | undefined;

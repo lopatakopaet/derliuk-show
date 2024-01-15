@@ -6,6 +6,7 @@ import { Navigation} from "swiper/modules"
 // @ts-ignore
 import GLightbox from 'glightbox';
 import {ApiService} from "../../../services/api.service";
+import {Item} from "../../../../interfaces/Item";
 
 @Component({
   selector: 'app-admin-slider-gallery',
@@ -17,6 +18,7 @@ export class AdminSliderGalleryComponent implements AfterViewInit, OnInit {
   @ViewChild('swiper') swiperRef: ElementRef<HTMLElement & { swiper?: Swiper } & { initialize: () => void }> | undefined;
   swiper?: Swiper;
   @Input() comments: any;
+  @Input() tableItemsName?: string;
   // @Input() gallery?: GallerySlider[];
   gallery?: GallerySlider[]
   lightbox:any;
@@ -29,8 +31,8 @@ export class AdminSliderGalleryComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
-    if (this.galleryIndicator) {
-      this.getSliderGalleryItems(this.galleryIndicator);
+    if (this.galleryIndicator && this.tableItemsName) {
+      this.getSliderGalleryItems(this.galleryIndicator, this.tableItemsName);
     }
   }
 
@@ -93,6 +95,7 @@ export class AdminSliderGalleryComponent implements AfterViewInit, OnInit {
       id: 0,
       idPosition: 0,
       indicator: this.galleryIndicator,
+      tableName: this.tableItemsName
     }
     this.gallery?.push(newSlide);
     setTimeout( ()=> {
@@ -102,9 +105,9 @@ export class AdminSliderGalleryComponent implements AfterViewInit, OnInit {
     })
   }
 
-  getSliderGalleryItems(galleryIndicator: string | number): void {
+  getSliderGalleryItems(galleryIndicator: string | number, tableName: string): void {
     if (galleryIndicator) {
-      this.apiService.getSliderGalleryItems(galleryIndicator).subscribe({
+      this.apiService.getSliderGalleryItems(galleryIndicator, tableName).subscribe({
         next: (v) => {
           this.gallery = v;
           if (!this.gallery?.length) {
@@ -128,8 +131,8 @@ export class AdminSliderGalleryComponent implements AfterViewInit, OnInit {
     })
   }
   updateSliderItems(): void {
-    if (this.galleryIndicator) {
-      this.getSliderGalleryItems(this.galleryIndicator);
+    if (this.galleryIndicator && this.tableItemsName) {
+      this.getSliderGalleryItems(this.galleryIndicator, this.tableItemsName);
     }
   }
 

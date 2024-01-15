@@ -5,6 +5,7 @@ export interface GallerySlider {
   indicator?: number | string,
   idPosition?: number,
   created_at?: string,
+  tableName?: string | number,
   [key: string]: any
 
 }

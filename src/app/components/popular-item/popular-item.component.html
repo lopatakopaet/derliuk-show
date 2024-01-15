@@ -8,6 +8,7 @@
     </div>
     <app-button
       [routerLink]="['item-details', item?.id]"
+      [queryParams]="{type: 1}"
       class="long-button">{{lang['details'][i18n.lang]}}</app-button>
   </div>
 </div>

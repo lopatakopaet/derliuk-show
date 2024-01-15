@@ -221,10 +221,13 @@ export class ApiService {
   }
 
   // КОММЕНТАРИИ ОБЩИЕ КОНЕЦ
-  public getSliderGalleryItems(indicator: string | number): Observable<any> { // todo: добавить интерфейс
+
+  //Слайдер для номера начало
+  public getSliderGalleryItems(indicator: string | number, tableName: string): Observable<any> { // todo: добавить интерфейс
     return this.http.get<any>(`${environment.apiUrl}/getSliderGalleryItems`, {
       params: {
-        indicator
+        indicator,
+        tableName
       }
     })
   }
@@ -246,7 +249,7 @@ export class ApiService {
       data
     })
   }
-  public deleteAllSlidersGalleryItem(data: {indicator: string | number}): Observable<any> {
+  public deleteAllSlidersGalleryItem(data: {indicator: string | number, tableName: string}): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}/deleteAllSlidersGalleryItem`, {
       data
     })

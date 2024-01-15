@@ -40,7 +40,6 @@ export class ItemDetailsComponent implements OnInit {
       let hrefArr = this.router.url.split('/');
       this.id = this.route.snapshot.paramMap.get('id') || 0;
       this.galleryIndicator = this.id;
-      this.getSliderGalleryItems(this.galleryIndicator);
       this.itemType = this.route.snapshot.queryParamMap.get('type') || this.mainTypeItem;
       if (hrefArr.includes('ballet-show')) {
         if (this.itemType == this.mainTypeItem) {
@@ -55,6 +54,7 @@ export class ItemDetailsComponent implements OnInit {
           this.tableItemsName = 'parodyItemsAdditional';
         }
       }
+      this.getSliderGalleryItems(this.galleryIndicator, this.tableItemsName);
       this.apiService.getBalletShowItem(this.tableItemsName, this.id).subscribe({
         next: (v) => {
           this.item = v[0];
@@ -96,9 +96,9 @@ export class ItemDetailsComponent implements OnInit {
    * Получить элементы для видео/фото слайдера
    * @param galleryIndicator
    */
-  getSliderGalleryItems(galleryIndicator: string | number): void {
+  getSliderGalleryItems(galleryIndicator: string | number, tableName: string): void {
     if (galleryIndicator) {
-      this.apiService.getSliderGalleryItems(galleryIndicator).subscribe({
+      this.apiService.getSliderGalleryItems(galleryIndicator, tableName).subscribe({
         next: (v) => {
           this.gallery = v;
         },

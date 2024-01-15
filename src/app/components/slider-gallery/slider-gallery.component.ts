@@ -26,6 +26,7 @@ export class SliderGalleryComponent implements AfterViewInit, OnInit {
   @Input() comments: any;
   @Input() indicator?: string | number;
   @Input() gallery?: GallerySlider[];
+  // @Input() tableGalleryItemsName?:string;
   lightbox:any;
   // gallery?: GallerySlider[];
   swiperEl = document.querySelector('swiper-container');
@@ -135,16 +136,16 @@ export class SliderGalleryComponent implements AfterViewInit, OnInit {
     this.swiper.slidePrev();
   }
 
-  getSliderGalleryItems(galleryIndicator: string | number): void {
-    if (galleryIndicator) {
-      this.apiService.getSliderGalleryItems(galleryIndicator).subscribe({
-        next: (v) => {
-          this.gallery = v;
-        },
-        error: (e) => {},
-        complete: () => {}
-      })
-    }
-  }
+  // getSliderGalleryItems(galleryIndicator: string | number, tableName: string): void {
+  //   if (galleryIndicator) {
+  //     this.apiService.getSliderGalleryItems(galleryIndicator, tableName).subscribe({
+  //       next: (v) => {
+  //         this.gallery = v;
+  //       },
+  //       error: (e) => {},
+  //       complete: () => {}
+  //     })
+  //   }
+  // }
 
 }

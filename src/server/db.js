@@ -317,15 +317,22 @@ function deleteComment({tableName, id}, cb) {
 // Комментарии общие Конец
 
 // Слайдер галереи Начало
-function getSliderGalleryItems({indicator}, cb) {
-  db.execute(`SELECT * FROM sliderGallery WHERE indicator = ${indicator}`,
-    null,
+// function getSliderGalleryItems({indicator, tableName}, cb) {
+//   console.log('in', indicator)
+//   console.log('tableName', tableName)
+//   db.execute(`SELECT * FROM sliderGallery WHERE indicator = ${indicator} and tableName = ${tableName.toString()}`,
+//     null,
+//     cb);
+// }
+function getSliderGalleryItems({indicator, tableName}, cb) {
+  db.execute("SELECT * FROM sliderGallery WHERE indicator = ? and tableName = ?",
+    [indicator, tableName],
     cb);
 }
 
-function addSliderGalleryItem({indicator, photo, youtubeLink, idPosition, }, cb) {
-  db.execute(`INSERT INTO sliderGallery (indicator, photo, youtubeLink, idPosition)  VALUES(?,?,?,?)`,
-    [indicator, photo, youtubeLink, idPosition ],
+function addSliderGalleryItem({indicator, photo, youtubeLink, idPosition, tableName}, cb) {
+  db.execute(`INSERT INTO sliderGallery (indicator, photo, youtubeLink, idPosition, tableName)  VALUES(?,?,?,?,?)`,
+    [indicator, photo, youtubeLink, idPosition, tableName ],
     cb);
 }
 
@@ -341,9 +348,9 @@ function deleteSliderGalleryItem({id}, cb) {
     cb);
 }
 
-function deleteAllSlidersGalleryItem({indicator}, cb) {
-  db.execute(`DELETE FROM sliderGallery WHERE indicator = ?`,
-    [indicator],
+function deleteAllSlidersGalleryItem({indicator, tableName}, cb) {
+  db.execute(`DELETE FROM sliderGallery WHERE indicator = ? and tableName = ?`,
+    [indicator, tableName],
     cb);
 }
 // Слайдер галереи Конец
