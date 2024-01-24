@@ -25,7 +25,6 @@ const db = mysql.createPool({
 
 // Модальное окно заказа шоу-баллета
 function orderShow(data, cb) {
-  console.log(data);
   db.execute('INSERT INTO `orderShow` (name, comment, phone)  VALUES(?,?,?)',
     [data.name, data.comment, data.phone],
     cb);
@@ -73,7 +72,6 @@ function addBalletShowItem({tableName, photo, description_ua, description_en, ti
   db.execute(`INSERT INTO ${tableName} (photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en, idPosition) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,
     [photo, description_ua, description_en, title_ua, title_en, inProgram_ua, inProgram_en, duration_ua, duration_en, seoText_ua, seoText_en, idPosition || null],
     (err, results, fields) => {
-      console.log(err, results);
       cb(results);
     });
 }
@@ -131,6 +129,7 @@ function deleteAndChangePositionItem({tableName, id}, cb) {
       cb(err);
     } else {
       changItemPositionByOrder(tableName)
+      deleteAllSlidersGalleryItem(id,tableName)
     }
   })
   cb(items)
@@ -342,16 +341,17 @@ function changeSliderGalleryItem({indicator, photo, youtubeLink, idPosition, id}
     cb);
 }
 
+// удаление одного слайда
 function deleteSliderGalleryItem({id}, cb) {
   db.execute(`DELETE FROM sliderGallery WHERE id = ?`,
     [id],
     cb);
 }
 
-function deleteAllSlidersGalleryItem({indicator, tableName}, cb) {
-  db.execute(`DELETE FROM sliderGallery WHERE indicator = ? and tableName = ?`,
-    [indicator, tableName],
-    cb);
+// удалить все записи по галерее из бд (при удалении номера)
+function deleteAllSlidersGalleryItem(indicator, tableName) {
+  db.execute("DELETE FROM sliderGallery WHERE indicator = ? and tableName = ?",
+    [indicator, tableName]);
 }
 // Слайдер галереи Конец
 

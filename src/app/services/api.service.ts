@@ -249,11 +249,11 @@ export class ApiService {
       data
     })
   }
-  public deleteAllSlidersGalleryItem(data: {indicator: string | number, tableName: string}): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}/deleteAllSlidersGalleryItem`, {
-      data
-    })
-  }
+  // public deleteAllSlidersGalleryItemPhoto(data: { indicator: string | number, tableName: string }): Observable<any> {
+  //   return this.http.post<any>(`${environment.apiUrl}/deleteAllSlidersGalleryItemPhoto`, {
+  //     data
+  //   })
+  // }
 
   /**
    * Отправить файл на сервер

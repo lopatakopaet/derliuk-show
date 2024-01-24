@@ -112,9 +112,9 @@ app.use(cors())
 const diskStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     // для прода
-    // cb(null, path.join(__dirname,"../public_html/assets/uploads"));
+    cb(null, path.join(__dirname,"../public_html/assets/uploads"));
     // для локалки
-    cb(null, path.join(__dirname,"../assets/uploads"));
+    // cb(null, path.join(__dirname,"../assets/uploads"));
   },
   filename: (req, file, cb) => {
     cb(
@@ -167,9 +167,9 @@ app.use(express.json()) // for parsing application/json
 
 app.post("/api/deleteFile",function (req, res, next) {
   // для локалки
-  let filePath = path.join(__dirname, `../${req.body.data.filePath}`);
+  // let filePath = path.join(__dirname, `../${req.body.data.filePath}`);
   // для прода
-  // let filePath = path.join(__dirname, `../public_html${req.body.data.filePath}`);
+  let filePath = path.join(__dirname, `../public_html${req.body.data.filePath}`);
  let status;
  let message;
   fs.unlink(filePath, (err, success) => {
@@ -346,7 +346,6 @@ app.get('/api/getMainPage', function (req, res, next) {
 })
 
 app.post('/api/changeMainPage',  function (req, res, next) {
-  console.log('adf',req.body.data);
   changeMainPage(req.body.data, (err, success) => {
     if (err) {
       res.send(err)
@@ -382,7 +381,6 @@ app.get('/api/getBalletShowItem', function (req, res, next) {
 });
 
 app.post('/api/addBalletShowItem', function (req, res) {
-  console.log('req', req.body)
   addBalletShowItem(req.body.data, (data)=> {
     // res.send('true');
     res.send(data);
@@ -390,7 +388,6 @@ app.post('/api/addBalletShowItem', function (req, res) {
 });
 
 app.post('/api/changeBalletShowItem', function (req, res, next) {
-  console.log('req', req.body)
   changeBalletShowItem(req.body.data, (err, success)=> {
     if (err) {
       next(err);
@@ -411,13 +408,17 @@ app.post('/api/deleteItem', function (req, res, next) {
 });
 
 app.post('/api/deleteAndChangePositionItem', function (req, res, next) {
-  deleteAndChangePositionItem(req.body.data, (err, success)=> {
-    if (err) {
-      next(err);
-    } else {
-      res.send(success)
-    }
-  })
+  deleteAllSlidersGalleryItemPhoto(req.body.data, next);
+  setTimeout(()=> {
+    deleteAndChangePositionItem(req.body.data, (err, success)=> {
+      if (err) {
+        next(err);
+      } else {
+        res.send(success)
+      }
+    })
+  }, 50)
+
 });
 
 app.post('/api/changeItemPosition', function (req, res, next) {
@@ -465,7 +466,6 @@ app.get('/api/getGalleryItems', function (req, res) {
 });
 
 app.post('/api/addGalleryItem', function (req, res) {
-  console.log('req', req.body)
   addGalleryItem(req.body.data, (data)=> {
     // res.send('true');
     res.send(data);
@@ -607,15 +607,54 @@ app.post('/api/deleteSliderGalleryItem', function (req, res, next) {
     }
   })
 });
-app.post('/api/deleteAllSlidersGalleryItem', function (req, res, next) {
-  deleteAllSlidersGalleryItem(req.body.data, (err, success)=> {
+
+// удалить файлы галереи при удалении номера
+function deleteAllSlidersGalleryItemPhoto(data, next) {
+  console.log('data', data)
+  let galleryData = {
+    indicator: data.id,
+    tableName: data.tableName
+  }
+  getSliderGalleryItems(galleryData,(err, success)=> {
     if (err) {
+      console.log('err', err)
       next(err);
     } else {
-      res.send(success)
+      console.log('success', success)
+      success.forEach(slide => {
+        // для локалки
+        // let filePath = path.join(__dirname, `../${slide.photo}`);
+        // для прода
+        let filePath = path.join(__dirname, `../public_html${req.body.data.filePath}`);
+        // let status;
+        // let message;
+        fs.unlink(filePath, (err, success) => {
+          if (err) {
+            console.error(err);
+          }
+          // if (err) {
+          //   console.error(err);
+          //   status = 500;
+          //   message = "Filed delete file"
+          //   next(err)
+          // } else {
+          //   status = 200;
+          //   message = "File deleted"
+          //   res.send(success)
+          // }
+        });
+      })
+      // res.send(success)
     }
   })
-});
+
+}
+
+// удалить фотографии галереи с сервера
+// app.post('/api/deleteAllSlidersGalleryItemPhoto', function (req, res, next) {
+//   // let gallery = req.body.data;
+//   deleteAllSlidersGalleryItemPhoto(req.body.data, next);
+// });
 
 // Слайдер галлереии конец
 // app.get("/youroute", (req, res, next) => {

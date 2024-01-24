@@ -18,6 +18,7 @@ export class AdminItemComponent implements OnInit {
 
   @ViewChild("MainPhotoForm") MainPhotoForm?: ElementRef;
   @ViewChild("idPosition") idPosition?: ElementRef;
+  @ViewChild("sliderGallery") sliderGallery?: ElementRef;
   @ViewChild('itemForm') itemForm: ElementRef<HTMLDivElement> | undefined;
   @Input() item: Item = {
     id: 0,
@@ -72,6 +73,7 @@ export class AdminItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.route.params.subscribe(params => {
       this.itemType = this.route.snapshot.queryParamMap.get('type') || this.mainTypeItem;
       let hrefArr = this.router.url.split('/');
@@ -97,7 +99,8 @@ export class AdminItemComponent implements OnInit {
           } else {
             this.getBalletShowItem(this.tableItemsName, this.itemId)
           }
-        }
+        console.log(this.itemId);
+      }
     });
   }
 
@@ -286,7 +289,12 @@ export class AdminItemComponent implements OnInit {
         next: (v) => {
           if (item.id)
             this.apiService.deleteAndChangePositionItem(this.tableItemsName, item.id).subscribe({
-              next: (v) => {alert('Номер видалено')},
+              next: (v) => {
+                // @ts-ignore
+                // let gallery = this.sliderGallery?.gallery;
+                // this.deleteAllSlidersGalleryItemPhoto();
+                alert('Номер видалено');
+              },
               error: (e) => {alert('Не вдалося видалити номер =(')},
               complete: () => {
                 this.getMostPopularItems();
@@ -296,7 +304,12 @@ export class AdminItemComponent implements OnInit {
         error: (e) => {
           if (item.id)
             this.apiService.deleteAndChangePositionItem(this.tableItemsName, item.id).subscribe({
-              next: (v) => {alert('Номер видалено')},
+              next: (v) => {
+                // @ts-ignore
+                // let gallery = this.sliderGallery?.gallery;
+                // this.deleteAllSlidersGalleryItemPhoto();
+                alert('Номер видалено');
+              },
               error: (e) => {alert('Не вдалося видалити номер =(')},
               complete: () => {
                 this.getMostPopularItems();
@@ -319,6 +332,23 @@ export class AdminItemComponent implements OnInit {
         complete: () => {}
       })
   }
+
+  // deleteAllSlidersGalleryItemPhoto() {
+  //   console.log('this.itemId',this.itemId )
+  //   console.log('this.item',this.item )
+  //   let data = {
+  //     indicator: this.item.id || 0,
+  //     tableName: this.tableItemsName
+  //   }
+  //     this.apiService.deleteAllSlidersGalleryItemPhoto(data).subscribe({
+  //       next: (v) => {},
+  //       error: (e) => {
+  //         console.error(e);
+  //       },
+  //       complete: () => {}
+  //     })
+  // }
+
   // превью фото
   readURL(event: Event, elem: HTMLInputElement): void {
 
