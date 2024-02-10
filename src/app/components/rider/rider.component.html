@@ -19,8 +19,8 @@
         </ul>
       </div>
     </div>
-   <div class="buttons-wrap" *ngIf="riderData['data_'+ i18n.lang]['file']">
-     <div>
+   <div class="buttons-wrap" >
+     <div *ngIf="riderData['data_'+ i18n.lang]['file']">
        <a href="{{riderData['data_'+ i18n.lang]['file']}}" download>
          <app-button class="button-desktop">
            <img class="download-icon" src="../../../assets/img/download-icon.svg" alt="">
@@ -28,18 +28,36 @@
          </app-button>
        </a>
      </div>
-     <app-button-request-call class="button-desktop"></app-button-request-call>
+     <app-button-request-call
+       (click)="orderCallModal.show()"
+       class="button-desktop"></app-button-request-call>
    </div>
 
-    <div class="download-mobile" *ngIf="riderData['data_'+ i18n.lang]['file']">
-      <a href="{{riderData['data_'+ i18n.lang]['file']}}" download>
+    <div class="download-mobile">
+      <a *ngIf="riderData['data_'+ i18n.lang]['file']" href="{{riderData['data_'+ i18n.lang]['file']}}" download>
         <div class="download-btn">
           <img src="assets/img/download-mobile.png" alt="">
           {{lang['download'][i18n.lang]}}
         </div>
       </a>
 
-      <app-button-request-call></app-button-request-call>
+      <app-button-request-call class="button-request-call__mobile"
+        (click)="orderCallModal.show()"
+      ></app-button-request-call>
     </div>
   </div>
 </div>
+<dialog #orderCallModal class="modal-dialog">
+<!--  <app-order-show-modal-->
+<!--    (close)="orderShowModal.close()"-->
+<!--    (openSuccessModal)="successModal.show()"-->
+<!--  ></app-order-show-modal>-->
+  <app-order-call-modal
+    (close)="orderCallModal.close()"
+    (openSuccessModal)="successModal.show()">
+
+  </app-order-call-modal>
+</dialog>
+<app-success-modal #successModal
+                   (close)="successModal.close()"
+></app-success-modal>

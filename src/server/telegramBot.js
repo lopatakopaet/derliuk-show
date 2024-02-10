@@ -3,7 +3,10 @@ const TelegramBot = require('node-telegram-bot-api');
 // replace the value below with the Telegram token you receive from @BotFather
 const token = '6851109271:AAHxNU83iOJquaO7tiFx-B6xW9i5g6vhBaY';
 // -4050705542  chat id
-const _chatId = -4050705542;
+// const _chatId = -4050705542; старая группа. удалена
+
+// Узнать ID группы - зайти в браузере по https://web.telegram.org/a/ , открыть нужную группу и в url глянуть
+const _chatId = -4139313487;
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, {polling: true});

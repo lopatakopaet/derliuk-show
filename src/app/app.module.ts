@@ -44,6 +44,7 @@ import { AdminSliderCommentsComponent } from './components/admin/admin-slider-co
 import {AdminCommentsComponent} from "./components/admin/admin-comments/admin-comments.component";
 import { AdminSliderGalleryComponent } from './components/admin/admin-slider-gallery/admin-slider-gallery.component';
 import { AdminSliderGalleryItemComponent } from './components/admin/admin-slider-gallery-item/admin-slider-gallery-item.component';
+import { OrderCallModalComponent } from './components/order-call-modal/order-call-modal.component';
 // import { ModalOutletComponent } from './components/modal-outlet/modal-outlet.component';
 
 @NgModule({
@@ -82,6 +83,7 @@ import { AdminSliderGalleryItemComponent } from './components/admin/admin-slider
     AdminCommentsComponent,
     AdminSliderGalleryComponent,
     AdminSliderGalleryItemComponent,
+    OrderCallModalComponent,
     // ModalOutletComponent,
     // PortalDirective,
   ],

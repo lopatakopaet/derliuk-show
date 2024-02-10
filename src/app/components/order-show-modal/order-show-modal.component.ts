@@ -76,7 +76,6 @@ export class OrderShowModalComponent implements OnInit {
         }
       });
     }
-
   }
 
   // closeModal(event: Event): void {

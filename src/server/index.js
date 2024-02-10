@@ -1,5 +1,6 @@
 const {
   orderShow,
+  orderCall,
   getMainPage,
   changeMainPage,
   getMostPopularItems,
@@ -327,6 +328,23 @@ app.post('/api/orderShow', function (req, res, next) {
 👨 *Ім'я:*  _${data.name}_
 ☎ *Телефон:*  _${data.phone}_
 💬 *Коментар:*  _${data.comment}_
+      `
+      sendMessageTelegram(msg)
+      res.send(success)
+    }
+  });
+});
+
+app.post('/api/orderCall', function (req, res, next) {
+  orderCall(req.body.data, (err, success) => {
+    if (err) {
+      next(err);
+    } else {
+      let data =  req.body.data;
+      let msg = `
+📣 *Замовлення дзвінка!*
+
+☎ *Телефон:*  _${data.phone}_
       `
       sendMessageTelegram(msg)
       res.send(success)

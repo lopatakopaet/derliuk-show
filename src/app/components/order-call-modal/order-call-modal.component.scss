@@ -1,0 +1,123 @@
+.modal-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 111;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(5px);
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  max-width: 625px;
+  width: 100%;
+  padding: 22px 39px 31px 37px;
+  border-radius: 8px;
+  background: #000213;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  z-index: 222;
+
+  &-wrap {
+    max-width: 348px;
+    width: 100%;
+    padding: 2px;
+    background-image: url("/assets/img/gold-text.png");
+    border-radius: 8px;
+  }
+
+  app-button.modal-button {
+    margin-top: 38px;
+  }
+}
+
+.close-modal {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  cursor: pointer;
+}
+
+.input-title {
+  margin-left: 8px;
+  color: rgba(255, 255, 255, 0.90);
+  opacity: 0.7;
+  font-family: Arial;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 35px;
+}
+
+.inputs-wrap {
+  display: flex;
+  gap: 24px;
+}
+
+
+.phone {
+  margin-top: 16px;
+}
+
+.user-info, .comment {
+  width: 100%;
+}
+
+@media only screen and (max-width: 650px) {
+  .modal-overlay {
+    align-items: flex-start;
+    padding: 20px 40px;
+    overflow: auto;
+  }
+  .inputs-wrap {
+    flex-direction: column;
+  }
+  .input-wrap {
+    max-width: initial;
+  }
+  .comment {
+    height: 156px;
+  }
+}
+
+@media only screen and (max-width: 570px) {
+
+  .input-title {
+    color: #FFF;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 35px;
+    opacity: 1;
+  }
+
+  app-button {
+    margin-top: 37px;
+  }
+
+  .phone-title {
+    color: #FFF;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 44px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .modal {
+    padding: 18px 16px 36px;
+  }
+  .modal-overlay {
+    padding: 15px 15px;
+  }
+  .close-modal svg {
+    height: 10px;
+    width: 10px;
+  }
+}

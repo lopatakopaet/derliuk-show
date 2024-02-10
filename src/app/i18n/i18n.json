@@ -102,5 +102,17 @@
   "parodyItemsAdditionalSubTitle": {
     "ua": "У нашому репертуарі зірки української та зарубіжньої естради:",
     "en": "In our repertoire, we also offer the following performances:"
+  },
+  "orderCall": {
+    "ua": "Замовити дзвінок",
+    "en": "Request a call"
+  },
+  "send": {
+    "ua": "ВІДПРАВИТИ",
+    "en": "SEND"
+  },
+  "enterPhone": {
+    "ua": "Вкажіть телефон",
+    "en": "Phone nuber"
   }
 }

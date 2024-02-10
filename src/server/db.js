@@ -30,6 +30,14 @@ function orderShow(data, cb) {
     cb);
 }
 
+// Модальное окно заказа звонка
+function orderCall(data, cb) {
+  console.log('data', data.phone)
+  db.execute('INSERT INTO `orderCall` (phone)  VALUES(?)',
+    [data.phone],
+    cb);
+}
+
 // ГЛАВНАЯ БАЛЕТ/ПАРОДИИ
 function getMainPage(tableName, cb) {
   db.execute(`SELECT * FROM ${tableName}`,
@@ -362,6 +370,7 @@ function sortItems(items) {
 
 module.exports = {
   orderShow,
+  orderCall,
   getMainPage,
   changeMainPage,
   getMostPopularItems,

@@ -313,4 +313,14 @@ export class ApiService {
       data
     })
   }
+
+  /**
+   * Заказать звонок
+   * @param data
+   */
+  public orderCall(data: {phone: string}): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/orderCall`, {
+      data
+    })
+  }
 }
