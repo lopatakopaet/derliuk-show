@@ -1,6 +1,10 @@
 <div class="main-page">
   <div class="main-page__banner">
     <img class="main-page__banner__img" src="{{pageData.mainPhoto}}" alt="">
+    <app-button-request-call
+      (click)="orderCallModal.show()"
+      class="button-desktop">
+    </app-button-request-call>
   </div>
   <div class="font-size-0">
     <img class="main-page__banner__decor" src="../../../assets/img/banner-line-decor.png" alt="">
@@ -48,6 +52,21 @@
 
   </div>
 </div>
+
+<dialog #orderCallModal class="modal-dialog">
+  <!--  <app-order-show-modal-->
+  <!--    (close)="orderShowModal.close()"-->
+  <!--    (openSuccessModal)="successModal.show()"-->
+  <!--  ></app-order-show-modal>-->
+  <app-order-call-modal
+    (close)="orderCallModal.close()"
+    (openSuccessModal)="successModal.show()">
+
+  </app-order-call-modal>
+</dialog>
+<app-success-modal #successModal
+                   (close)="successModal.close()"
+></app-success-modal>
 
 <dialog #leaveFeedbackModal class="modal-dialog">
   <app-leave-feedback-modal

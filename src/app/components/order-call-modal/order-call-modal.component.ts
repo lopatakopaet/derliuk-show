@@ -29,7 +29,6 @@ export class OrderCallModalComponent implements OnInit {
       this.close.emit();
       let loader = this.elRef.nativeElement.querySelector('.preloader');
       loader.style.display = "flex"; //show loader
-      console.log('data', data)
       this.apiService.orderCall(data).subscribe({
         next: (v) => {
           let loader = this.elRef.nativeElement.querySelector('.preloader');

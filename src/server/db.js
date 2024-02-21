@@ -32,7 +32,6 @@ function orderShow(data, cb) {
 
 // Модальное окно заказа звонка
 function orderCall(data, cb) {
-  console.log('data', data.phone)
   db.execute('INSERT INTO `orderCall` (phone)  VALUES(?)',
     [data.phone],
     cb);

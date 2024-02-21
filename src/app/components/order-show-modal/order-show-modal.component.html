@@ -10,10 +10,10 @@
       </div>
       <div class="modal-header">
         <div class="golden-text modal-title">
-          Замовити шоу-програму
+          {{lang['orderShowProgram'][i18n.lang]}}
         </div>
         <div class="modal-subtitle">
-          заповніть форму, щоб ми могли з Вами зв’язатись
+          {{lang['fillOutTheForm'][i18n.lang]}}
         </div>
       </div>
       <form  #orderShowForm="ngForm" (ngSubmit)="$event.preventDefault(); onFormSubmit(orderShowForm)">
@@ -21,44 +21,44 @@
           <div class="user-info">
             <div class="name">
               <div class="input-title">
-                Ваше ім’я
+                {{lang['yourName'][i18n.lang]}}
               </div>
               <div class="input-wrap">
-                <input class="text-input" placeholder="Введіть ім’я" name='name' ngModel required>
+                <input class="text-input" placeholder="{{lang['enterName'][i18n.lang]}}" name='name' ngModel required>
               </div>
             </div>
             <div class="phone">
               <div class="input-title">
-                Ваш телефон
+                {{lang['yourPhone'][i18n.lang]}}
               </div>
               <div class="input-wrap">
-                <input class="text-input" placeholder="Введіть телефон" name='phone' ngModel required>
+                <input class="text-input" placeholder="{{lang['enterPhone'][i18n.lang]}}" name='phone' ngModel required>
               </div>
             </div>
           </div>
           <div class="comment">
             <div class="input-title">
-              Коментар
+              {{lang['comment'][i18n.lang]}}
             </div>
             <div class="input-wrap">
-              <textarea placeholder="Введіть коментар" name='comment' ngModel required></textarea>
+              <textarea placeholder="{{lang['enterComment'][i18n.lang]}}" name='comment' ngModel required></textarea>
             </div>
           </div>
         </div>
         <div class="privacy-policy">
           <input type="checkbox" name='check' ngModel required>
-          Погоджуюсь з <a href="" target="_blank">політикою конфіденційності</a>
+          {{lang['iAgree'][i18n.lang]}} <a href="" target="_blank">{{lang['privacyPolicy'][i18n.lang]}}</a>
           <div class="required-field" *ngIf="checkErr">
-            Обов'язкове поле
+            {{lang['requiredField'][i18n.lang]}}
           </div>
         </div>
         <app-button class="modal-button">
-          ВІДПРАВИТИ
+          {{lang['send'][i18n.lang]}}
         </app-button>
       </form>
       <div class="footer">
         <div class="phone-title">
-          Або телефонуйте:
+          {{lang['orCall'][i18n.lang]}}:
         </div>
         <div *ngFor="let phone of contacts.phones">
           {{phone}}

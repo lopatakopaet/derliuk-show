@@ -47,6 +47,7 @@
   display: flex;
   justify-content: center;
   margin: 50px auto 0;
+  position: relative;
 }
 
 .main-popular__another {
@@ -98,6 +99,21 @@
   }
 }
 
+app-button-request-call {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  display: none;
+}
+
+@media only screen and (max-width: 980px) {
+  app-button-request-call {
+    display: initial;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .main-popular__another {
 
@@ -116,6 +132,13 @@
     line-height: 22px;
     margin-top: 22px;
   }
+
+  app-button-request-call {
+    transform: scale(0.55);
+    width: fit-content;
+    height: fit-content;
+  }
+
   .main-popular__another {
 
     margin-top: 66px;

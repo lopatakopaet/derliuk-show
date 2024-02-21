@@ -114,5 +114,49 @@
   "enterPhone": {
     "ua": "Вкажіть телефон",
     "en": "Phone nuber"
+  },
+  "orderShowProgram": {
+    "ua": "Замовити шоу-програму",
+    "en": "Order a show program"
+  },
+  "fillOutTheForm": {
+    "ua": "заповніть форму, щоб ми могли з Вами зв’язатись",
+    "en": "fill out the form so we can contact you"
+  },
+  "yourName": {
+    "ua": "Ваше ім’я",
+    "en": "Your name"
+  },
+  "enterName": {
+    "ua": "Введіть ім’я",
+    "en": "Enter a name"
+  },
+  "yourPhone": {
+    "ua": "Ваш телефон",
+    "en": "Your phone"
+  },
+  "comment": {
+    "ua": "Коментар",
+    "en": "Comment"
+  },
+  "enterComment": {
+    "ua": "Введіть коментар",
+    "en": "Enter a comment"
+  },
+  "iAgree": {
+    "ua": "Погоджуюсь з",
+    "en": "I agree with the "
+  },
+  "privacyPolicy": {
+    "ua": "політикою конфіденційності",
+    "en": "privacy policy"
+  },
+  "requiredField": {
+    "ua": "Обов'язкове поле",
+    "en": "This field is required"
+  },
+  "orCall": {
+    "ua": "Або телефонуйте",
+    "en": "Or call"
   }
 }

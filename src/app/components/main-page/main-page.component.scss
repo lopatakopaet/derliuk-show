@@ -22,9 +22,17 @@
 .main-page__banner {
   font-size: 0;
   margin-top: -1px;
+  position: relative;
 
   &__img {
     width: 100%;
+  }
+}
+app-button-request-call {
+  &.button-desktop {
+    position: absolute;
+    bottom: 28px;
+    right: 47px;
   }
 }
 
@@ -136,6 +144,14 @@ app-slider-comment {
 }
 
 //mobile
+
+@media only screen and (max-width: 980px) {
+  app-button-request-call {
+    &.button-desktop {
+      display: none;
+    }
+  }
+}
 
 @media only screen and (max-width: 570px) {
   .main-page__banner__img {

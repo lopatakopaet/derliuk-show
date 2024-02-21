@@ -191,6 +191,9 @@ app-button-request-call {
     margin-top: 0;
     position: absolute;
     right: 0;
+    transform: scale(0.55);
+    width: fit-content;
+    height: fit-content;
   }
   .download-mobile {
     display: flex;

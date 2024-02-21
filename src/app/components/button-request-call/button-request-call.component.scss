@@ -1,5 +1,6 @@
 
 .request-call {
+  width: fit-content;
   position: relative;
   cursor: pointer;
   font-size: 0;
@@ -21,10 +22,10 @@
   margin: auto;
 }
 @media only screen and (max-width: 640px) {
-  .golden-ring {
-    width: 33px;
-  }
-  .blue-handset {
-    width: 17px;
-  }
+  //.golden-ring {
+  //  width: 33px;
+  //}
+  //.blue-handset {
+  //  width: 17px;
+  //}
 }
